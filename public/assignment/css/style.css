@@ -5,3 +5,15 @@ input.form-control {
 body {
     padding-top: 36px;
 }
+
+.panel-body {
+    padding-top: 30px;
+}
+
+#loginbox {
+    margin-top:50px;
+}
+
+.input-group {
+    margin-bottom: 25px;
+}
