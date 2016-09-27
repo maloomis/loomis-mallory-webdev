@@ -13,4 +13,5 @@ require ("./test/app.js")(app);
 var ipaddress = process.env.AWS_NODEJS_IP;
 var port      = process.env.AWS_NODEJS_PORT || 3000;
 
+console.log("Port Number", port);
 app.listen(port, ipaddress);
