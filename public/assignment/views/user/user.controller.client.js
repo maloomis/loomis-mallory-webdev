@@ -33,10 +33,11 @@
         }
     }
     
-    function ProfileController($routeParams, UserService) {
+    function ProfileController($location, $routeParams, UserService) {
         var vm = this;
         vm.userId = $routeParams["uid"];
         vm.edit = edit;
+        vm.loadwebsites = loadwebsites;
         
         function init() {
             vm.user = UserService.findUserById(vm.userId);
@@ -45,6 +46,16 @@
 
         function edit(user){
             user = UserService.updateUser(user._id, user);
+        }
+
+        function loadwebsites(user) {
+            user = UserService.findUserById(user._id);
+            if (user) {
+                $location.url("/user/" + user._id + "/website")
+            } else {
+                vm.alert = "Can't retrieve websites";
+            }
+
         }
     }
 })();

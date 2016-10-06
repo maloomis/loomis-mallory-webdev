@@ -11,7 +11,7 @@
         </a>
         
         <div class="navbar-text pull-right">
-            <a href="website-new.html" class="navbar-link">
+            <a href="#/website-new" class="navbar-link">
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
         </div>
@@ -19,65 +19,17 @@
 </nav>
 
 <div ng-repeat="website in model.websites" id="websitelist" class="container-fluid">
-  <div class="row">
-    <div class="col-xs-10 col-sm-10 col-md-10">
-      <a href="page-list.html">
-        <h4>Address Book App</h4>
-      </a>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <a href="website-edit.html">
-        <h4><span><i class="glyphicon glyphicon-cog"></i></span></h4>
-      </a>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-xs-10 col-sm-10 col-md-10">
-      <a href="page-list.html">
-        <h4>Blogger</h4>
-      </a>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <a href="website-edit.html">
-        <h4><span><i class="glyphicon glyphicon-cog"></i></span></h4>
-      </a>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-xs-10 col-sm-10 col-md-10">
-      <a href="page-list.html">
-        <h4>Blogging App</h4>
-      </a>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <a href="website-edit.html">
-        <h4><span><i class="glyphicon glyphicon-cog"></i></span></h4>
-      </a>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-xs-10 col-sm-10 col-md-10">
-      <a href="page-list.html">
-        <h4>Script Testing App</h4>
-      </a>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <a href="website-edit.html">
-        <h4><span><i class="glyphicon glyphicon-cog"></i></span></h4>
-      </a>
-    </div>
-  </div>
+      <div>
+        {{website.name}}
+      </div>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
-<div class="container-fluid">
-    <div class="navbar-text pull-right">
-            <a href="profile.html">
-                <span class="glyphicon glyphicon-user"></span>
-            </a>
-    </div>
-</div>
+  <div class="container-fluid">
+      <div class="navbar-text pull-right">
+              <a href="profile.html">
+                  <span class="glyphicon glyphicon-user"></span>
+              </a>
+      </div>
+  </div>
 </nav>
