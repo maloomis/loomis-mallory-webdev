@@ -22,7 +22,9 @@
         };
 
         function createUser(user) {
-
+            user._id = Math.random();
+            users.push(user);
+            return user;
         }
         
         function findUserById(userId) {
@@ -35,7 +37,12 @@
         }
         
         function findUserByUsername(username) {
-
+            for (var x = 0; x < users.length; x++) {
+                var currentUser = users[x];
+                if (currentUser.username == username) {
+                    return currentUser;
+                }
+            }
         }
         
         function findUserByCredentials(username, password) {
@@ -50,7 +57,21 @@
         }
         
         function updateUser(userId, user) {
-
+            for (var x = 0; x < users.length; x++) {
+                var currentUser = users[x];
+                if (currentUser.userId == userId) {
+                    if (user.username) {
+                        currentUser.username = user.username;
+                    }
+                    if (user.firstname) {
+                        currentUser.firstname = user.firstname;
+                    }
+                    if (user.lastname) {
+                        currentuser.lastname = user.lastname;
+                    }
+                    return currentUser;
+                }
+            }
         }
         
         function deleteUser(userId) {
