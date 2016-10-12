@@ -1,63 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Page</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap -->
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet"/>
-</head>
-<body>
-
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-text pull-left">
-                <a href="#/page-list" class="navbar-link">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-            </div>
-            
-            <a class="navbar-brand" href="#">
-                Edit Page
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-text pull-left">
+            <a ng-click="model.backToPageList()" class="navbar-link">
+                <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
-            
-            <div class="navbar-text pull-right">
-                <a href="page-list.html" class="navbar-link">
-                    <span class="glyphicon glyphicon-ok"></span>
-                </a>
-            </div>
         </div>
-    </nav>
-
-    <div id="editpageform" class="container-fluid pushtopdown">
-        <form>
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" value="Blog Post">
-            </div>
-            
-            <div class="form-group">
-                <label for="name">Title</label>
-                <input type="text" class="form-control" value="My Blog">
-            </div>
-
-            <a href="page-list.html" type="button" class="btn btn-danger btn-block">Delete</a>
-        </form>
+        
+        <a class="navbar-brand">
+            Edit Page
+        </a>
+        
+        <div class="navbar-text pull-right">
+            <a ng-click="model.savePage()" class="navbar-link">
+                <span class="glyphicon glyphicon-ok"></span>
+            </a>
+        </div>
     </div>
+</nav>
 
-
-    <nav class="navbar navbar-default navbar-fixed-bottom">
-        <div class="container-fluid">
-            <div class="navbar-text pull-right">
-                    <a href="profile.html">
-                        <span class="glyphicon glyphicon-user"></span>
-                    </a>
-            </div>
+<div id="editpageform" class="container-fluid pad">
+    <form>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" ng-model="model.page.name">
         </div>
-    </nav>
+        
+        <div class="form-group">
+            <label for="name">Title</label>
+            <input type="text" class="form-control" ng-model="model.page.title">
+        </div>
 
-</body>
-</html>
+        <a ng-click="model.deletePage(model.page._id)" type="button" class="btn btn-danger btn-block">Delete</a>
+    </form>
+</div>
+
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-text pull-right">
+                <a ng-click="model.backToProfile()">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+        </div>
+    </div>
+</nav>

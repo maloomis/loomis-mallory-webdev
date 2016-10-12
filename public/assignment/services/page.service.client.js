@@ -19,7 +19,12 @@
         return api;
 
         function createPage(websiteId, page) {
-
+            var page = {
+                "_id" : Math.random(),
+                "name" : page.name,
+                "websiteId" : websiteId
+            };
+            pages.push(page);
         }
 
         function findPageByWebsiteId(websiteId) {
@@ -34,13 +39,30 @@
         }
 
         function findPageById(pageId) {
-
+            for (var x = 0; x < pages.length; x++) {
+                var page = pages[x];
+                if (page._id == pageId) {
+                    return page;
+                }
+            }
         }
-        function updatePage(pageId, page) {
 
+        function updatePage(pageId, page) {
+            for (var x = 0; x < pages.length; x++) {
+                var pg = pages[x];
+                if (pg._id == pageId) {
+                    page.name = pg.name;
+                    page.title = pg.title;
+                }
+            }
         }
         function deletePage(pageId) {
-
+            for (var x = 0; x < pages.length; x++) {
+                var page = pages[x];
+                if (page._id == pageId) {
+                    pages.splice(x, 1);
+                }
+            }
         }
     }
 })();

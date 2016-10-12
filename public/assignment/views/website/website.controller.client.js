@@ -32,14 +32,12 @@
             $location.url("/user/" + vm.userId + "/website/new");
         }
 
-        function pageList(websiteName) {
-            site = WebsiteService.findWebsiteByName(websiteName);
-            $location.url("/user/" + vm.userId + "/website/" + site._id + "/page");
+        function pageList(siteId) {
+            $location.url("/user/" + vm.userId + "/website/" + siteId + "/page");
         }
 
-        function editSite(websiteName) {
-            website = WebsiteService.findWebsiteByName(websiteName);
-            $location.url("/user/" + vm.userId + "/website/" + website._id);
+        function editSite(siteId) {
+            $location.url("/user/" + vm.userId + "/website/" + siteId);
         }
     }
     
