@@ -24,7 +24,12 @@
         return api;
         
         function createWebsite(userId, website) {
-
+            var site = {
+                "_id" : Math.random(),
+                "name" : website.name,
+                "developerId" : userId
+            };
+            websites.push(site);
         }
         
         function findWebsitesByUser(userId) {

@@ -1,7 +1,3 @@
-input.form-control {
-    margin-bottom: 5px;
-}
-
 a {
     text-decoration: none;
 }
@@ -9,20 +5,7 @@ a {
 a:hover {
     text-decoration: none;
 }
-
-body {
-    padding-top: 60px;
-    padding-bottom: 50px;
-}
-
-.panel-body {
-    padding-top: 30px;
-}
-
-.input-group {
-    margin-bottom: 25px;
-}
-
+/*
 .image-preview-input {
     position: relative;
 	overflow: hidden;
@@ -45,24 +28,21 @@ body {
 .image-preview-input-title {
     margin-left:2px;
 }
-
+*/
 .v-divider{
     padding-top: none;
-    height: 850px;
+    padding: none;
+    height: 862px;
     border-right: 1px solid lightgray;
 }
 
-#websitelist {
-    padding-left: 100px;
+.pad {
+    padding-top: 50px;
 }
 
-#pagelist {
-    padding-left: 100px;
-}
-
+/*
 .js-video {
   height: 0;
-  padding-top: 25px;
   padding-bottom: 67.5%;
   margin-bottom: 10px;
   position: relative;
@@ -76,8 +56,4 @@ body {
   height: 100%;
   position: absolute;
 }
-
-#widgetlist {
-    padding-left: 50px;
-}
- 
+ */
