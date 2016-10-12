@@ -32,11 +32,15 @@
             $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/new");
         }
 
+        function editPage() {
 
+        }
     }
 
-    function NewPageController() {
+    function NewPageController($routeParams, $location) {
         var vm = this;
+        vm.userId = $routeParams['uid'];
+        vm.websiteId = $routeParams['wid'];
 
     }
     function EditPageController() {
