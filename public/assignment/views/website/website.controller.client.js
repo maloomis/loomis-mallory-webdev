@@ -81,25 +81,50 @@
 
     }
     
-    function EditWebsiteController($routeParams, WebsiteService) {
+    function EditWebsiteController($routeParams, WebsiteService, $location) {
         var vm = this;
         vm.init = init;
         vm.userId = $routeParams['uid'];
         vm.websiteId = $routeParams['wid'];
         vm.updateWebsite = updateWebsite;
         vm.deleteWebsite = deleteWebsite;
+        vm.websitelist = websitelist;
+        vm.profile = profile;
+        vm.pageList = pageList;
+        vm.editSite = editSite;
 
         function init() {
             vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            vm.website = WebsiteService.findWebsiteById(vm.websiteId);
         }
         init();
 
         function updateWebsite(website) {
             WebsiteService.updateWebsite(vm.websiteId, website);
+            $location.url("/user/" + vm.userId + "/website/");
         }
 
         function deleteWebsite() {
             WebsiteService.deleteWebsite(vm.websiteId);
+            $location.url("/user/" + vm.userId + "/website");
         } 
+
+        function websitelist() {
+            $location.url("/user/" + vm.userId + "/website/");
+        }
+
+        function profile() {
+            $location.url("/user/" + vm.userId);
+        }
+
+        function pageList(websiteName) {
+            website = WebsiteService.findWebsiteByName(websiteName);
+            $location.url("/user/" + vm.userId + "/website/" + website._id + "/page");
+        }
+
+        function editSite(websiteName) {
+            website = WebsiteService.findWebsiteByName(websiteName);
+            $location.url("/user/" + vm.userId + "/website/" + website._id);
+        }
     }
 })();

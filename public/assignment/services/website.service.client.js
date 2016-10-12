@@ -53,16 +53,32 @@
         }
         
         function findWebsiteById(websiteId) {
-
-
+            for (var x = 0; x < websites.length; x ++) {
+                var website = websites[x];
+                if (website._id == websiteId) {
+                    return website;
+                }
+            }
         }
         
         function updateWebsite(websiteId, website) {
+            for (var x = 0; x < websites.length; x ++) {
+                var site = websites[x];
+                if (website._id == websiteId) {
+                    site.name = website.name;
+                    site.description = website.description;
+                }
+            }
 
         }
         
         function deleteWebsite(websiteId) {
-
+            for (var x = 0; x < websites.length; x ++) {
+                var website = websites[x];
+                if (website._id == websiteId) {
+                    websites = websites.slice(x,1);
+                }
+            } 
         }
     }
 })();

@@ -1,17 +1,17 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left">
-            <a href="website-list.html" class="navbar-link">
+            <a ng-click="model.websitelist()" class="navbar-link">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
         </div>
     
-        <a class="navbar-brand" href="#">
+        <div class="navbar-brand">
             Edit Website
-        </a>
+        </div>
         
         <div class="navbar-text pull-right">
-            <a href="website-list.html" class="navbar-link">
+            <a ng-click="model.updateWebsite(model.website)" class="navbar-link">
                 <span class="glyphicon glyphicon-ok"></span>
             </a>
         </div>
@@ -26,12 +26,12 @@
                 <div class="container-fluid hidden-sm hidden-xs v-divider pad">   
                     <div class="row">
                         <div class="col-sm-6 col-md-6">
-                            <a ng-click="model.pagelist(website.name)">
+                            <a ng-click="model.pageList(website.name)">
                                 <h4>{{website.name}}</h4>
                             </a>
                         </div>
                         <div class="col-sm-6 col-md-6">
-                            <a ng-click="model.editsite(website.name)">
+                            <a ng-click="model.editSite(website.name)">
                                 <h4><span><i class="glyphicon glyphicon-cog"></i></span></h4>
                             </a>
                         </div>
@@ -45,14 +45,14 @@
             <form>
                 <div class="form-group">
                     <label for="name">Website Name</label>
-                    <input type="text" class="form-control" value="Blogger"> 
+                    <input type="text" class="form-control" ng-model="model.website.name"> 
                 </div>
                 <div class="form-group">
                     <label for="websiteDescription"></label>
-                    <textarea class="form-control" rows="5">
+                    <textarea class="form-control" rows="5" ng-model="model.website.description">
                     </textarea>
                 </div>   
-                <a href="website-list.html" type="button" class="btn btn-danger btn-block">Delete</a>
+                <a ng-click="model.deleteWebsite()" type="button" class="btn btn-danger btn-block">Delete</a>
             </form>
         </div>
     </div>
@@ -61,7 +61,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="navbar-text pull-right">
-                <a href="profile.html">
+                <a ng-click="model.profile()">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
         </div>
