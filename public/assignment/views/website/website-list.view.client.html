@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left">
-            <a ng-click="model.backtoprofile()" class="navbar-link">
+            <a ng-click="model.backToProfile()" class="navbar-link">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
         </div>
@@ -11,20 +11,20 @@
         </a>
         
         <div class="navbar-text pull-right">
-            <a ng-click="model.newwebsite()" class="navbar-link">
+            <a ng-click="model.newWebsite()" class="navbar-link">
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
         </div>
     </div>
 </nav>
 
-<div ng-repeat="website in model.websites" id="websitelist" class="container-fluid">
+<div ng-repeat="site in model.websiteList" id="websitelist" class="container-fluid">
   <div class="row">
     <div class="col-xs-10 col-sm-10 col-md-10 pad">
-        <h1><a ng-click="model.pagelist(website.name)">{{website.name}}</a></h1>
+        <h1><a ng-click="model.pageList(site.name)">{{site.name}}</a></h1>
     </div>
     <div class="col-xs-2 col-sm-2 col-md-2 pad">
-        <h4><span><a ng-click="model.editsite(website.name)"><i class="glyphicon glyphicon-cog"></i></a>
+        <h4><span><a ng-click="model.editSite(site.name)"><i class="glyphicon glyphicon-cog"></i></a>
         <i class="glyphicon glyphicon-align-justify"></i></span></h4>
     </div>
     </div>
@@ -33,7 +33,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
   <div class="container-fluid">
       <div class="navbar-text pull-right">
-              <a ng-click="model.backtoprofile()">
+              <a ng-click="model.backToProfile()">
                   <span class="glyphicon glyphicon-user"></span>
               </a>
       </div>

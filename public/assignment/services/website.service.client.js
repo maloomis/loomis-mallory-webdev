@@ -64,7 +64,7 @@
         function updateWebsite(websiteId, website) {
             for (var x = 0; x < websites.length; x ++) {
                 var site = websites[x];
-                if (website._id == websiteId) {
+                if (site._id == websiteId) {
                     site.name = website.name;
                     site.description = website.description;
                 }
@@ -76,7 +76,7 @@
             for (var x = 0; x < websites.length; x ++) {
                 var website = websites[x];
                 if (website._id == websiteId) {
-                    websites = websites.slice(x,1);
+                    websites.splice(x,1);
                 }
             } 
         }

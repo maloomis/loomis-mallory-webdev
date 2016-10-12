@@ -21,26 +21,23 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3">
-
-            <div ng-repeat="website in model.websites">
-                <div class="container-fluid hidden-sm hidden-xs v-divider pad">   
-                    <div class="row">
+            <div class="container-fluid hidden-sm hidden-xs v-divider pad">   
+                <div class="row">
+                    <div ng-repeat="site in model.websiteList" id="websitelist">
                         <div class="col-sm-6 col-md-6">
-                            <a ng-click="model.pageList(website.name)">
-                                <h4>{{website.name}}</h4>
+                            <a ng-click="model.pageList(site.name)">
+                                <h4>{{site.name}}</h4>
                             </a>
                         </div>
                         <div class="col-sm-6 col-md-6">
-                            <a ng-click="model.editSite(website.name)">
+                            <a ng-click="model.editsite(site.name)">
                                 <h4><span><i class="glyphicon glyphicon-cog"></i></span></h4>
                             </a>
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </div>   
         </div>
-
         <div class="col-md-9 pad">
             <form>
                 <div class="form-group">

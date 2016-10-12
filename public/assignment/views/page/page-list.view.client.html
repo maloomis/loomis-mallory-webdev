@@ -1,111 +1,43 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left">
-            <a ng-click="model.websitelist()" class="navbar-link">
+            <a ng-click="model.backToWebsiteList()" class="navbar-link">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
         </div>
 
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand">
             Pages
         </a>
         
         <div class="navbar-text pull-right">
-            <a href="page-new.html" class="navbar-link">
+            <a ng-click="model.newPage()" class="navbar-link">
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
         </div>
     </div>
 </nav>
 
-<div id="pagelist" class="container-fluid">
-  
-  <div class="row">
-    <div class="col-xs-10 col-sm-10 col-md-10">
-      <a href="widget-list.html">
-        <h4>Address Book App</h4>
-      </a>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <a href="page-edit.html">
-        <h4><span><i class="glyphicon glyphicon-cog"></i></span></h4>
-      </a>
+<div id="pagelist" class="container-fluid pad">
+  <div ng-repeat="page in model.pageList" id="websitelist" class="container-fluid">
+    <div class="row">
+      <div class="col-xs-10 col-sm-10 col-md-10 pad">
+          <h1><a ng-click="model.widgetList(page.name)">{{page.name}}</a></h1>
+      </div>
+      <div class="col-xs-2 col-sm-2 col-md-2 pad">
+          <h4><span><a ng-click="model.editPage(page.name)"><i class="glyphicon glyphicon-cog"></i></a>
+          <i class="glyphicon glyphicon-align-justify"></i></span></h4>
+      </div>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-xs-10 col-sm-10 col-md-10">
-      <a href="widget-list.html">
-        <h4>Blog Posts</h4>
-      </a>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <a href="page-edit.html">
-        <h4><span><i class="glyphicon glyphicon-cog"></i></span></h4>
-      </a>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-xs-10 col-sm-10 col-md-10">
-      <a href="widget-list.html">
-        <h4>Blogs</h4>
-      </a>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <a href="page-edit.html">
-        <h4><span><i class="glyphicon glyphicon-cog"></i></span></h4>
-      </a>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-xs-10 col-sm-10 col-md-10">
-      <a href="widget-list.html">
-        <h4>Home</h4>
-      </a>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <a href="page-edit.html">
-        <h4><span><i class="glyphicon glyphicon-cog"></i></span></h4>
-      </a>
-    </div>
-  </div>
-
-<div class="row">
-    <div class="col-xs-10 col-sm-10 col-md-10">
-      <a href="widget-list.html">
-        <h4>About</h4>
-      </a>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <a href="page-edit.html">
-        <h4><span><i class="glyphicon glyphicon-cog"></i></span></h4>
-      </a>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-10 col-sm-10 col-md-10">
-        <a href="widget-list.html">
-        <h4>Contact Us</h4>
-        </a>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-        <a href="page-edit.html">
-        <h4><span><i class="glyphicon glyphicon-cog"></i></span></h4>
-        </a>
-    </div>
-</div>
-
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
-<div class="container-fluid">
-    <div class="navbar-text pull-right">
-            <a href="profile.html">
-                <span class="glyphicon glyphicon-user"></span>
-            </a>
-    </div>
-</div>
+  <div class="container-fluid">
+      <div class="navbar-text pull-right">
+              <a ng-click="model.backToProfile()">
+                  <span class="glyphicon glyphicon-user"></span>
+              </a>
+      </div>
+  </div>
 </nav>

@@ -17,13 +17,22 @@
         };
         
         return api;
-        
+
         function createPage(websiteId, page) {
 
         }
-        function findPageByWebsiteId(websiteId) {
 
+        function findPageByWebsiteId(websiteId) {
+            var pgs = [];
+            for (var x = 0; x < pages.length; x ++) {
+                var page = pages[x];
+                if (page.websiteId == websiteId) {
+                    pgs.push(page);
+                }
+            }
+            return pgs;
         }
+
         function findPageById(pageId) {
 
         }
