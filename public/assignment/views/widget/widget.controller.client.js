@@ -5,12 +5,12 @@
         .controller("NewWidgetController", NewWidgetController)
         .controller("EditWidgetController", EditWidgetController);
     
-    function WidgetListController($location, $routeParams, WidgetService) {
+    function WidgetListController($location, $routeParams, $sce, WidgetService) {
         var vm = this;
 
-        vm.userId = $routeParams['uid'];
-        vm.websiteId = $routeParams['wid'];
-        vm.pageId = $routeParams['pid'];
+        vm.userId = parseInt($routeParams['uid']);
+        vm.websiteId = parseInt($routeParams['wid']);
+        vm.pageId = parseInt($routeParams['pid']);
 
         vm.init = init;
 
@@ -23,6 +23,7 @@
         vm.backToPageList = backToPageList;
         vm.backToProfile = backToProfile;
         vm.newWidget = newWidget;
+        vm.trustSrc = trustSrc;
 
         function backToPageList() {
             $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/");
@@ -34,6 +35,11 @@
 
         function newWidget() {
             $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/new");
+        }
+
+        function trustSrc(widgetUrl) {
+            var url = $sce.trustAsResourceUrl(widgetUrl);
+            return url;
         }
     }
     

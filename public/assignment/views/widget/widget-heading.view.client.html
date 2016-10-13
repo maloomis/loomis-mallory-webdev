@@ -1,11 +1,13 @@
-<div id="editpageform" class="container-fluid pad">
-    <div class="row">
-        <div class="col-xs-10 col-sm-10 col-md-10">
-            <h1>{{widget.text}}</h1>
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
-            <h4><span><a ng-click="model.editWidget(widget._id)"><i class="glyphicon glyphicon-cog"></i></a>
-            <i class="glyphicon glyphicon-align-justify"></i></span></h4>
+<div class="container-fluid pad">
+    <div class="list-group">
+        <div class="relative-position">
+            <div class="container-fluid zero-right-padding">
+                <h1>{{widget.text}}</h1>
+            </div>
+            <div class="absolute-position list-element-menu zero-right-padding round">
+                <h4><span><a ng-click="model.editWidget(widget._id)"><i class="glyphicon glyphicon-cog"></i></a>
+                <span><i class="glyphicon glyphicon-align-justify"></i></span></h4>
+            </div>
         </div>
     </div>
 </div>

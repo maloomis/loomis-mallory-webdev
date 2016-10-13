@@ -5,7 +5,7 @@ a {
 a:hover {
     text-decoration: none;
 }
-/*
+
 .image-preview-input {
     position: relative;
 	overflow: hidden;
@@ -28,7 +28,7 @@ a:hover {
 .image-preview-input-title {
     margin-left:2px;
 }
-*/
+
 .v-divider{
     padding-top: none;
     padding: none;
@@ -38,9 +38,9 @@ a:hover {
 
 .pad {
     padding-top: 50px;
+    padding-bottom: 10px;
 }
 
-/*
 .js-video {
   height: 0;
   padding-bottom: 67.5%;
@@ -56,4 +56,23 @@ a:hover {
   height: 100%;
   position: absolute;
 }
- */
+
+.relative-position {
+    position: relative;
+}
+.absolute-position {
+    position: absolute;
+}
+.list-element-menu {
+    top: 0px;
+    right: 0px;
+    z-index: 10;
+    background-color: white;
+}
+.zero-right-padding {
+    padding-right: 0px;
+}
+
+.round {
+    border-radius: 0px 0px 0px 5px;
+}
