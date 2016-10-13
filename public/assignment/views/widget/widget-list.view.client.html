@@ -1,24 +1,24 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left">
-            <a href="page-list.html" class="navbar-link">
+            <a ng-click="model.backToPageList()" class="navbar-link">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
         </div>
 
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand">
             Widgets
         </a>
         
         <div class="navbar-text pull-right">
-            <a href="widget-chooser.html" class="navbar-link">
+            <a ng-click="model.newWidget()" class="navbar-link">
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
         </div>
     </div>
 </nav>
 
-<div id="widgetlist" class="container-fluid">
+<div id="widgetlist" class="container-fluid pad">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
         

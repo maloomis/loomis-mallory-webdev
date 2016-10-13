@@ -54,5 +54,8 @@
             controller: "WidgetListController",
             controllerAs: "model"
         })
+        .otherwise({
+            redirectTo: "/login"
+        })
     }
 })();
