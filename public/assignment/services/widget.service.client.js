@@ -22,18 +22,35 @@
             "deleteWidget" : deleteWidget
         };
         return api;
+        
         function createWidget(pageId, widget) {
 
         }
+        
         function findWidgetByPageId(pageId) {
-
+            var widgetList = [];
+            for (var i = 0; i < widgets.length; i++) {
+                var widget = widgets[i];
+                if (widget.pageId == pageId) {
+                    widgetList.push(widget);
+                }
+            }
+            return widgetList;
         }
+        
         function findWidgetById(widgetId) {
-
+            for (var i = 0; i < widgets.length; i++) {
+                var widget = widgets[i];
+                if (widget._id == widgetId) {
+                    return widget;
+                }
+            }
         }
+        
         function updateWidget(widgetId, widget) {
 
         }
+        
         function deleteWidget(widgetId) {
 
         }

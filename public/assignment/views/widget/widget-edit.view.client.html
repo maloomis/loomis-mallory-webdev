@@ -1,0 +1,41 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-text pull-left">
+            <a ng-click="model.backToWidgetList()" class="navbar-link">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+        </div>
+
+            <a class="navbar-brand" href="#">
+                Widget Edit
+            </a>
+        
+        <div class="navbar-text pull-right">
+            <a ng-click="model.saveWidget()" class="navbar-link">
+                <span class="glyphicon glyphicon-ok"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div ng-switch="model.widget.widgetType">
+    <div ng-switch-when="HEADER">
+        <div ng-include src="'views/widget/widget-heading.view.client.html'"></div>
+    </div>
+    <div ng-switch-when="IMAGE">
+        <div ng-include src="'views/widget/widget-image.view.client.html'"></div>
+    </div>
+    <div ng-switch-when="YOUTUBE">
+        <div ng-include src="'views/widget/widget-heading.view.client.html'"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-text pull-right">
+                <a ng-click="model.backToProfile()">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+        </div>
+    </div>
+</nav>
