@@ -58,12 +58,18 @@
         init();
 
         vm.deleteWidget = deleteWidget;
+        vm.editWidget = editWidget;
         vm.backToProfile = backToProfile;
         vm.backToWidgetList = backToWidgetList;
         vm.saveWidget = vm.saveWidget; 
 
         function deleteWidget() {
 
+        }
+
+        function editWidget(widgetId) {
+            $location.url("/user/" + vm.userId + "/website/" + 
+            vm.websiteId + "/page/" + vm.pageId + "/widget/" + widgetId);
         }
 
         function backToProfile() {
