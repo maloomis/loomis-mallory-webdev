@@ -14,17 +14,35 @@
         
         var api = {
             "createUser" : createUser,
+            "deleteUser" : deleteUser,
+            "findUserByCredentials" : findUserByCredentials,
             "findUserById" : findUserById,
             "findUserByUsername" : findUserByUsername,
-            "findUserByCredentials" : findUserByCredentials,
-            "updateUser" : updateUser,
-            "deleteUser" : deleteUser
+            "updateUser" : updateUser
         };
+
+        return api;
 
         function createUser(user) {
             user._id = Math.random();
             users.push(user);
             return user;
+        }
+
+        function deleteUser(userId) {
+            var user = findUserById(userId);
+            users.splice(users.indexOf(user), 1);
+        }
+
+        function findUserByCredentials(username, password) {
+            for (var x = 0; x < users.length; x++) {
+                var currentUser = users[x];
+                if (currentUser.username == username && 
+                    currentUser.password == password) {
+                    return currentUser;
+                }
+            }
+
         }
         
         function findUserById(userId) {
@@ -45,39 +63,20 @@
             }
         }
         
-        function findUserByCredentials(username, password) {
-            for (var x = 0; x < users.length; x++) {
-                var currentUser = users[x];
-                if (currentUser.username == username && 
-                    currentUser.password == password) {
-                    return currentUser;
-                }
-            }
-
-        }
-        
         function updateUser(userId, user) {
-            for (var x = 0; x < users.length; x++) {
-                var currentUser = users[x];
-                if (currentUser.userId == userId) {
-                    if (user.username) {
-                        currentUser.username = user.username;
-                    }
-                    if (user.firstname) {
-                        currentUser.firstname = user.firstname;
-                    }
-                    if (user.lastname) {
-                        currentuser.lastname = user.lastname;
-                    }
-                    return currentUser;
+            var currentUser = findUserById(userId);
+            if (currentUser) {
+                if (user.username) {
+                    currentUser.username = user.username;
                 }
+                if (user.firstname) {
+                    currentUser.firstname = user.firstname;
+                }
+                if (user.lastname) {
+                    currentuser.lastname = user.lastname;
+                }
+                return currentUser;
             }
         }
-        
-        function deleteUser(userId) {
-
-        }
-        
-        return api;
     }
 })();

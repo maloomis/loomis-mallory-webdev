@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left">
             <a ng-click="model.backToProfile()" class="navbar-link">
@@ -18,19 +18,18 @@
     </div>
 </nav>
 
-<div ng-repeat="site in model.websiteList" id="websitelist" class="container-fluid">
-  <div class="row">
-    <div class="col-xs-10 col-sm-10 col-md-10 pad">
-        <h1><a ng-click="model.pageList(site._id)">{{site.name}}</a></h1>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2 pad">
-        <h4><span><a ng-click="model.editSite(site._id)"><i class="glyphicon glyphicon-cog"></i></a>
-        <i class="glyphicon glyphicon-align-justify"></i></span></h4>
-    </div>
+<div ng-repeat="site in model.websiteList" class="container-fluid">
+    <div class="row">
+        <div class="col-xs-10 col-sm-10 col-md-10 pad">
+            <h1><a ng-click="model.goToPageList(site._id)">{{site.name}}</a></h1>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 pad">
+            <h4><span><a ng-click="model.editSite(site._id)"><i class="glyphicon glyphicon-cog"></i></a>
+        </div>
     </div>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
+<nav class="navbar navbar-custom navbar-fixed-bottom">
   <div class="container-fluid">
       <div class="navbar-text pull-right">
               <a ng-click="model.backToProfile()">

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container-fluid">
             <a class="navbar-brand">
                 Profile
@@ -49,6 +49,7 @@
                 
                 <a ng-click="model.loadwebsites(model.user)" class="btn btn-primary btn-block">Websites</a>
                 <a href="#/login" class="btn btn-danger btn-block">Logout</a>
+                <a ng-click="model.deleteUser(model.user)" class="btn btn-danger btn-block">Delete User</a>
             </div>
             </div>
         </div>          
@@ -57,7 +58,7 @@
     </div>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
+<nav class="navbar navbar-custom navbar-fixed-bottom">
 <div class="container-fluid">
     <div class="navbar-text pull-right">
         <span class="glyphicon glyphicon-user"></span>

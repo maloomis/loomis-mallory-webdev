@@ -76,3 +76,7 @@ a:hover {
 .round {
     border-radius: 0px 0px 0px 5px;
 }
+
+.navbar-custom {
+    background-color:#d9edf7;
+}

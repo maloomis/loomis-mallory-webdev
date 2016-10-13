@@ -7,18 +7,20 @@
     
     function WebsiteListController($routeParams, WebsiteService, $location, UserService) {
         var vm = this;
+        
         vm.userId = $routeParams["uid"];
-        vm.backToProfile = backToProfile;
-        vm.newWebsite = newWebsite;
-        vm.pageList = pageList;
-        vm.editSite = editSite;
 
         function init() {
             vm.websiteList = WebsiteService.findWebsitesByUser(vm.userId);
         }
         
         init();
-
+        
+        vm.backToProfile = backToProfile;
+        vm.editSite = editSite;
+        vm.goToPageList = goToPageList;
+        vm.newWebsite = newWebsite;
+        
         function backToProfile() {
             user = UserService.findUserById(vm.userId);
             if (user) {
@@ -28,16 +30,16 @@
             }
         }
 
-        function newWebsite() {
-            $location.url("/user/" + vm.userId + "/website/new");
-        }
-
-        function pageList(siteId) {
+        function goToPageList(siteId) {
             $location.url("/user/" + vm.userId + "/website/" + siteId + "/page");
         }
 
         function editSite(siteId) {
             $location.url("/user/" + vm.userId + "/website/" + siteId);
+        }
+
+        function newWebsite() {
+            $location.url("/user/" + vm.userId + "/website/new");
         }
     }
     
@@ -45,7 +47,7 @@
         var vm = this;
         vm.userId = $routeParams["uid"];
         vm.backToWebsiteList = backToWebsiteList;
-        vm.pageList = pageList;
+        vm.goToPageList = goToPageList;
         vm.editSite = editSite;
         vm.profile = profile;
         vm.saveSite = saveSite;
@@ -59,7 +61,7 @@
             $location.url("/user/" + vm.userId + "/website/");
         }
 
-        function pageList(websiteName) {
+        function goToPageList(websiteName) {
             site = WebsiteService.findWebsiteByName(websiteName);
             $location.url("/user/" + vm.userId + "/website/" + site._id + "/page");
         }
@@ -81,48 +83,52 @@
     
     function EditWebsiteController($routeParams, WebsiteService, $location) {
         var vm = this;
-        vm.init = init;
+        
         vm.userId = $routeParams['uid'];
         vm.websiteId = $routeParams['wid'];
-        vm.updateWebsite = updateWebsite;
-        vm.deleteWebsite = deleteWebsite;
-        vm.backToWebsiteList = backToWebsiteList;
-        vm.profile = profile;
-        vm.pageList = pageList;
-        vm.editSite = editSite;
+
+        vm.init = init;
 
         function init() {
             vm.websiteList = WebsiteService.findWebsitesByUser(vm.userId);
             vm.website = WebsiteService.findWebsiteById(vm.websiteId);
         }
+        
         init();
+        
+        vm.backToProfile = backToProfile;
+        vm.backToWebsiteList = backToWebsiteList;
+        vm.deleteWebsite = deleteWebsite;
+        vm.editSite = editSite;
+        vm.goToPageList = goToPageList;
+        vm.updateWebsite = updateWebsite;
 
-        function updateWebsite(website) {
-            WebsiteService.updateWebsite(vm.websiteId, website);
+        function backToProfile() {
+            $location.url("/user/" + vm.userId);
+        }
+
+        function backToWebsiteList() {
             $location.url("/user/" + vm.userId + "/website/");
         }
 
         function deleteWebsite() {
             WebsiteService.deleteWebsite(vm.websiteId);
             $location.url("/user/" + vm.userId + "/website");
-        } 
-
-        function backToWebsiteList() {
-            $location.url("/user/" + vm.userId + "/website/");
-        }
-
-        function profile() {
-            $location.url("/user/" + vm.userId);
-        }
-
-        function pageList(websiteName) {
-            website = WebsiteService.findWebsiteByName(websiteName);
-            $location.url("/user/" + vm.userId + "/website/" + website._id + "/page");
         }
 
         function editSite(websiteName) {
             website = WebsiteService.findWebsiteByName(websiteName);
             $location.url("/user/" + vm.userId + "/website/" + website._id);
+        } 
+
+        function goToPageList(websiteName) {
+            website = WebsiteService.findWebsiteByName(websiteName);
+            $location.url("/user/" + vm.userId + "/website/" + website._id + "/page");
+        }
+
+        function updateWebsite(website) {
+            WebsiteService.updateWebsite(vm.websiteId, website);
+            $location.url("/user/" + vm.userId + "/website/");
         }
     }
 })();

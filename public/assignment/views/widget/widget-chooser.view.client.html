@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left">
-            <a href="widget-list.html" class="navbar-link">
+            <a ng-click="model.backToWidgetList()" class="navbar-link">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
         </div>
@@ -15,7 +15,7 @@
 <div id="websitelist" class="container pad">
     <div class="row">
         <div class="col-xs-10 col-sm-10 col-md-10">
-            <a href="widget-heading.html">
+            <a ng-click="model.chooseHeaderWidget()">
                 <h4>Header</h4>
             </a>
         </div>
@@ -63,7 +63,7 @@
 
     <div class="row">
         <div class="col-xs-10 col-sm-10 col-md-10">
-            <a href="widget-image.html">
+            <a ng-click="model.chooseImageWidget()">
                 <h4>Image</h4>
             </a>
         </div>
@@ -71,7 +71,7 @@
 
     <div class="row">
         <div class="col-xs-10 col-sm-10 col-md-10">
-            <a href="widget-youtube.html">
+            <a ng-click="model.chooseYouTubeWidget()">
                 <h4>YouTube</h4>
             </a>
         </div>
@@ -98,7 +98,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="navbar-text pull-right">
-                <a href="profile.html">
+                <a ng-click="model.backToProfile()">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
         </div>

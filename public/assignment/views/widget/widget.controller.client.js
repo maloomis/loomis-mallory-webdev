@@ -22,6 +22,7 @@
 
         vm.backToPageList = backToPageList;
         vm.backToProfile = backToProfile;
+        vm.editWidget = editWidget;
         vm.newWidget = newWidget;
         vm.trustSrc = trustSrc;
 
@@ -31,6 +32,10 @@
 
         function backToProfile() {
             $location.url("/user/" + vm.userId);
+        }
+
+        function editWidget(widgetId) {
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + widgetId);
         }
 
         function newWidget() {
@@ -43,17 +48,57 @@
         }
     }
     
-    function NewWidgetController() {
+    function NewWidgetController($location, $routeParams, WidgetService) {
+        var vm = this;
 
+        vm.userId = parseInt($routeParams['uid']);
+        vm.websiteId = parseInt($routeParams['wid']);
+        vm.pageId = parseInt($routeParams['pid']);
+
+        vm.backToProfile = backToProfile;
+        vm.backToWidgetList = backToWidgetList
+        vm.chooseHeaderWidget = chooseHeaderWidget;
+        vm.chooseImageWidget = chooseImageWidget;
+        vm.chooseYouTubeWidget = chooseYouTubeWidget;
+
+        function backToProfile() {
+            $location.url("/user/" + vm.userId);
+        }
+
+        function backToWidgetList() {
+            $location.url("/user/" + vm.userId + "/website/" + 
+            vm.websiteId + "/page/" + vm.pageId + "/widget/");
+
+        }
+
+        function chooseHeaderWidget() {
+            var widget = WidgetService.createWidget(vm.pageId, "HEADER");
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + 
+            "/page/" + vm.pageId + "/widget/" + widget._id);
+
+        }
+
+        function chooseImageWidget() {
+            var widget = WidgetService.createWidget(vm.pageId, "IMAGE");
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + 
+            "/page/" + vm.pageId + "/widget/" + widget._id);
+
+        }
+
+        function chooseYouTubeWidget() {
+            var widget = WidgetService.createWidget(vm.pageId, "YOUTUBE");
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + 
+            "/page/" + vm.pageId + "/widget/" + widget._id);   
+        }
     }
     
     function EditWidgetController($location, $routeParams, WidgetService) {
         var vm = this;
 
-        vm.userId = $routeParams['uid'];
-        vm.websiteId = $routeParams['wid'];
-        vm.pageId = $routeParams['pid'];
-        vm.widgetId = $routeParams['wgid'];
+        vm.userId = parseInt($routeParams['uid']);
+        vm.websiteId = parseInt($routeParams['wid']);
+        vm.pageId = parseInt($routeParams['pid']);
+        vm.widgetId = parseInt($routeParams['wgid']);
 
         vm.init = init;
 
@@ -64,18 +109,14 @@
         init();
 
         vm.deleteWidget = deleteWidget;
-        vm.editWidget = editWidget;
         vm.backToProfile = backToProfile;
         vm.backToWidgetList = backToWidgetList;
-        vm.saveWidget = vm.saveWidget; 
+        vm.saveWidget = saveWidget; 
 
         function deleteWidget() {
-
-        }
-
-        function editWidget(widgetId) {
+            WidgetService.deleteWidget(vm.widgetId);
             $location.url("/user/" + vm.userId + "/website/" + 
-            vm.websiteId + "/page/" + vm.pageId + "/widget/" + widgetId);
+            vm.websiteId + "/page/" + vm.pageId + "/widget/");
         }
 
         function backToProfile() {
@@ -88,8 +129,10 @@
 
         }
 
-        function saveWidget() {
-
+        function saveWidget(widget) {
+            WidgetService.updateWidget(widget);
+            $location.url("/user/" + vm.userId + "/website/" + 
+            vm.websiteId + "/page/" + vm.pageId + "/widget/");
         }
     }
 })();
