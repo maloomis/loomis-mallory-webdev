@@ -10,12 +10,14 @@
         vm.login = login;
 
         function login(user) {
-            user = UserService.findUserByCredentials(user.username, user.password);
-            if (user) {
-                $location.url("/user/" + user._id);
-            } else {
-                vm.alert = "Unable to login";
-            }
+            var promise = UserService.findUserByCredentials(user.username, user.password);
+            promise.success(function(user) {
+                    if (user === '0') {
+                        vm.error = "No such user";
+                    } else {
+                        $location.url("/user/" + user._id);
+                    }
+                });
         }
     }
     
@@ -39,7 +41,16 @@
         vm.userId = $routeParams["uid"];
 
         function init() {
-            vm.user = UserService.findUserById(vm.userId);
+            UserService
+                .findUserById(vm.userId)
+                .success(function(user) {
+                    if (user != '0') {
+                        vm.user = user;
+                    }
+                })
+                .error (function() {
+
+                });
         }
         
         init();
@@ -58,13 +69,14 @@
         }
 
         function loadwebsites(user) {
-            user = UserService.findUserById(user._id);
-            if (user) {
-                $location.url("/user/" + user._id + "/website")
-            } else {
-                vm.alert = "Can't retrieve websites";
-            }
-
+            var promise = UserService.findUserById(user._id);
+            promise.success(function(user) {
+                if (user === '0') {
+                    vm.error = "No such user";
+                } else {
+                    $location.url("/user/" + user._id + "/website");
+                }
+            });
         }
     }
 })();

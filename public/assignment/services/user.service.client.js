@@ -34,23 +34,13 @@
         }
 
         function findUserByCredentials(username, password) {
-            for (var x = 0; x < users.length; x++) {
-                var currentUser = users[x];
-                if (currentUser.username == username && 
-                    currentUser.password == password) {
-                    return currentUser;
-                }
-            }
-
+            var url = '/api/user/?username=' + username + '&password=' + password;
+            return $http.get(url);
         }
         
         function findUserById(userId) {
-            for (var x = 0; x < users.length; x++) {
-                var currentUser = users[x];
-                if (currentUser._id == userId) {
-                    return currentUser;
-                }
-            }
+            var url = '/api/user/' + userId;
+            return $http.get(url);
         }
         
         function findUserByUsername(username) {
