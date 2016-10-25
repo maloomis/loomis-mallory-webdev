@@ -26,6 +26,14 @@
         vm.register = register;
 
         function register(user) {
+            UserService
+                .createUser(user)
+                .success(function(user) {
+                    $location.url("/user/"+ user._id);
+                })
+                .error(function(){
+                    
+                });
             user = UserService.createUser(user);
             if (user) {
                 $location.url("/user/" + user._id);
