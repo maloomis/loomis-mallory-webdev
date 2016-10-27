@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module("WebAppMaker")
+        .module("FitnessApp")
         .factory("UserService", UserService);
     
     function UserService($http) {
@@ -63,4 +63,4 @@
             }
         }
     }
-})();
+})

@@ -49,8 +49,7 @@
         vm.userId = $routeParams["uid"];
 
         function init() {
-            UserService
-                .findUserById(vm.userId)
+            UserService.findUserById(vm.userId)
                 .success(function(user) {
                     if (user != '0') {
                         vm.user = user;
