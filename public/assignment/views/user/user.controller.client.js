@@ -72,7 +72,14 @@
         }
         
         function edit(user){
-            user = UserService.updateUser(user._id, user);
+            var promise = UserService.updateUser(user._id, user)
+                .success(function(user) {
+                    if (user === '0') {
+                        vm.error = "No such user";
+                    } else {
+                        $location.url("/user/" + user._id);
+                    }
+                });
         }
 
         function loadwebsites(user) {

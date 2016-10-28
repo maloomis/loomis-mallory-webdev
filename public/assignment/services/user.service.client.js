@@ -48,8 +48,8 @@
         }
         
         function updateUser(userId, user) {
-            var url = "/user/" + user._id;
-            $http.put(url, user);
+            var url = "/api/user/" + user._id;
+            return $http.put(url, user);
         }
     }
 })();
