@@ -48,19 +48,8 @@
         }
         
         function updateUser(userId, user) {
-            var currentUser = findUserById(userId);
-            if (currentUser) {
-                if (user.username) {
-                    currentUser.username = user.username;
-                }
-                if (user.firstname) {
-                    currentUser.firstname = user.firstname;
-                }
-                if (user.lastname) {
-                    currentuser.lastname = user.lastname;
-                }
-                return currentUser;
-            }
+            var url = "/user/" + user._id;
+            $http.put(url, user);
         }
     }
 })();

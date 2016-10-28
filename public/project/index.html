@@ -2,7 +2,10 @@
 <html lang="en" ng-app="FitnessApp">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Project</title>
+
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
 	<!-- jQuery -->
 	<script src="../js/jquery.js"></script>
@@ -13,8 +16,25 @@
 	<!-- Bootstrap Core JavaScript -->
 	<script src="../bootstrap/js/bootstrap.min.js"></script>
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="css/dist/AdminLTE.min.css">
+    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+            page. However, you can choose any other skin. Make sure you
+            apply the skin class to the body tag so the changes take effect.
+    -->
+    <link rel="stylesheet" href="css/dist/skins/_all-skins.min.css">
+
+    <!-- AdminLTE App -->
+    <script src="js/app.min.js"></script>
+
     <!-- Custom CSS -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/styleCustom.css" rel="stylesheet">
 
     <!-- Custom JS -->
     <script src="js/custom.js"></script>
@@ -29,54 +49,21 @@
 
 	<!-- controllers -->
     <script src="views/client/login.client.controller.client.js"></script>
+    <script src="views/client/register.client.controller.client.js"></script>
+    <script src="views/client/profile.client.controller.client.js"></script>
     <script src="views/trainer/login.trainer.controller.client.js"></script>
+    <script src="views/trainer/register.trainer.controller.client.js"></script>
+    <script src="views/trainer/profile.trainer.controller.client.js"></script>
 
 	<!-- services -->
-    <script src="services/user.service.client.js"></script>
+    <script src="services/client.service.client.js"></script>
 </head>
 <body>
-	<!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="../index.html">Home</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">Project</a>
-                    </li>
-                    <li>
-                        <a href="../assignment/index.html">Assignments</a>
-                    </li>
-                    <li>
-                        <a href="#">Test MongoDB</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/maloomis/loomis-mallory-webdev">GitHub</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
 
-	<!-- Content Section -->
-	<section>
-		<div class="container">
-			<div ng-view></div>
-		</div>
-	</section>
-
+    <!-- Content Section -->
+    <section>
+        <div ng-view></div>
+    </section>
 
 </body>
 </html>

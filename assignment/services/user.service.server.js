@@ -6,8 +6,26 @@ module.exports = function(app) {
         {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }
     ];
 
+    app.post('/api/user', createUser);
     app.get('/api/user', findUser);
     app.get('/api/user/:uid', findUserById);
+    app.put('/api/user/:uid', updateUser);
+
+    function updateUser(req, res) {
+        var user = req.body;
+        var uid = req.params.uid;
+        for (var u in users) {
+            if (users[u]._id == uid) {
+
+            }
+        }
+    }
+
+    function createUser(req, res) {
+        var user = req.body;
+        
+
+    }
     
     function findUser(req,res) {
         var params = req.params;
