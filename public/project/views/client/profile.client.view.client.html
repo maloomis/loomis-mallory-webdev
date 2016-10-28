@@ -1,6 +1,15 @@
 <div class="hold-transition skin-blue-light sidebar-mini">
     <!-- Main Header -->
     <header class="main-header">
+
+        <!-- Logo -->
+        <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"></span>
+        </a>
+
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
@@ -184,8 +193,10 @@
             <div class="box-body">
               <strong><i class="fa fa-heart margin-r-5"></i> Favortie Workouts</strong>
 
-              <p class="text-muted">
-                {{model.client.workouts}}
+              <p>
+                <div class="text-muted" ng-repeat="workout in model.client.workouts">
+                  {{workout.name}}
+                </div>
               </p>
 
               <hr>
@@ -198,8 +209,10 @@
 
               <strong><i class="fa fa-pencil margin-r-5"></i>Fitness Goals</strong>
 
-              <p>
-                {{model.client.goals}}
+              <p class="text-muted">
+                <div ng-repeat="goal in model.client.goals">
+                  {{goal}}
+                </div>
               </p>
 
               <hr>
@@ -218,64 +231,153 @@
               <div class="active tab-pane" id="settings">
                 <form class="form-horizontal">
                   <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Name</label>
+                    <label for="inputName" class="col-sm-2 control-label">First Name</label>
 
                     <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputName" placeholder="Name">
+                      <input ng-model="model.client.firstName" type="text" class="form-control" id="inputName" placeholder="First Name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">Last Name</label>
+
+                    <div class="col-sm-10">
+                      <input ng-model="model.client.lastName" type="text" class="form-control" id="inputName" placeholder="Last Name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">Username</label>
+
+                    <div class="col-sm-10">
+                      <input ng-model="model.client.username" type="text" class="form-control" id="inputName" placeholder="Username">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">Password</label>
+
+                    <div class="col-sm-10">
+                      <input ng-model="model.client.password" type="password" class="form-control" id="inputName" placeholder="Password">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
                     <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                      <input ng-model="model.client.email" type="email" class="form-control" id="inputEmail" placeholder="Email">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">Weight</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputName" placeholder="Weight">
+                      <input ng-model="model.client.weight" type="number" class="form-control" id="inputName" placeholder="Pounds">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">Height</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputName" placeholder="Height">
+                      <input ng-model="model.client.heightFeet" type="number" class="form-control" id="inputName" placeholder="Feet">
+                      <input ng-model="model.client.heightInches" type="number" class="form-control" id="inputName" placeholder="Inches">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">City</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputName" placeholder="Height">
+                      <input ng-model="model.client.city" type="text" class="form-control" id="inputName" placeholder="City">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">State</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputName" placeholder="Height">
+                      <select ng-model="model.client.state" class="form-control" id="inputName">
+                        <option>Alabama</option>
+                        <option>Alaska</option>
+                        <option>Arizona</option>
+                        <option>Arkansas</option>
+                        <option>California</option>
+                        <option>Colorado</option>
+                        <option>Connecticut</option>
+                        <option>Delaware</option>
+                        <option>Florida</option>
+                        <option>Georgia</option>
+                        <option>Hawaii</option>
+                        <option>Idaho</option>
+                        <option>Illinois</option>
+                        <option>Indiana</option>
+                        <option>Iowa</option>
+                        <option>Kansas</option>
+                        <option>Kentucky</option>
+                        <option>Louisiana</option>
+                        <option>Maine</option>
+                        <option>Maryland</option>
+                        <option>Massachusetts</option>
+                        <option>Michigan</option>
+                        <option>Minnesota</option>
+                        <option>Mississippi</option>
+                        <option>Missouri</option>
+                        <option>Montana</option>
+                        <option>Nebraska</option>
+                        <option>Nevada</option>
+                        <option>New Hampshire</option>
+                        <option>New Jersey</option>
+                        <option>New Mexico</option>
+                        <option>New York</option>
+                        <option>North Carolina</option>
+                        <option>North Dakota</option>
+                        <option>Ohio</option>
+                        <option>Oklahoma</option>
+                        <option>Oregon</option>
+                        <option>Pennsylvania</option>
+                        <option>Rhode Island</option>
+                        <option>South Carolina</option>
+                        <option>South Dakota</option>
+                        <option>Tennessee</option>
+                        <option>Texas</option>
+                        <option>Utah</option>
+                        <option>Vermont</option>
+                        <option>Virginia</option>
+                        <option>Washington</option>
+                        <option>West Virginia</option>
+                        <option>Wisconsin</option>
+                        <option>Wyoming</option>
+                      </select>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputExperience" class="col-sm-2 control-label">Favorite Workouts</label>
 
                     <div class="col-sm-10">
-                      <textarea class="form-control" id="inputExperience" placeholder="Notes"></textarea>
+                        <div class="checkbox" ng-repeat="exercise in model.exercises">
+                        <label>
+                          <input type="checkbox"
+                          value="{{exercise}}"
+                          ng-click="model.saveExercise(exercise)">{{exercise}}</label>
+                        </div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputExperience" class="col-sm-2 control-label">Fitness Goals</label>
 
                     <div class="col-sm-10">
-                      <textarea class="form-control" id="inputExperience" placeholder="Notes"></textarea>
+                      <div class="checkbox">
+                      <label><input type="checkbox" value="">Lose Weight</label>
+                      </div>
+                      <div class="checkbox">
+                        <label><input type="checkbox" value="">Gain Weight</label>
+                      </div>
+                      <div class="checkbox">
+                        <label><input type="checkbox" value="">Maintain Weight</label>
+                      </div>
+                      <div class="checkbox">
+                        <label><input type="checkbox" value="">Eat Healthier</label>
+                      </div>
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-success">Save Information</button>
+                      <button ng-click="model.saveInformation(model.client)" type="submit" class="btn btn-success">Save Information</button>
                     </div>
                   </div>
                 </form>
