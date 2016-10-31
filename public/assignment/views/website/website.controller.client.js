@@ -55,52 +55,60 @@
     
     function EditWebsiteController($routeParams, WebsiteService, $location) {
         var vm = this;
-        
         vm.userId = $routeParams['uid'];
         vm.websiteId = $routeParams['wid'];
 
         vm.init = init;
 
         function init() {
-            vm.websiteList = WebsiteService.findWebsitesByUser(vm.userId);
-            vm.website = WebsiteService.findWebsiteById(vm.websiteId);
+            promise = WebsiteService.findAllWebsitesForUser(vm.userId)
+                .success(function(websites) {
+                    if (websites != '0') {
+                        vm.websiteList = websites;
+                    }
+                })
+                .error (function() {
+                    vm.error = "Could not retrieve websites for user";
+                });
+            
+            promise = WebsiteService.findWebsiteById(vm.websiteId)
+                .success(function(website) {
+                    if (website != '0') {
+                        vm.website = website;
+                    }
+                })
+                .error(function() {
+                    vm.error = "Could not retrieve website";
+                })
         }
         
         init();
         
-        vm.backToProfile = backToProfile;
-        vm.backToWebsiteList = backToWebsiteList;
         vm.deleteWebsite = deleteWebsite;
-        vm.editSite = editSite;
-        vm.goToPageList = goToPageList;
         vm.updateWebsite = updateWebsite;
 
-        function backToProfile() {
-            $location.url("/user/" + vm.userId);
-        }
-
-        function backToWebsiteList() {
-            $location.url("/user/" + vm.userId + "/website/");
-        }
-
         function deleteWebsite() {
-            WebsiteService.deleteWebsite(vm.websiteId);
-            $location.url("/user/" + vm.userId + "/website");
-        }
-
-        function editSite(websiteName) {
-            website = WebsiteService.findWebsiteByName(websiteName);
-            $location.url("/user/" + vm.userId + "/website/" + website._id);
-        } 
-
-        function goToPageList(websiteName) {
-            website = WebsiteService.findWebsiteByName(websiteName);
-            $location.url("/user/" + vm.userId + "/website/" + website._id + "/page");
+            promise = WebsiteService.deleteWebsite(vm.websiteId)
+                .success(function(result) {
+                    if (result == '0') {
+                        $location.url("/user/" + vm.userId + "/website");
+                    }
+                })
+                .error(function() {
+                    vm.error = "Could not update website";
+                });
         }
 
         function updateWebsite(website) {
-            WebsiteService.updateWebsite(vm.websiteId, website);
-            $location.url("/user/" + vm.userId + "/website/");
+            promise = WebsiteService.updateWebsite(vm.websiteId, website)
+                .success(function(result) {
+                    if (result == '0') {
+                        $location.url("/user/" + vm.userId + "/website/");
+                    }
+                })
+                .error(function() {
+                    vm.error = "Could not update website";
+                });
         }
     }
 })();

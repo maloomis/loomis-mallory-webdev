@@ -1,7 +1,7 @@
 <nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left">
-            <a ng-click="model.backToPageList()" class="navbar-link">
+            <a ng-href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
         </div>
@@ -34,7 +34,7 @@
 <nav class="navbar navbar-custom navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="navbar-text pull-right">
-                <a ng-click="model.backToProfile()">
+                <a ng-href="#/user/{{model.userId}}">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
         </div>
