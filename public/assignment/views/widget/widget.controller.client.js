@@ -15,32 +15,20 @@
         vm.init = init;
 
         function init() {
-            vm.widgets = WidgetService.findWidgetByPageId(vm.pageId);
+            promise = WidgetService.findAllWidgetsForPage(vm.pageId)
+                .success(function(result) {
+                    if (widgets != '0') {
+                        vm.widgets = result;
+                    }
+                })
+                .error (function() {
+                    vm.error = "Could not retrieve widgets for page";
+                });
         }
 
         init();
 
-        vm.backToPageList = backToPageList;
-        vm.backToProfile = backToProfile;
-        vm.editWidget = editWidget;
-        vm.newWidget = newWidget;
         vm.trustSrc = trustSrc;
-
-        function backToPageList() {
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/");
-        }
-
-        function backToProfile() {
-            $location.url("/user/" + vm.userId);
-        }
-
-        function editWidget(widgetId) {
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + widgetId);
-        }
-
-        function newWidget() {
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/new");
-        }
 
         function trustSrc(widgetUrl) {
             var url = $sce.trustAsResourceUrl(widgetUrl);

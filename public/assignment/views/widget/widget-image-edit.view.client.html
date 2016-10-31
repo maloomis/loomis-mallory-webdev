@@ -1,4 +1,10 @@
 <div id="editpageform" class="container-fluid pad">
+    <form action="/api/upload" method="post" enctype="multipart/form-data">
+        <input name="myFile" type="file" class="form-control"/>
+        <input name="width" type="file" class="form-control"/>
+        <input name="widgetId" type="file" class="form-control"/>
+        <button name="submit" class="btn btn-block btn-primary">Upload Image</button>
+    </form>
     <form>
         <div class="form-group">
             <label for="name">Name</label>
