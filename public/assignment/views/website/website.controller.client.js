@@ -7,77 +7,49 @@
     
     function WebsiteListController($routeParams, WebsiteService, $location, UserService) {
         var vm = this;
-        
         vm.userId = $routeParams["uid"];
 
         function init() {
-            vm.websiteList = WebsiteService.findWebsitesByUser(vm.userId);
+            promise = WebsiteService.findAllWebsitesForUser(vm.userId)
+                .success(function(websites) {
+                    if (websites != '0') {
+                        vm.websiteList = websites;
+                    }
+                })
+                .error (function() {
+                    vm.error = "Could not retrieve websites for user";
+                });
         }
         
         init();
-        
-        vm.backToProfile = backToProfile;
-        vm.editSite = editSite;
-        vm.goToPageList = goToPageList;
-        vm.newWebsite = newWebsite;
-        
-        function backToProfile() {
-            user = UserService.findUserById(vm.userId);
-            if (user) {
-                $location.url("/user/" + user._id);
-            } else {
-                vm.alert = "Unable to login";
-            }
-        }
-
-        function goToPageList(siteId) {
-            $location.url("/user/" + vm.userId + "/website/" + siteId + "/page");
-        }
-
-        function editSite(siteId) {
-            $location.url("/user/" + vm.userId + "/website/" + siteId);
-        }
-
-        function newWebsite() {
-            $location.url("/user/" + vm.userId + "/website/new");
-        }
     }
     
     function NewWebsiteController($routeParams, WebsiteService, $location) {
         var vm = this;
         vm.userId = $routeParams["uid"];
-        vm.backToWebsiteList = backToWebsiteList;
-        vm.goToPageList = goToPageList;
-        vm.editSite = editSite;
-        vm.profile = profile;
         vm.saveSite = saveSite;
 
         function init() {
-            vm.websiteList = WebsiteService.findWebsitesByUser(vm.userId);
+            promise = WebsiteService.findAllWebsitesForUser(vm.userId)
+                .success(function(websites) {
+                    if (websites != '0') {
+                        vm.websiteList = websites;
+                    }
+                })
+                .error (function() {
+                    vm.error = "Could not retrieve websites for user";
+                });
         }
+        
         init();
 
-        function backToWebsiteList() {
-            $location.url("/user/" + vm.userId + "/website/");
-        }
-
-        function goToPageList(websiteName) {
-            site = WebsiteService.findWebsiteByName(websiteName);
-            $location.url("/user/" + vm.userId + "/website/" + site._id + "/page");
-        }
-
-        function editSite(websiteName) {
-            website = WebsiteService.findWebsiteByName(websiteName);
-            $location.url("/user/" + vm.userId + "/website/" + website._id);
-        }
-
-        function profile() {
-            $location.url("/user/" + vm.userId);
-        }
-
         function saveSite(website) {
-            WebsiteService.createWebsite(vm.userId, website);
-            $location.url("/user/" + vm.userId + "/website/");
+            promise = WebsiteService.createWebsite(vm.userId, website);
+            promise.success(function(result) {
+                if (result == '0') {
+                    $location.url("/user/" + vm.userId + "/website/");
+                }
+            });
         }
     }
     

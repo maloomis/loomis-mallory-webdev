@@ -11,12 +11,33 @@ module.exports = function(app) {
     app.get('/api/user/:uid', findUserById);
     app.get('/api/user/', findUserByCredentials);
     app.put('/api/user/:uid', updateUser);
-    app.delete('/api/user:uid', deleteUser);
+    app.delete('/api/user/:uid', deleteUser);
 
     function createUser(req, res) {
         var user = req.body;
-        
 
+        var ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        var ID_LENGTH = 8;
+
+        var generate = function() {
+            var rtn = '';
+            for (var i = 0; i < ID_LENGTH; i++) {
+                rtn += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length));
+            }
+            return rtn;
+        }
+
+        user._id = generate();
+        users.push(user);
+
+        if (user) {
+            res.send(user);
+            return;
+        }
+        else {
+            res.send('0');
+        }
     }
 
     function findUserByUsername(req, res) {
@@ -71,6 +92,15 @@ module.exports = function(app) {
     }
 
     function deleteUser(req, res) {
+        var uid = req.params.uid;
 
+        for (var u in users) {
+            if (users[u]._id == uid) {
+                users.splice(users.indexOf(users[u]), 1);
+                res.send('0');
+                return;
+            }
+        }
+        res.send('0');
     }
 }

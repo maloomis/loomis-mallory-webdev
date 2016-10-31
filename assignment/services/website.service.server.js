@@ -8,21 +8,68 @@ module.exports = function (app) {
             { "_id": "789", "name": "Chess",       "developerId": "234" }
         ];
 
-        app.get("/api/user/:uid/website", findAllWebsites);
+        app.post("/api/user/:uid/website", createWebsite);
+        app.get("/api/user/:uid/website", findAllWebsitesForUser);
+        app.get("/api/website/:websiteId", findWebsiteById);
+        app.put("/api/website/:websiteId", updateWebsite);
+        app.delete("/api/website/:websiteId", deleteWebsite);
 
-        function findAllWebsites(req,res) {
-            var uid = req.uid;
+        function createWebsite(req,res) {
+            var uid = req.params.uid;
+            var website = req.body;
+
+            if (website.name) {   
+                var ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+                var ID_LENGTH = 8;
+
+                var generate = function() {
+                    var rtn = '';
+                    for (var i = 0; i < ID_LENGTH; i++) {
+                        rtn += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length));
+                    }
+                    return rtn;
+                }
+
+                var site = {
+                    "_id" : generate(),
+                    "name" : website.name,
+                    "developerId" : uid
+                };
+
+                websites.push(site);
+            }
+            res.send('0');     
+        }
+
+        function findAllWebsitesForUser(req,res) {
+            var uid = req.params.uid;
             var result = [];
-            for (var in websites) {
-                if (websites[w].uid == uid) {
-                    result.push(webiste[w]);
+            for (var w in websites) {
+                if (websites[w].developerId == uid) {
+                    result.push(websites[w]);
                 }
             }
             res.send(result);
+            return;
         }
 
-        function createWebsite(req,res) {
-            var uid = req.params.userId;
-            
+        function findWebsiteById(req,res) {
+            var uid = req.params.wid;
+            for (var w in websites) {
+                if (websites[w]._id == uid) {
+                    res.send(websites[w]);
+                    return;
+                }
+            }
+            res.send('0');
+        }
+
+        function updateWebsite(req,res) {
+
+        }
+
+        function deleteWebsite(req,res) {
+
         }
 }

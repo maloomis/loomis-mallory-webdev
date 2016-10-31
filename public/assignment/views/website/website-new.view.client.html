@@ -1,7 +1,7 @@
 <nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left">
-            <a ng-click="model.backToWebsiteList()" class="navbar-link">
+            <a ng-href="#/user/{{model.userId}}/website" class="navbar-link">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
         </div>
@@ -25,12 +25,12 @@
                 <div class="row">
                     <div ng-repeat="site in model.websiteList" id="websitelist">
                         <div class="col-sm-6 col-md-6">
-                            <a ng-click="model.pageList(site.name)">
+                            <a ng-href="#/user/{{model.userId}}/website/{{site._id}}/page">
                                 <h4>{{site.name}}</h4>
                             </a>
                         </div>
                         <div class="col-sm-6 col-md-6">
-                            <a ng-click="model.editSite(site.name)">
+                            <a ng-href="#/user/{{model.userId}}/website/{{site._id}}">
                                 <h4><span><i class="glyphicon glyphicon-cog"></i></span></h4>
                             </a>
                         </div>
@@ -59,7 +59,7 @@
 <nav class="navbar navbar-custom navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="navbar-text pull-right">
-                <a ng-click="model.profile()">
+                <a ng-href="#/user/{{model.userId}}">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
         </div>

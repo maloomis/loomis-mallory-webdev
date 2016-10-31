@@ -3,11 +3,11 @@
         .module("WebAppMaker")
         .factory("WebsiteService", WebsiteService);
     
-    function WebsiteService() {
+    function WebsiteService($http) {
        
         var api = {
             "createWebsite" : createWebsite,
-            "findWebsitesByUser" : findWebsitesByUser,
+            "findAllWebsitesForUser" : findAllWebsitesForUser,
             "findWebsiteByName" : findWebsiteByName,
             "findWebsiteById" : findWebsiteById,
             "updateWebsite" : updateWebsite,
@@ -16,23 +16,13 @@
         return api;
         
         function createWebsite(userId, website) {
-            var site = {
-                "_id" : Math.random(),
-                "name" : website.name,
-                "developerId" : userId
-            };
-            websites.push(site);
+            var url = '/api/user/' + userId + '/website';
+            return $http.post(url, website);
         }
         
-        function findWebsitesByUser(userId) {
-            var sites = [];
-            for (var x = 0; x < websites.length; x++) {
-                var currentWebsite = websites[x];
-                if (currentWebsite.developerId == userId) {
-                    sites.push(currentWebsite);
-                }
-            }
-            return sites;
+        function findAllWebsitesForUser(userId) {
+            var url = '/api/user/' + userId + '/website';
+            return $http.get(url);
         }
 
         function findWebsiteByName(websiteName) {
@@ -61,7 +51,6 @@
                     site.description = website.description;
                 }
             }
-
         }
         
         function deleteWebsite(websiteId) {

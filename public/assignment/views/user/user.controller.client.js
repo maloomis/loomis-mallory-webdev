@@ -26,26 +26,19 @@
         vm.register = register;
 
         function register(user) {
-            UserService
-                .createUser(user)
-                .success(function(user) {
-                    $location.url("/user/"+ user._id);
-                })
-                .error(function(){
-                    
+            var promise = UserService.createUser(user);
+                promise.success(function(userUpdate) {
+                    if (userUpdate === '0') {
+                       vm.error = "Couldn't create user";
+                    } else {
+                        $location.url("/user/" + userUpdate._id);
+                    }
                 });
-            user = UserService.createUser(user);
-            if (user) {
-                $location.url("/user/" + user._id);
-            } else {
-                vm.alert = "Unable to register";
-            }
-        }
+        };
     }
     
     function ProfileController($location, $routeParams, UserService) {
-        var vm = this;
-        
+        var vm = this; 
         vm.userId = $routeParams["uid"];
 
         function init() {
@@ -56,7 +49,7 @@
                     }
                 })
                 .error (function() {
-
+                    vm.error = "Could not retrieve user";
                 });
         }
         
@@ -67,15 +60,19 @@
         vm.loadwebsites = loadwebsites;
 
         function deleteUser() {
-            UserService.deleteUser(vm.userId);
-            $location.url("/login");
+            var promise = UserService.deleteUser(vm.userId);
+            promise.success(function(response) {
+                    if (response == '0') {
+                        $location.url("/login");
+                    }
+            });
         }
         
         function edit(user){
-            var promise = UserService.updateUser(user._id, user)
-                .success(function(user) {
+            var promise = UserService.updateUser(user._id, user);
+            promise.success(function(user) {
                     if (user === '0') {
-                        vm.error = "No such user";
+                        vm.error = "Could not update user.";
                     } else {
                         $location.url("/user/" + user._id);
                     }

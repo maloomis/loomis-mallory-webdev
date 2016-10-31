@@ -18,14 +18,13 @@
         return api;
 
         function createUser(user) {
-            user._id = Math.random();
-            users.push(user);
-            return user;
+            var url = '/api/user';
+            return $http.post(url, user);
         }
 
         function deleteUser(userId) {
-            var user = findUserById(userId);
-            users.splice(users.indexOf(user), 1);
+            var url = '/api/user/' + userId;
+            return $http.delete(url);
         }
 
         function findUserByCredentials(username, password) {
@@ -39,12 +38,8 @@
         }
         
         function findUserByUsername(username) {
-            for (var x = 0; x < users.length; x++) {
-                var currentUser = users[x];
-                if (currentUser.username == username) {
-                    return currentUser;
-                }
-            }
+            var url = '/api/user/?username=' + username;
+            return $http.get(url);
         }
         
         function updateUser(userId, user) {
