@@ -5,25 +5,25 @@
         <input name="widgetId" type="file" class="form-control"/>
         <button name="submit" class="btn btn-block btn-primary">Upload Image</button>
     </form>
-    <form>
+    <form action="/api/upload" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" ng-model="model.widget.name">
+            <input name="name" type="text" class="form-control" ng-model="model.widget.name">
         </div>
         
         <div class="form-group">
             <label for="name">Text</label>
-            <input type="text" class="form-control" ng-model="model.widget.text">
+            <input name="text" type="text" class="form-control" ng-model="model.widget.text">
         </div>
 
         <div class="form-group">
             <label for="name">Url</label>
-            <input type="text" class="form-control" ng-model="model.widget.url">
+            <input name="url" type="text" class="form-control" ng-model="model.widget.url">
         </div>
 
         <div class="form-group">
             <label for="name">Width</label>
-            <input type="text" class="form-control" ng-model="model.widget.width">
+            <input name="width" type="text" class="form-control" ng-model="model.widget.width">
         </div>
 
         <div class="input-group image-preview">
@@ -31,14 +31,14 @@
                 <div class="btn btn-default image-preview-input">
                     <span class="glyphicon glyphicon-folder-open"></span>
                     <span class="image-preview-input-title">Choose File</span>
-                    <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/>
+                    <input name="myFile" type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/>
                 </div>
             </span>
                 <input type="text" class="form-control image-preview-filename">
         </div>
         </br>
 
-        <button type="button" class="btn btn-primary btn-block">Upload Image</button>
+        <button name="submit" type="button" class="btn btn-primary btn-block">Upload Image</button>
 
         <a ng-click="model.deleteWidget(model.widget)" type="button" class="btn btn-danger btn-block">Delete</a>
     </form>

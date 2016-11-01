@@ -19,6 +19,7 @@ module.exports = function (app) {
         app.get("/api/widget/:wgid", findWidgetById);
         app.put("/api/widget/:wgid", updateWidget);
         app.delete("/api/widget/:wgid", deleteWidget);
+        app.put("/api/page/:pid/widget?initial=index1&final=index2");
         app.post ("/api/upload", upload.single('myFile'), uploadImage);
 
         function createWidget(req,res) {
