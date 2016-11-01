@@ -15,16 +15,16 @@
         vm.init = init;
 
         function init() {
-            promise = WidgetService.findAllWidgetsForPage(vm.pageId)
-                .success(function(result) {
-                    if (widgets != '0') {
-                        vm.widgets = result;
+            var promise = WidgetService.findAllWidgetsForPage(vm.pageId)
+                .success(function(data) {
+                    if (data != '0') {
+                        vm.widgets = data;
                     }
                 })
                 .error (function() {
                     vm.error = "Could not retrieve widgets for page";
                 });
-        }
+        };
 
         init();
 
@@ -42,85 +42,103 @@
         vm.userId = parseInt($routeParams['uid']);
         vm.websiteId = parseInt($routeParams['wid']);
         vm.pageId = parseInt($routeParams['pid']);
+        vm.widget = {};
 
-        vm.backToProfile = backToProfile;
-        vm.backToWidgetList = backToWidgetList
         vm.chooseHeaderWidget = chooseHeaderWidget;
         vm.chooseImageWidget = chooseImageWidget;
         vm.chooseYouTubeWidget = chooseYouTubeWidget;
 
-        function backToProfile() {
-            $location.url("/user/" + vm.userId);
-        }
-
-        function backToWidgetList() {
-            $location.url("/user/" + vm.userId + "/website/" + 
-            vm.websiteId + "/page/" + vm.pageId + "/widget/");
-
-        }
-
         function chooseHeaderWidget() {
-            var widget = WidgetService.createWidget(vm.pageId, "HEADER");
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + 
-            "/page/" + vm.pageId + "/widget/" + widget._id);
-
+            vm.widget.widgetType = "HEADER";
+            promise = WidgetService.createWidget(vm.pageId, vm.widget);
+            promise.success(function(widget) {
+                if (widget != '0') {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId +
+                    "/page/" + vm.pageId + "/widget/" + widget._id);
+                } else {
+                    vm.error = "Could not create Header Widget";
+                }
+            });
         }
 
         function chooseImageWidget() {
-            var widget = WidgetService.createWidget(vm.pageId, "IMAGE");
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + 
-            "/page/" + vm.pageId + "/widget/" + widget._id);
-
+            vm.widget.widgetType = "IMAGE";
+            promise = WidgetService.createWidget(vm.pageId, vm.widget);
+            promise.success(function(widget) {
+                if (widget != '0') {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId +
+                    "/page/" + vm.pageId + "/widget/" + widget._id);
+                } else {
+                    vm.error = "Could not create Header Widget";
+                }
+            });
         }
 
         function chooseYouTubeWidget() {
-            var widget = WidgetService.createWidget(vm.pageId, "YOUTUBE");
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + 
-            "/page/" + vm.pageId + "/widget/" + widget._id);   
+            vm.widget.widgetType = "YOUTUBE";
+            promise = WidgetService.createWidget(vm.pageId, vm.widget);
+            promise.success(function(widget) {
+                if (widget != '0') {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId +
+                    "/page/" + vm.pageId + "/widget/" + widget._id);
+                } else {
+                    vm.error = "Could not create Header Widget";
+                }
+            });   
         }
     }
     
     function EditWidgetController($location, $routeParams, WidgetService) {
         var vm = this;
-
-        vm.userId = parseInt($routeParams['uid']);
-        vm.websiteId = parseInt($routeParams['wid']);
-        vm.pageId = parseInt($routeParams['pid']);
-        vm.widgetId = parseInt($routeParams['wgid']);
+        vm.userId = $routeParams['uid'];
+        vm.websiteId = $routeParams['wid'];
+        vm.pageId = $routeParams['pid'];
+        vm.widgetId = $routeParams['wgid'];
 
         vm.init = init;
 
         function init() {
-            vm.widget = WidgetService.findWidgetById(vm.widgetId);  
+            var promise = WidgetService.findWidgetById(vm.widgetId)
+                .success(function(widget) {
+                    if (widget != '0') {
+                        vm.widget = widget;
+                    }
+                })
+                .error (function() {
+                    vm.error = "Could not retrieve widget";
+                });
         }
 
         init();
 
         vm.deleteWidget = deleteWidget;
-        vm.backToProfile = backToProfile;
-        vm.backToWidgetList = backToWidgetList;
         vm.saveWidget = saveWidget; 
 
-        function deleteWidget() {
-            WidgetService.deleteWidget(vm.widgetId);
-            $location.url("/user/" + vm.userId + "/website/" + 
-            vm.websiteId + "/page/" + vm.pageId + "/widget/");
-        }
-
-        function backToProfile() {
-            $location.url("/user/" + vm.userId);
-        }
-
-        function backToWidgetList() {
-            $location.url("/user/" + vm.userId + "/website/" + 
-            vm.websiteId + "/page/" + vm.pageId + "/widget/");
-
+        function deleteWidget(widget) {
+            var promise = WidgetService.deleteWidget(widget)
+                .success(function(widget) {
+                    if (widget == '0') {
+                        $location.url("/user/" + vm.userId + "/website/" + 
+                        vm.websiteId + "/page/" + vm.pageId + "/widget");
+                    }
+                    else {
+                        vm.error("Could not update widget");
+                    }
+                });
         }
 
         function saveWidget(widget) {
-            WidgetService.updateWidget(widget);
-            $location.url("/user/" + vm.userId + "/website/" + 
-            vm.websiteId + "/page/" + vm.pageId + "/widget/");
+            var promise = WidgetService.updateWidget(widget)
+                .success(function(widget) {
+                    if (widget != '0') {
+                        vm.widget = widget;
+                        $location.url("/user/" + vm.userId + "/website/" + 
+                        vm.websiteId + "/page/" + vm.pageId + "/widget");
+                    }
+                    else {
+                        vm.error("Could not update widget");
+                    }
+                });
         }
     }
 })();
