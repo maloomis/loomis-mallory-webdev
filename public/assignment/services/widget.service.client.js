@@ -9,7 +9,7 @@
             "findAllWidgetsForPage" : findAllWidgetsForPage,
             "findWidgetById" : findWidgetById,
             "updateWidget" : updateWidget,
-            "deleteWidget" : deleteWidget
+            "deleteWidget" : deleteWidget,
         };
         return api;
 
@@ -36,6 +36,6 @@
         function deleteWidget(widget) {
             var url = "/api/widget/" + widget._id;
             return $http.delete(url, widget);
-        } 
+        }
     }
 })();

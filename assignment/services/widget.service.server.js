@@ -1,6 +1,16 @@
 module.exports = function (app) {
+        var mime = require('mime');
         var multer = require('multer'); // npm install multer --save
-        var upload = multer({ dest: __dirname+'/../../public/assignments/upload' });
+        var storage = multer.diskStorage({
+            destination: function (req, file, cb) {
+                cb(null, __dirname + '../../../public/assignment/upload');
+            },
+            filename: function (req, file, cb) {
+                cb(null, file.fieldname + '-' + Date.now() + '.' + mime.extension(file.mimetype));
+            }
+        });
+        var upload = multer({ storage: storage });
+        //var upload = multer({ dest: __dirname + '../../../public/assignment/upload' });
 
         var widgets = [
             { "_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "GIZMODO"},
@@ -119,13 +129,34 @@ module.exports = function (app) {
         function uploadImage(req, res) {
             var widgetId      = req.body.widgetId;
             var width         = req.body.width;
+            var name          = req.body.name;
+            var url           = req.body.url;
+            var text          = req.body.text;
             var myFile        = req.file;
 
             var originalname  = myFile.originalname; // file name on user's computer
-            var filename      = myFile.filename;     // new file name in upload folder
+            var filename      = originalname;
             var path          = myFile.path;         // full path of uploaded file
             var destination   = myFile.destination;  // folder where file is saved to
             var size          = myFile.size;
             var mimetype      = myFile.mimetype;
+
+            var widget = 0;
+
+            for (var x = 0; x < widgets.length; x ++) {
+                widget = widgets[x];
+                if (widget._id == widgetId) {
+                    widget.name = name;
+                    widget.width = width;
+                    widget.text = text;
+                    widget.url = path;
+                    break;
+                }
+            }
+
+            console.log(widget);
+            res.send(myFile);
+            res.redirect('../assignment/index.html#/user/'+ userId +
+            '/website/'+ webId +'/page/'+ widget.pageId +'/widget/'+ widgetId);
     }
 }

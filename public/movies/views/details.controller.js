@@ -3,17 +3,14 @@
         .module("MovieApp")
         .controller("MovieDetailsController", MovieDetailsController);
     
-    function MovieDetailsController($routeParams) {
+    function MovieDetailsController($routeParams, MovieService) {
         var vm = this;
         var imdbID = $routeParams.imdbID;
 
         function init() {
-            var url = "http://www.omdbapi.com?i=" + imdbID;
-
-            $http
-                .get(url)
+            MovieService.search
                 .success(function(response){
-
+                    vm.movie = response;
                 });
         }
     }

@@ -1,11 +1,6 @@
 <div id="editpageform" class="container-fluid pad">
-    <form action="/api/upload" method="post" enctype="multipart/form-data">
-        <input name="myFile" type="file" class="form-control"/>
-        <input name="width" type="file" class="form-control"/>
-        <input name="widgetId" type="file" class="form-control"/>
-        <button name="submit" class="btn btn-block btn-primary">Upload Image</button>
-    </form>
-    <form action="/api/upload" method="post" enctype="multipart/form-data">
+    <form action="/api/upload" 
+    method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Name</label>
             <input name="name" type="text" class="form-control" ng-model="model.widget.name">
@@ -26,20 +21,10 @@
             <input name="width" type="text" class="form-control" ng-model="model.widget.width">
         </div>
 
-        <div class="input-group image-preview">
-            <span class="input-group-btn">
-                <div class="btn btn-default image-preview-input">
-                    <span class="glyphicon glyphicon-folder-open"></span>
-                    <span class="image-preview-input-title">Choose File</span>
-                    <input name="myFile" type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/>
-                </div>
-            </span>
-                <input type="text" class="form-control image-preview-filename">
-        </div>
+        <input name="myFile" type="file" class="form-control"/>
+        <input name="widgetId" value="{{model.widget._id}}" style="display: none"/>
         </br>
-
-        <button name="submit" type="button" class="btn btn-primary btn-block">Upload Image</button>
-
+        <button name="submit" class="btn btn-block btn-primary">Upload Image</button>
         <a ng-click="model.deleteWidget(model.widget)" type="button" class="btn btn-danger btn-block">Delete</a>
     </form>
 </div>
