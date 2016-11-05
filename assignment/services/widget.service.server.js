@@ -128,6 +128,8 @@ module.exports = function (app) {
         
         function uploadImage(req, res) {
             var widgetId      = req.body.widgetId;
+            var userId        = req.body.userId;
+            var websiteId     = req.body.websiteId;
             var width         = req.body.width;
             var name          = req.body.name;
             var url           = req.body.url;
@@ -135,7 +137,7 @@ module.exports = function (app) {
             var myFile        = req.file;
 
             var originalname  = myFile.originalname; // file name on user's computer
-            var filename      = originalname;
+            var filename      = myFile.filename;
             var path          = myFile.path;         // full path of uploaded file
             var destination   = myFile.destination;  // folder where file is saved to
             var size          = myFile.size;
@@ -149,14 +151,12 @@ module.exports = function (app) {
                     widget.name = name;
                     widget.width = width;
                     widget.text = text;
-                    widget.url = path;
+                    widget.url = "upload/" + filename;
                     break;
                 }
             }
 
-            console.log(widget);
-            res.send(myFile);
             res.redirect('../assignment/index.html#/user/'+ userId +
-            '/website/'+ webId +'/page/'+ widget.pageId +'/widget/'+ widgetId);
+            '/website/'+ websiteId +'/page/'+ widget.pageId +'/widget/'+ widgetId);
     }
 }
