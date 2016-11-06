@@ -1,9 +1,9 @@
 (function() {
     angular
         .module('jgaDirectives', [])
-        .directive("jgaSortable", jgaSortable);
+        .directive('jgaSortable', jgaSortable);
 
-    function jgaSortable() {
+     function jgaSortable() {
 
         console.log("test");
         
