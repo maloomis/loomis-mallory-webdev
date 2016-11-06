@@ -31,6 +31,7 @@ module.exports = function (app) {
         app.delete("/api/widget/:wgid", deleteWidget);
         app.put("/api/page/:pid/widget?initial=index1&final=index2");
         app.post ("/api/upload", upload.single('myFile'), uploadImage);
+        app.put("/api/sort", sortWidgets);
 
         function createWidget(req,res) {
             var pid = req.params.pid;
@@ -158,5 +159,12 @@ module.exports = function (app) {
 
             res.redirect('../assignment/index.html#/user/'+ userId +
             '/website/'+ websiteId +'/page/'+ widget.pageId +'/widget/'+ widgetId);
+    }
+
+    function sortWidgets(req, res) {
+        var start = req.query.start;
+        var end = req.query.end;
+
+        widgets.splice(end, 0, widget.splice(start, 1)[0]);
     }
 }

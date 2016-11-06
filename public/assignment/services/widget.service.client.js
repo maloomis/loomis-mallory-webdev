@@ -10,6 +10,7 @@
             "findWidgetById" : findWidgetById,
             "updateWidget" : updateWidget,
             "deleteWidget" : deleteWidget,
+            "sortWidgets" : sortWidgets
         };
         return api;
 
@@ -36,6 +37,15 @@
         function deleteWidget(widget) {
             var url = "/api/widget/" + widget._id;
             return $http.delete(url, widget);
+        }
+
+        function sortWidgets(start, end) {
+            var url ="/api/sort?start=START&end=END";
+            url = url
+                    .replace("START", start)
+                    .replace("END", end);
+            $http.put(url);
+
         }
     }
 })();
