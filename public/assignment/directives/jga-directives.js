@@ -1,8 +1,21 @@
 (function() {
     angular
-        .module('jgaDirectives', [])
+        .module('jgaDirective', [])
+        .directive('test', function() {
+            console.log("hi");
+        })
         .directive('jgaSortable', jgaSortable);
 
+        console.log("hello");
+
+        function jgaSortable() {
+            console.log("test");
+            return {
+                restrict: 'C'
+            }
+        };
+
+/*
      function jgaSortable() {
 
         console.log("test");
@@ -10,7 +23,7 @@
         function linker(scope, element, attr) {
             var start = -1;
             var end = -1;
-            element.sortable({
+            $(element).sortable({
                 start: function(event, ui) {
                     start = $(ui.item).index();
                 },
@@ -23,7 +36,7 @@
 
         return {
             scope: {},
-            restrict: C,      
+            restrict: 'C',      
             link: linker,
             controller: sortableController,
             controllerAs: 'sortableController'
@@ -38,4 +51,5 @@
             }
         }
     }
+    */
 })();

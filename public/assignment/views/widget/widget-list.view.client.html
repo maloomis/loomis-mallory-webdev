@@ -18,16 +18,18 @@
     </div>
 </nav>
 
-<div class="jga-sortable" ng-repeat="widget in model.widgets">
-    <div ng-switch="widget.widgetType">
-        <div ng-switch-when="HEADER">
-            <div ng-include src="'views/widget/widget-heading.view.client.html'"></div>
-        </div>
-        <div ng-switch-when="IMAGE">
-            <div ng-include src="'views/widget/widget-image.view.client.html'"></div>
-        </div>
-        <div ng-switch-when="YOUTUBE">
-            <div ng-include src="'views/widget/widget-youtube.view.client.html'"></div>
+<div class="jga-sortable" jga-sortable>
+    <div ng-repeat="widget in model.widgets">
+        <div ng-switch="widget.widgetType">
+            <div ng-switch-when="HEADER">
+                <div ng-include src="'views/widget/widget-heading.view.client.html'"></div>
+            </div>
+            <div ng-switch-when="IMAGE">
+                <div ng-include src="'views/widget/widget-image.view.client.html'"></div>
+            </div>
+            <div ng-switch-when="YOUTUBE">
+                <div ng-include src="'views/widget/widget-youtube.view.client.html'"></div>
+            </div>
         </div>
     </div>
 </div>
