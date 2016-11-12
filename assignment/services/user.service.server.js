@@ -17,9 +17,20 @@ module.exports = function(app) {
     app.delete('/api/user/:uid', deleteUser);
 
     function createUser(req, res) {
+        var user = req.body;
+        UserModel
+            .create(user)
+            .then(
+                function(user) {
+                    res.json(200);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
 
         /*
-        var user = req.body;
+
 
         var ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -48,14 +59,19 @@ module.exports = function(app) {
 
     function findUserByUsername(req, res) {
         UserModel
-            .find()
-            .then(
-                function(users) {
-                    for (var u in users) {
+            .find(
+                function () {
+                                        for (var u in users) {
                         if (users[u].username == username) {
                             res.json(users[u]);
                         }
                     }
+
+                }
+            )
+            .then(
+                function(users) {
+                    res.json(users);
                 },
                 function(err) {
                     res.status(400).send(err);

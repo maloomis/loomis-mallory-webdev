@@ -1,3 +1,5 @@
+var mongoose = require("mongoose");
+
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
@@ -7,6 +9,10 @@ var UserSchema = new Schema({
     lastName: String,
     email: String,
     phone: String,
-    websites: [],
-    dateCreate: Date
+    websites: ['WebsiteSchema'],
+    dateCreated: { type: Date, default: Date.now}
 });
+
+module.exports = {
+    UserSchema: UserSchema
+}

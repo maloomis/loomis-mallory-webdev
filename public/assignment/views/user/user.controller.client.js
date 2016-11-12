@@ -24,6 +24,7 @@
     function RegisterController($location, UserService) {
         var vm = this;
         vm.register = register;
+        vm.user = user;
 
         function register(user) {
             var promise = UserService.createUser(user);

@@ -1,12 +1,5 @@
 module.exports = function(app){
-    var MongoClient = require('mongodb').MongoClient;
-    MongoClient.connect("mongodb://localhost:27017/test", function(err,db) {
-        if (!err) {
-            console.log("we are connected");
-        }
-    });
-
-    var connectionString = 'mongodb://127.0.0.1:27017/test';
+    var connectionString = 'mongodb://127.0.0.1:27017/webappmaker';
     var mongodbUri = 'mongodb://loomis.m:dance434@ds035776.mlab.com:35776/mallorywebdev';
 
     if (process.env.MLAB_USERNAME) {
@@ -19,11 +12,11 @@ module.exports = function(app){
     }
 
     var mongoose = require("mongoose");
-    mongoose.createConnection(connectionString);
     var db = mongoose.connection;
+    
     db.on('error', console.error.bind(console, 'connection error:'));
     var MongoClient = require('mongodb').MongoClient;
-    MongoClient.connect("mongodb://localhost:27017/test", function(err,db) {
+    MongoClient.connect("mongodb://localhost:27017/webappmaker", function(err,db) {
         if (!err) {
             console.log("we are connected");
         }
