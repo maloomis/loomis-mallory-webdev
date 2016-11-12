@@ -7,22 +7,22 @@
         $routeProvider
         .when("/clientLogin", {
             templateUrl: "views/client/login.client.view.client.html",
-            controller: "LoginclientController",
+            controller: "LoginClientController",
             controllerAs: "model"
         })
         .when("/clientRegister", {
             templateUrl: "views/client/register.client.view.client.html",
-            controller: "RegisterclientController",
+            controller: "RegisterClientController",
             controllerAs: "model"
         })
         .when("/clientProfile/:uid", {
             templateUrl: "views/client/profile.client.view.client.html",
-            controller: "ProfileclientController",
+            controller: "ProfileClientController",
             controllerAs: "model"
         })
         .when("/trainerLogin", {
             templateUrl: "views/trainer/login.trainer.view.client.html",
-            controller: "LogintrainerController",
+            controller: "LoginTrainerController",
             controllerAs: "model"
         })
         .when("/trainerRegister", {
@@ -32,7 +32,12 @@
         })
         .when("/trainerProfile", {
             templateUrl: "views/trainer/profile.trainer.view.client.html",
-            controller: "ProfiletrainerController",
+            controller: "ProfileTrainerController",
+            controllerAs: "model"
+        })
+        .when("/searchFood", {
+            templateUrl: "views/food/search.food.view.client.html",
+            controller: "FoodSearchController",
             controllerAs: "model"
         })
         .otherwise({
