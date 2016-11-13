@@ -1,5 +1,11 @@
 module.exports = function(app){
+    var mongoose = require('mongoose');
     var connectionString = 'mongodb://127.0.0.1:27017/webappmaker';
+    mongoose.connect(connectionString);
+
+    console.log("connected to mongoose");
+
+    /*
     var mongodbUri = 'mongodb://loomis.m:dance434@ds035776.mlab.com:35776/mallorywebdev';
 
     if (process.env.MLAB_USERNAME) {
@@ -11,6 +17,7 @@ module.exports = function(app){
             '@ds035776.mlab.com:35776/mallorywebdev';
     }
 
+/*
     var mongoose = require("mongoose");
     var db = mongoose.connection;
     
@@ -21,4 +28,7 @@ module.exports = function(app){
             console.log("we are connected");
         }
     });
+
+    mongoose.conntect(connectionString);
+    */
 }

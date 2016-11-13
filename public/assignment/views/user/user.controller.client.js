@@ -24,7 +24,6 @@
     function RegisterController($location, UserService) {
         var vm = this;
         vm.register = register;
-        vm.user = user;
 
         function register(user) {
             var promise = UserService.createUser(user);
@@ -32,6 +31,8 @@
                     if (userUpdate === '0') {
                        vm.error = "Couldn't create user";
                     } else {
+                        vm.user = userUpdate;
+                        console.log(userUpdate);
                         $location.url("/user/" + userUpdate._id);
                     }
                 });
@@ -63,19 +64,19 @@
         function deleteUser() {
             var promise = UserService.deleteUser(vm.userId);
             promise.success(function(response) {
-                    if (response == '0') {
-                        $location.url("/login");
-                    }
+                $location.url("/login");
             });
         }
         
         function edit(user){
+            console.log(user);
             var promise = UserService.updateUser(user._id, user);
             promise.success(function(user) {
                     if (user === '0') {
                         vm.error = "Could not update user.";
                     } else {
-                        $location.url("/user/" + user._id);
+                        vm.user = user;
+                        $location.url("/user/" + vm.user._id);
                     }
                 });
         }
