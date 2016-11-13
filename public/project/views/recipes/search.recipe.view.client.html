@@ -145,9 +145,9 @@
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <li class="header">FITNESS OPTIONS</li>
-        <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Talk To a Trainer</span></a></li>
-        <li><a href="#/searchFood"><i class="fa fa-link"></i> <span>Search Food Options</span></a></li>
+        <li><a href="#/clientProfile/{{model.userId}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
+        <li><a href="#"><i class="fa fa-link"></i> <span>Talk To a Trainer</span></a></li>
+        <li class="active"><a href="#/searchFood"><i class="fa fa-link"></i> <span>Search Food Options</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>Exercise Plan</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
@@ -162,32 +162,25 @@
     <section class="content">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li><a data-toggle="tab">Search Food</a></li>
+              <li><a data-toggle="tab">Search Recipes</a></li>
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="settings">
                 <form>
                     <div class="form-group">
                         <div class="input-group">
-                            <input ng-model="name" type="text" class="form-control" placeholder="Search" name="q">
+                            <input ng-model="name" type="text" class="form-control" placeholder="Search (e.g. meatballs, pasta salad)" name="q">
                             <div class="input-group-btn">
-                                <button ng-click="model.searchFoodByName(name)" class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                <button ng-click="model.searchRecipeByName(name)" class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                             </div>
                         </div>
                     </div> 
                 </form>
 
                 <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Food Name</th>
-                            <th>Food Image</th>
-                        </tr>
-                    </thead>
                     <tbody>
-                        <tr ng-repeat="food in model.food">
-                            <td>{{food.title}}</td>
-                            <td><img ng-src="{{food.image}}"/></td>
+                        <tr ng-repeat="recipe in model.recipe">
+                            <td><a href="#/detailsRecipe/{{recipe.id}}">{{recipe.title}}</a></td>
                         </tr>
                     </tbody>
                 </table>

@@ -35,9 +35,14 @@
             controller: "ProfileTrainerController",
             controllerAs: "model"
         })
-        .when("/searchFood", {
-            templateUrl: "views/food/search.food.view.client.html",
-            controller: "FoodSearchController",
+        .when("/:uid/searchRecipe", {
+            templateUrl: "views/recipes/search.recipe.view.client.html",
+            controller: "RecipeSearchController",
+            controllerAs: "model"
+        })
+        .when("/:uid/detailsRecipe/:rid", {
+            templateUrl: "views/recipes/details.recipe.view.client.html",
+            controller: "RecipeDetailsController",
             controllerAs: "model"
         })
         .otherwise({

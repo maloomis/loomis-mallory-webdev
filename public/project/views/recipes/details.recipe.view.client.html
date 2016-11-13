@@ -1,0 +1,301 @@
+<div class="hold-transition skin-blue-light sidebar-mini">
+    <!-- Main Header -->
+    <header class="main-header">
+
+        <!-- Logo -->
+        <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"></span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#/detailsRecipe/{{model.recipeId}}" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+            <!-- Messages: style can be found in dropdown.less-->
+            <li class="dropdown messages-menu">
+                <!-- Menu toggle button -->
+                <a href="#/detailsRecipe/{{model.recipeId}}" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-envelope-o"></i>
+                <span class="label label-success">4</span>
+                </a>
+                <ul class="dropdown-menu">
+                <li class="header">You have 4 messages</li>
+                <li>
+                    <!-- inner menu: contains the messages -->
+                    <ul class="menu">
+                    <li><!-- start message -->
+                        <a href="#/detailsRecipe/{{model.recipeId}}">
+                        <div class="pull-left">
+                            <!-- User Image -->
+                            <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        </div>
+                        <!-- Message title and timestamp -->
+                        <h4>
+                            Support Team
+                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                        </h4>
+                        <!-- The message -->
+                        <p>Why not buy a new awesome theme?</p>
+                        </a>
+                    </li>
+                    <!-- end message -->
+                    </ul>
+                    <!-- /.menu -->
+                </li>
+                <li class="footer"><a href="#">See All Messages</a></li>
+                </ul>
+            </li>
+            <!-- /.messages-menu -->
+
+          <!-- Notifications Menu -->
+          <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a href="#/detailsRecipe/{{model.recipeId}}" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-warning">10</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 10 notifications</li>
+              <li>
+                <!-- Inner Menu: contains the notifications -->
+                <ul class="menu">
+                  <li><!-- start notification -->
+                    <a href="#/clientProfile">
+                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                    </a>
+                  </li>
+                  <!-- end notification -->
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
+          </li>
+
+
+          <!-- User Account Menu -->
+          <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#/detailsRecipe/{{model.recipeId}}" class="dropdown-toggle" data-toggle="dropdown">
+              <!-- The user image in the navbar-->
+              <img src="img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span class="hidden-xs">{{model.client.firstName}} {{model.client.lastName}}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+                <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                <p>
+                  {{model.client.firstName}} {{model.client.lastName}}
+                </p>
+              </li>
+              <!-- Menu Body -->
+              <li class="user-body">
+                <div class="row">
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Followers</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Sales</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Friends</a>
+                  </div>
+                </div>
+                <!-- /.row -->
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-right">
+                  <a href="#/clientLogin" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>{{model.client.firstName}} {{model.client.lastName}}</p>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header">FITNESS OPTIONS</li>
+        <!-- Optionally, you can add icons to the links -->
+        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Talk To a Trainer</span></a></li>
+        <li><a href="#/searchRecipe"><i class="fa fa-link"></i> <span>Search Food Options</span></a></li>
+        <li><a href="#"><i class="fa fa-link"></i> <span>Exercise Plan</span></a></li>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+    <!-- Main content -->
+    <section class="content">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <div class="row">
+                <div class="col-xs-10">
+                  <li><h3>&nbsp {{model.recipe.title}}</h3></li>
+                </div>
+                <div class="col-xs-2">
+                  <li><h3><i class="fa fa-star-o"></h3></i></li>
+                </div>
+              </div>
+            </ul>
+
+            <div class="tab-content">
+              <div class="active tab-pane" id="settings">
+
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <img ng-src="{{model.recipe.image}}" width="200" height="200"/>
+                  </div>
+                </div>
+
+                </br>
+
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    Ready in Minutes:
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{model.recipe.readyInMinutes}}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    Servings:
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{model.recipe.servings}}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    Vegan:
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{model.recipe.vegan}}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    Dairy Free:
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{model.recipe.dairyFree}}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    Gluten Free:
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{model.recipe.glutenFree}}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    Vegetarian:
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{model.recipe.vegetarian}}
+                  </div>
+                </div>
+
+                </br>
+
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <b>Ingredients:</b>
+                  </div>
+                </div>
+
+                <div class="row" ng-repeat="ingredient in model.recipe.nutrition.ingredients">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{ingredient.name}}
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{ingredient.amount}} {{ingredient.unit}}
+                  </div>
+                </div>
+
+                </br>
+
+               <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <b>Instructions:</b>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                      {{model.recipe.instructions}}
+                  </div>
+                </div>
+
+                </br>
+
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <b>Nutrition:</b>
+                  </div>
+                </div>
+
+                <div class="row" ng-repeat="nutrient in model.recipe.nutrition.nutrients">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{nutrient.title}}
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{nutrient.amount}} {{nutrient.unit}}
+                  </div>
+                </div>
+
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.nav-tabs-custom -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+</div>
+<!-- ./wrapper -->
+
+
