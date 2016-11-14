@@ -12,5 +12,6 @@ module.exports = function() {
     phone: String,
     websites: [{type: ObjectId, ref: 'Website'}],
     dateCreated: { type: Date, default: Date.now}
-    });
+    }, {collection: "user"});
+    return UserSchema;
 }

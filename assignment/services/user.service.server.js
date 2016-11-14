@@ -1,20 +1,4 @@
-module.exports = function(app) {
-    var mongoose = require("mongoose");
-    var Schema = mongoose.Schema;
-    var ObjectId = Schema.ObjectId;
-    
-    var UserSchema = new Schema({
-    username: String,
-    password: String,
-    firstName: String,
-    lastName: String,
-    email: String,
-    phone: String,
-    websites: [{type: ObjectId, ref: 'Website'}],
-    dateCreated: { type: Date, default: Date.now}
-    });
-    var UserModel = mongoose.model('Users', UserSchema);
-
+module.exports = function(app, model) {
     app.post('/api/user', createUser);
     app.get('/api/user/:uid', findUserById);
     app.get('/api/user/', findUserByCredentials);
@@ -23,48 +7,56 @@ module.exports = function(app) {
 
     function createUser(req, res) {
         var user = req.body;
-        UserModel
-            .create(user)
+        model
+            .userModel
+            .createUser(user)
             .then(
-                function(user) {
-                    res.json(user);
+                function(newUser) {
+                    res.send(newUser);
                 },
                 function(err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(error);
                 }
-            )
+            );
     }
 
     function findUserByCredentials(req,res) {
         var username = req.query.username;
         var password = req.query.password;
-        UserModel
-            .find({
-                username: username,
-                password: password
-            })
-            .exec(
-                function(err, user) {
-                    if (err) {
-                        res.status(400).send(err);
+        model
+            .userModel
+            .findUserByCredentials(username, password)
+            .then(
+                function(users) {
+                    if (users) {
+                        res.json(users[0]);
                     }
                     else {
-                        res.json(user[0]);
+                        res.send('0');
                     }
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
                 }
             );
     };
 
     function findUserById(req, res) {
         var userId = req.params.uid;
-        UserModel
-            .findById(userId)
+        model
+            .userModel
+            .findUserById(userId)
             .then(
                 function(user) {
-                    res.status(200).json(user);
+                    if (user) {
+                        res.send(user);
+                    }
+                    else {
+                        res.send('0');
+                    }
                 },
                 function(err) {
-                    res.status(400).send(err);
+                    res.sendStatus(400).send(err);
                 }
             )
     };
@@ -72,35 +64,30 @@ module.exports = function(app) {
     function updateUser(req, res) {
         var user = req.body;
         var uid = req.params.uid;
-        UserModel
-            .findOneAndUpdate({_id: uid}, {$set:{
-                username: user.username,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                phone: user.phone
-            }}, 
-            {new: true}, 
-            function(err, user) {
-                if (err) {
-                    res.status(400).send(err);
+        model
+            .userModel
+            .updateUser(user, uid)
+            .then(
+                function (status) {
+                    res.sendStatus(200);
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
                 }
-                else {
-                    res.status(200).json(user);
-                }
-            });
+            );
     }
 
     function deleteUser(req, res) {
         var uid = req.params.uid;
-        UserModel
-            .remove({_id: uid})
+        model
+            .userModel
+            .deleteUser(uid)
             .then(
                 function(status) {
                     res.sendStatus(200);
                 },
-                function() {
-                    res.sendStatus(400);
+                function(err) {
+                    res.sendStatus(400).send(err);
                 }
             );
     }

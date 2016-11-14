@@ -3,7 +3,7 @@
         .module("FitnessApp")
         .factory("ClientService", ClientService);
     
-    function ClientService() {        
+    function ClientService($http) {        
         var api = {
             "createClient" : createClient,
             "deleteClient" : deleteClient,
@@ -14,7 +14,7 @@
 
         return api;
 
-        function createUser(client) {
+        function createClient(client) {
             var url = '/api/client';
             return $http.post(url, client);
         };

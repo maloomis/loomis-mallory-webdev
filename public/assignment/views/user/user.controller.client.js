@@ -69,11 +69,10 @@
         
         function edit(user){
             var promise = UserService.updateUser(user._id, user);
-            promise.success(function(user) {
-                    if (user === '0') {
+            promise.success(function(status) {
+                    if (status === '0') {
                         vm.error = "Could not update user.";
                     } else {
-                        vm.user = user;
                         $location.url("/user/" + vm.user._id);
                     }
                 });

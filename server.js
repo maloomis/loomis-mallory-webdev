@@ -8,12 +8,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // configure a public directory to host static content
 app.use(express.static(__dirname + '/public'));
 
-var mongoose = require('mongoose');
-var connectionString = 'mongodb://127.0.0.1:27017/webappmaker';
-mongoose.connect(connectionString);
-
-console.log("connected to mongoose");
-
 require ("./assignment/app.js")(app);
 
 var ipaddress = process.env.AWS_NODEJS_IP;
