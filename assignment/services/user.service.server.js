@@ -28,7 +28,7 @@ module.exports = function(app, model) {
             .findUserByCredentials(username, password)
             .then(
                 function(users) {
-                    if (users) {
+                    if (users[0]) {
                         res.json(users[0]);
                     }
                     else {

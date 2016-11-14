@@ -5,10 +5,11 @@ module.exports = function() {
     console.log("connected to mongoose");
 
     var userModel = require("./user/user.model.server")();
+    var websiteModel = require("./website/website.model.server")();
 
     var model = {
         userModel: userModel,
-        //websiteModel: websiteModel
+        websiteModel: websiteModel
     }
     return model;
 };

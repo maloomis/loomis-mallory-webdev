@@ -11,6 +11,6 @@ module.exports = function() {
         description: String,
         pages: ['PageSchema'],
         dateCreated: { type: Date, default: Date.now}
-    });
+    }, {collection: "website"});
     return WebsiteSchema;
 }

@@ -8,7 +8,8 @@ module.exports = function() {
         findUserByCredentials: findUserByCredentials,
         findUserById: findUserById,
         updateUser: updateUser,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
+        addWebsite: addWebsite
     };
     return api;
 
@@ -43,5 +44,25 @@ module.exports = function() {
 
     function deleteUser(userId) {
         return UserModel.remove({_id: userId});
+    }
+
+    function addWebsite(userId, website) {
+        return UserModel.update(
+            {
+                _id: userId
+            },
+            { $push:
+                {"websites": {            
+                        _user: userId,
+                        name: website.name,
+                        description: website.description
+                    }
+                }
+            },
+            {safe: true, upsert: true},
+            function(err, model) {
+                console.log(err);
+            }
+        );
     }
 }

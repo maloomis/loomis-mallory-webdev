@@ -1,13 +1,4 @@
-module.exports = function (app) {
-        var websites = [
-            { "_id": "123", "name": "Facebook",    "developerId": "456" },
-            { "_id": "234", "name": "Tweeter",     "developerId": "456" },
-            { "_id": "456", "name": "Gizmodo",     "developerId": "456" },
-            { "_id": "567", "name": "Tic Tac Toe", "developerId": "123" },
-            { "_id": "678", "name": "Checkers",    "developerId": "123" },
-            { "_id": "789", "name": "Chess",       "developerId": "234" }
-        ];
-
+module.exports = function (app, model) {
         app.post("/api/user/:uid/website", createWebsite);
         app.get("/api/user/:uid/website", findAllWebsitesForUser);
         app.get("/api/website/:wid", findWebsiteById);
@@ -18,41 +9,38 @@ module.exports = function (app) {
             var uid = req.params.uid;
             var website = req.body;
 
-            if (website.name) {   
-                var ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            model
+                .userModel
+                .addWebsite(uid, website);
 
-                var ID_LENGTH = 8;
-
-                var generate = function() {
-                    var rtn = '';
-                    for (var i = 0; i < ID_LENGTH; i++) {
-                        rtn += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length));
+            model
+                .websiteModel
+                .createWebsite(uid, website)
+                .then(
+                    function(newWebsite) {
+                        website = newWebsite;
+                        res.send(newWebsite);
+                    },
+                    function(err) {
+                        res.sendStatus(400).send(error);
                     }
-                    return rtn;
-                }
-
-                var site = {
-                    "_id" : generate(),
-                    "name" : website.name,
-                    "developerId" : uid,
-                    "description" : website.description
-                };
-
-                websites.push(site);
-            }
-            res.send('0');     
+                );
         }
 
         function findAllWebsitesForUser(req,res) {
             var uid = req.params.uid;
-            var result = [];
-            for (var w in websites) {
-                if (websites[w].developerId == uid) {
-                    result.push(websites[w]);
-                }
-            }
-            res.send(result);
-            return;
+
+            model
+                .websiteModel
+                .findAllWebsitesForUser(uid)
+                .then(
+                    function(websites) {
+                        res.send(websites);
+                    },
+                    function(err) {
+                        res.sendStatus(400).send(error);
+                    }
+                )
         }
 
         function findWebsiteById(req,res) {

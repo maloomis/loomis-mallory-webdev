@@ -46,10 +46,14 @@
         function saveSite(website) {
             promise = WebsiteService.createWebsite(vm.userId, website);
             promise.success(function(result) {
-                if (result == '0') {
+                if (result) {
                     $location.url("/user/" + vm.userId + "/website/");
                 }
-            });
+            })
+            .error(function() {
+                vm.error = "Could not save website."
+            })
+            
         }
     }
     
