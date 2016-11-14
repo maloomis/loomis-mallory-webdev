@@ -32,7 +32,6 @@
                        vm.error = "Couldn't create user";
                     } else {
                         vm.user = userUpdate;
-                        console.log(userUpdate);
                         $location.url("/user/" + userUpdate._id);
                     }
                 });
@@ -69,7 +68,6 @@
         }
         
         function edit(user){
-            console.log(user);
             var promise = UserService.updateUser(user._id, user);
             promise.success(function(user) {
                     if (user === '0') {

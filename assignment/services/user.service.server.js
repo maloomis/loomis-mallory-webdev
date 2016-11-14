@@ -16,7 +16,6 @@ module.exports = function(app) {
     var UserModel = mongoose.model('Users', UserSchema);
 
     app.post('/api/user', createUser);
-    app.get('/api/user', findUserByUsername);
     app.get('/api/user/:uid', findUserById);
     app.get('/api/user/', findUserByCredentials);
     app.put('/api/user/:uid', updateUser);
@@ -36,39 +35,24 @@ module.exports = function(app) {
             )
     }
 
-    function findUserByUsername(req, res) {
-        UserModel
-            .find(
-                function () {
-                                        for (var u in users) {
-                        if (users[u].username == username) {
-                            res.json(users[u]);
-                        }
-                    }
-
-                }
-            )
-            .then(
-                function(users) {
-                    res.json(users);
-                },
-                function(err) {
-                    res.status(400).send(err);
-                }
-            );
-    };
-
     function findUserByCredentials(req,res) {
         var username = req.query.username;
         var password = req.query.password;
-        for (var u in users) {
-            if (users[u].username === username &&
-                users[u].password === password){
-                res.send(users[u]);
-                return;
-            }
-        }
-        res.send('0');
+        UserModel
+            .find({
+                username: username,
+                password: password
+            })
+            .exec(
+                function(err, user) {
+                    if (err) {
+                        res.status(400).send(err);
+                    }
+                    else {
+                        res.json(user[0]);
+                    }
+                }
+            );
     };
 
     function findUserById(req, res) {
