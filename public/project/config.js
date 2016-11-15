@@ -5,17 +5,17 @@
     
     function Config($routeProvider) {
         $routeProvider
+        .when("/register", {
+            templateUrl: "views/user/register.user.view.client.html",
+            controller: "RegisterUserController",
+            controllerAs: "model"
+        })
         .when("/clientLogin", {
             templateUrl: "views/client/login.client.view.client.html",
             controller: "LoginClientController",
             controllerAs: "model"
         })
-        .when("/clientRegister", {
-            templateUrl: "views/client/register.client.view.client.html",
-            controller: "RegisterClientController",
-            controllerAs: "model"
-        })
-        .when("/clientProfile/:uid", {
+        .when("/clientProfile/:cid", {
             templateUrl: "views/client/profile.client.view.client.html",
             controller: "ProfileClientController",
             controllerAs: "model"
@@ -25,12 +25,7 @@
             controller: "LoginTrainerController",
             controllerAs: "model"
         })
-        .when("/trainerRegister", {
-            templateUrl: "views/trainer/register.trainer.view.client.html",
-            controller: "RegisterTrainerController",
-            controllerAs: "model"
-        })
-        .when("/trainerProfile", {
+        .when("/trainerProfile/:tid", {
             templateUrl: "views/trainer/profile.trainer.view.client.html",
             controller: "ProfileTrainerController",
             controllerAs: "model"

@@ -1,20 +1,20 @@
 module.exports = function(app, model) {
-    app.post('/api/client', createClient);
-    app.get('/api/client/:uid', findClientById);
-    app.get('/api/client/', findClientByCredentials);
-    app.put('/api/user/:uid', updateClient);
-    app.delete('/api/user/:uid', deleteClient);
+    app.post('/api/trainer', createTrainer);
+    app.get('/api/trainer/:uid', findTrainerById);
+    app.get('/api/trianer/', findTrainerByCredentials);
+    app.put('/api/trainer/:uid', updateTrainer);
+    app.delete('/api/trainer/:uid', deleteTrainer);
 
-    function createClient(req, res) {
-        var client = req.body;
-        console.log(client);
+    function createTrainer(req, res) {
+        var trainer = req.body;
+        console.log(trainer);
         model
-            .clientModel
-            .createClient(client)
+            .trainerModel
+            .createTrainer(trainer)
             .then(
-                function(newClient) {
-                    console.log(newClient);
-                    res.send(newClient);
+                function(newTrainer) {
+                    console.log(newTrainer);
+                    res.send(newTrainer);
                 },
                 function(err) {
                     res.sendStatus(400).send(error);
@@ -22,30 +22,20 @@ module.exports = function(app, model) {
             );
     }
 
-    function findClientByCredentials(req,res) {
+    function findTrainerByCredentials(req,res) {
         var username = req.query.username;
         var password = req.query.password;
-        model
-            .clientModel
-            .findClientByCredentials(username, password)
-            .then(
-                function(clients) {
-                    console.log(clients);
-                    if (clients[0]) {
-                        console.log(clients[0]);
-                        res.json(clients[0]);
-                    }
-                    else {
-                        res.send('0');
-                    }
-                },
-                function(err) {
-                    res.sendStatus(400).send(err);
-                }
-            );
+        for (var u in users) {
+            if (users[u].username === username &&
+                users[u].password === password){
+                res.send(users[u]);
+                return;
+            }
+        }
+        res.send('0');
     };
 
-    function findClientById(req, res) {
+    function findTrainerById(req, res) {
         var userId = req.params.uid;
         for (var u in users) {
             if (users[u]._id === userId){
@@ -56,7 +46,7 @@ module.exports = function(app, model) {
         res.send('0');
     };
 
-    function updateClient(req, res) {
+    function updateTrainer(req, res) {
         var user = req.body;
         var uid = req.params.uid;
         for (var u in users) {
@@ -72,7 +62,7 @@ module.exports = function(app, model) {
         res.send('0');
     }
 
-    function deleteClient(req, res) {
+    function deleteTrainer(req, res) {
         var uid = req.params.uid;
 
         for (var u in users) {

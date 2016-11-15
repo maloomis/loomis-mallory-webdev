@@ -8,8 +8,14 @@
             vm.login = login;
 
             function login(client) {
-                var client = ClientService.findClientByCredentials(client.username, client.password);
-                $location.url("/clientProfile/" + client._id);
+                var promise = ClientService.findClientByCredentials(client.username, client.password);
+                promise.success(function(client) {
+                        if (client === '0') {
+                            vm.error = "No such client";
+                        } else {
+                            $location.url("/clientProfile/" + client._id);
+                        }
+                    });
             }
         }
 })();

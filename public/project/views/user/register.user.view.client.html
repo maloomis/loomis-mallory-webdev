@@ -40,7 +40,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-12">
-                            <a class="active" id="register-form-link">Client Register</a>
+                            <a class="active" id="register-form-link">Register</a>
                         </div>
                     </div>
                     <hr>
@@ -50,21 +50,31 @@
                         <div class="col-lg-12">
                             <form id="register-form" role="form">
                                 <div class="form-group">
-                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                                    <input ng-model="model.user.username" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+                                    <input ng-model="model.user.email" type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                    <input  ng-model="model.user.password" type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
                                 </div>
                                 <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <div class="radio">
+                                            <label><input ng-model="radioValue" value="Trainer" type="radio" name="optradio">Trainer</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input ng-model="radioValue" value="Client" type="radio" name="optradio">Client</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                                            <input ng-click="model.registerUser(model.user, radioValue)" type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
                                         </div>
                                     </div>
                                 </div>

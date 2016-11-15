@@ -1,4 +1,5 @@
 module.exports = function(app){
+    /*
     var mongoose = require('mongoose');
     var connectionString = 'mongodb://127.0.0.1:27017/webappmaker';
     mongoose.connect(connectionString);
