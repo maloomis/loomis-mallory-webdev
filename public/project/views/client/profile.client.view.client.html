@@ -118,8 +118,10 @@
       <ul class="sidebar-menu">
         <li class="header">OPTIONS</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Search For Trainers</span></a></li>
+        <li class="active"><a href="#/clientProfile/{{model.client._id}}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
+        <li><a href="#"><i class="fa fa-link"></i> <span>Search For Trainers</span></a></li>
         <li><a href="#/{{model.client._id}}/searchRecipe"><i class="fa fa-link"></i> <span>Search For Recipes</span></a></li>
+        <li><a href="#/{{model.client._id}}/searchRecipe"><i class="fa fa-link"></i> <span>Exercise Plan</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -188,18 +190,10 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Username</label>
+                    <label for="inputName" class="col-sm-2 control-label">Email</label>
 
                     <div class="col-sm-10">
-                      <input ng-model="model.client.username" type="text" class="form-control" id="inputName" placeholder="Username">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Password</label>
-
-                    <div class="col-sm-10">
-                      <input ng-model="model.client.password" type="password" class="form-control" id="inputName" placeholder="Password">
+                      <input ng-model="model.client.email" type="text" class="form-control" id="inputName" placeholder="Email">
                     </div>
                   </div>
 
@@ -225,20 +219,23 @@
 
                     <div class="col-sm-10">
                       <div class="radio">
-                        <label><input ng-model="model.client.fitnessGoal" type="radio" name="optradio">Loose Weight</label>
+                        <label><input ng-model="model.client.fitnessGoal" type="radio" name="optradio" value="Loose Weight">Loose Weight</label>
                       </div>
                       <div class="radio">
-                        <label><input ng-model="model.client.fitnessGoal" type="radio" name="optradio">Maintain Weight</label>
+                        <label><input ng-model="model.client.fitnessGoal" type="radio" name="optradio" value="Maintain Weight">Maintain Weight</label>
                       </div>
                       <div class="radio">
-                        <label><input ng-model="model.client.fitnessGoal" type="radio" name="optradio">Gain Weight</label>
+                        <label><input ng-model="model.client.fitnessGoal" type="radio" name="optradio" value="Gain Weight">Gain Weight</label>
                       </div>
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <div class="col-sm-10">
+                    <div class="col-xs-6">
                       <button ng-click="model.saveInformation(model.client)" type="submit" class="btn btn-success">Save Information</button>
+                    </div>
+                    <div class="col-xs-6">
+                      <button ng-click="model.deleteClient()" type="submit" class="btn btn-danger">Delete Client</button>
                     </div>
                   </div>
                 </form>
@@ -247,11 +244,13 @@
               <!-- /.tab-pane -->
               
               <div class="tab-pane" id="upload">
+                </br>
                 <form action="/api/uploadProfile" method="post" enctype="multipart/form-data">
                   <input name="myFile" type="file" class="form-control"/>
                   <input name="widgetId" value="{{model.widget._id}}" style="display: none"/>
                   <input name="websiteId" value="{{model.websiteId}}" style="display: none"/>
                   <input name="userId" value="{{model.userId}}" style="display: none"/>
+                  </br>
                   <button name="submit" class="btn btn-block btn-success">Upload Profile Image</button>
                 </form>
               </div>

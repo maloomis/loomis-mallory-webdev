@@ -4,14 +4,22 @@
         .controller("RecipeSearchController", RecipeSearchController);
         function RecipeSearchController($http, ClientService, $routeParams) {
             var vm = this;
-            vm.userId = $routeParams["uid"];
+            vm.clientId = $routeParams["cid"];
             vm.init = init;
             vm.searchRecipeByName = searchRecipeByName;
 
             init();
 
             function init() {
-                vm.client = ClientService.findClientById(vm.userId);
+                ClientService.findClientById(vm.clientId)
+                .success(function(client) {
+                    if (client != '0') {
+                        vm.client = client;
+                    }
+                })
+                .error (function() {
+                    vm.error = "Could not retrieve client";
+                });
             }
 
             function searchRecipeByName(name) {

@@ -29,14 +29,14 @@
             return $http.get(url);
         };
 
-        function findClientById(userId) {
-            var url = '/api/client/' + userId;
+        function findClientById(clientId) {
+            var url = '/api/client/' + clientId;
             return $http.get(url);
         };
 
-        function updateClient(client) {
-            var url = "/api/client/" + user._id;
-            return $http.put(url, user);
+        function updateClient(clientId, client) {
+            var url = "/api/client/" + client._id;
+            return $http.put(url, client);
         };
     }
 })();

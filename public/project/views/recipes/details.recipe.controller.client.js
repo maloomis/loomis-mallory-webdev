@@ -5,6 +5,7 @@
         
         function RecipeDetailsController($http, $routeParams) {
             var vm = this;
+            vm.clientId = $routeParams['cid'];
             vm.recipeId = $routeParams["rid"];
             vm.init = init;
 

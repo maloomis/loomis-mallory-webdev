@@ -6,10 +6,12 @@ module.exports = function() {
 
     var clientModel = require("./client/client.model.server")();
     var trainerModel = require("./trainer/trainer.model.server")();
+    var recipeModel = require("./recipe/recipe.model.server")();
 
     var model = {
         clientModel: clientModel,
-        trainerModel: trainerModel
+        trainerModel: trainerModel,
+        recipeModel: recipeModel
     }
     return model;
 };

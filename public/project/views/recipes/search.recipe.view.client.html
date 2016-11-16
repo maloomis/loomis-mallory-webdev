@@ -13,7 +13,7 @@
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-        <a href="#/clientProfile/{{model.client._id}}" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <a href="#/{{model.client._id}}/searchRecipe" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
         <!-- Navbar Right Menu -->
@@ -54,31 +54,6 @@
                 </ul>
             </li>
             <!-- /.messages-menu -->
-
-          <!-- Notifications Menu -->
-          <li class="dropdown notifications-menu">
-            <!-- Menu toggle button -->
-            <a href="#/clientProfile/{{model.client._id}}" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- Inner Menu: contains the notifications -->
-                <ul class="menu">
-                  <li><!-- start notification -->
-                    <a href="#/clientProfile">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <!-- end notification -->
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
-
 
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
@@ -145,7 +120,7 @@
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <li class="header">FITNESS OPTIONS</li>
-        <li><a href="#/clientProfile/{{model.userId}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
+        <li><a href="#/clientProfile/{{model.client._id}}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>Talk To a Trainer</span></a></li>
         <li class="active"><a href="#/searchFood"><i class="fa fa-link"></i> <span>Search Food Options</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>Exercise Plan</span></a></li>
@@ -180,7 +155,7 @@
                 <table class="table">
                     <tbody>
                         <tr ng-repeat="recipe in model.recipe">
-                            <td><a href="#/detailsRecipe/{{recipe.id}}">{{recipe.title}}</a></td>
+                            <td><a href="#/{{model.clientId}}/detailsRecipe/{{recipe.id}}">{{recipe.title}}</a></td>
                         </tr>
                     </tbody>
                 </table>

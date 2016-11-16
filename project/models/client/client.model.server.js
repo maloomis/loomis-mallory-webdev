@@ -17,33 +17,34 @@ module.exports = function() {
     }
 
     function findClientByCredentials(username, password) {
-        console.log(username);
-        console.log(password);
         return ClientModel.find({
             username: username,
             password: password
         });
     }
 
-    function findClientById(userId) {
-        return UserModel.findById(userId);
+    function findClientById(clientId) {
+        return ClientModel.findById(clientId);
     }
 
-    function updateClient(user, userId) {
-        return UserModel.update(
+    function updateClient(client, clientId) {
+        return ClientModel.update(
             {
-                _id: userId
+                _id: clientId
             }, 
             {
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                phone: user.phone
+                firstName: client.firstName,
+                lastName: client.lastName,
+                email: client.email,
+                weight: client.weight,
+                heightFeet: client.heightFeet, 
+                heightInches: client.heightInches,
+                fitnessGoal: client.fitnessGoal,  
             }
         );
     }
 
-    function deleteClient(userId) {
-        return UserModel.remove({_id: userId});
+    function deleteClient(clientId) {
+        return ClientModel.remove({_id: clientId});
     }
 }

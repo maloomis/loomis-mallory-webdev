@@ -30,12 +30,12 @@
             controller: "ProfileTrainerController",
             controllerAs: "model"
         })
-        .when("/:uid/searchRecipe", {
+        .when("/:cid/searchRecipe", {
             templateUrl: "views/recipes/search.recipe.view.client.html",
             controller: "RecipeSearchController",
             controllerAs: "model"
         })
-        .when("/:uid/detailsRecipe/:rid", {
+        .when("/:cid/detailsRecipe/:rid", {
             templateUrl: "views/recipes/details.recipe.view.client.html",
             controller: "RecipeDetailsController",
             controllerAs: "model"

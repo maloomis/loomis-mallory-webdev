@@ -13,7 +13,7 @@
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-        <a href="#/detailsRecipe/{{model.recipeId}}" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <a href="#/{{model.clientId}}/detailsRecipe/{{model.recipeId}}" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
         <!-- Navbar Right Menu -->
@@ -54,31 +54,6 @@
                 </ul>
             </li>
             <!-- /.messages-menu -->
-
-          <!-- Notifications Menu -->
-          <li class="dropdown notifications-menu">
-            <!-- Menu toggle button -->
-            <a href="#/detailsRecipe/{{model.recipeId}}" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- Inner Menu: contains the notifications -->
-                <ul class="menu">
-                  <li><!-- start notification -->
-                    <a href="#/clientProfile">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <!-- end notification -->
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
-
 
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
@@ -146,8 +121,9 @@
       <ul class="sidebar-menu">
         <li class="header">FITNESS OPTIONS</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Talk To a Trainer</span></a></li>
-        <li><a href="#/searchRecipe"><i class="fa fa-link"></i> <span>Search Food Options</span></a></li>
+        <li><a href="#/clientProfile/{{model.clientId}}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
+        <li><a href="#"><i class="fa fa-link"></i> <span>Talk To a Trainer</span></a></li>
+        <li class="active"><a href="#/searchRecipe"><i class="fa fa-link"></i> <span>Search Food Options</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>Exercise Plan</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
