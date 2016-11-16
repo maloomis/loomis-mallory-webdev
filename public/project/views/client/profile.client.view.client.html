@@ -35,7 +35,7 @@
                         <a href="#/clientProfile/{{model.client._id}}">
                         <div class="pull-left">
                             <!-- User Image -->
-                            <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                            <img ng-src="{{model.client.img}}" class="img-circle" alt="User Image">
                         </div>
                         <!-- Message title and timestamp -->
                         <h4>
@@ -60,14 +60,14 @@
             <!-- Menu Toggle Button -->
             <a href="#/clientProfile/{{model.client._id}}" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img ng-src="{{model.client.img}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{model.client.firstName}} {{model.client.lastName}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img ng-src="{{model.client.img}}" class="img-circle" alt="User Image">
 
                 <p>
                   {{model.client.firstName}} {{model.client.lastName}}
@@ -107,7 +107,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img ng-src="{{model.client.img}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>{{model.client.firstName}} {{model.client.lastName}}</p>
@@ -119,9 +119,8 @@
         <li class="header">OPTIONS</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="#/clientProfile/{{model.client._id}}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Search For Trainers</span></a></li>
+        <li><a href="#/{{model.client._id}}/searchTrainer"><i class="fa fa-link"></i> <span>Search For Trainers</span></a></li>
         <li><a href="#/{{model.client._id}}/searchRecipe"><i class="fa fa-link"></i> <span>Search For Recipes</span></a></li>
-        <li><a href="#/{{model.client._id}}/searchRecipe"><i class="fa fa-link"></i> <span>Exercise Plan</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -140,7 +139,7 @@
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="img/user4-128x128.jpg" alt="User profile picture">
+              <img class="profile-user-img img-responsive img-circle" ng-src="{{model.client.img}}" alt="User profile picture">
 
               <h3 class="profile-username text-center">{{model.client.username}}</h3>
             </div>
@@ -247,9 +246,7 @@
                 </br>
                 <form action="/api/uploadProfile" method="post" enctype="multipart/form-data">
                   <input name="myFile" type="file" class="form-control"/>
-                  <input name="widgetId" value="{{model.widget._id}}" style="display: none"/>
-                  <input name="websiteId" value="{{model.websiteId}}" style="display: none"/>
-                  <input name="userId" value="{{model.userId}}" style="display: none"/>
+                  <input name="clientId" value="{{model.clientId}}" style="display: none"/>
                   </br>
                   <button name="submit" class="btn btn-block btn-success">Upload Profile Image</button>
                 </form>

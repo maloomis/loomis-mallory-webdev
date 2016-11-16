@@ -18,7 +18,7 @@ module.exports = function() {
         return ClientModel.findById(clientId);
     }
 
-    function updaterecipe(client, clientId) {
+    function updateRecipe(client, clientId) {
         return ClientModel.update(
             {
                 _id: clientId

@@ -1,0 +1,192 @@
+<div class="hold-transition skin-blue-light sidebar-mini">
+    <!-- Main Header -->
+    <header class="main-header">
+
+        <!-- Logo -->
+        <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"></span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#/{{model.client._id}}/searchTrainer" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+            <!-- Messages: style can be found in dropdown.less-->
+            <li class="dropdown messages-menu">
+                <!-- Menu toggle button -->
+                <a href="#/{{model.client._id}}/searchTrainer" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-envelope-o"></i>
+                <span class="label label-success">4</span>
+                </a>
+                <ul class="dropdown-menu">
+                <li class="header">You have 4 messages</li>
+                <li>
+                    <!-- inner menu: contains the messages -->
+                    <ul class="menu">
+                    <li><!-- start message -->
+                        <a href="#/{{model.client._id}}/searchTrainer">
+                        <div class="pull-left">
+                            <!-- User Image -->
+                            <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        </div>
+                        <!-- Message title and timestamp -->
+                        <h4>
+                            Support Team
+                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                        </h4>
+                        <!-- The message -->
+                        <p>Why not buy a new awesome theme?</p>
+                        </a>
+                    </li>
+                    <!-- end message -->
+                    </ul>
+                    <!-- /.menu -->
+                </li>
+                <li class="footer"><a href="#">See All Messages</a></li>
+                </ul>
+            </li>
+            <!-- /.messages-menu -->
+
+          <!-- User Account Menu -->
+          <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#/{{model.client._id}}/searchTrainer" class="dropdown-toggle" data-toggle="dropdown">
+              <!-- The user image in the navbar-->
+              <img src="img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span class="hidden-xs">{{model.client.firstName}} {{model.client.lastName}}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+                <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                <p>
+                  {{model.client.firstName}} {{model.client.lastName}}
+                </p>
+              </li>
+              <!-- Menu Body -->
+              <li class="user-body">
+                <div class="row">
+                  <div class="col-xs-6 text-center">
+                    <a href="#">Followers</a>
+                  </div>
+                  <div class="col-xs-6 text-center">
+                    <a href="#">Friends</a>
+                  </div>
+                </div>
+                <!-- /.row -->
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-right">
+                  <a href="#/clientLogin" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>{{model.client.firstName}} {{model.client.lastName}}</p>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header">FITNESS OPTIONS</li>
+        <li><a href="#/clientProfile/{{model.client._id}}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
+        <li class="active"><a href="#/{{model.client._id}}/searchTrainer"><i class="fa fa-link"></i> <span>Talk To a Trainer</span></a></li>
+        <li><a href="#/{{model.client._id}}/searchRecipe"><i class="fa fa-link"></i> <span>Search Food Options</span></a></li>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+    <!-- Main content -->
+    <section class="content">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li><a data-toggle="tab">Search Trainers</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="settings">
+                  <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group" id="adv-search">
+                                <input type="text" class="form-control" placeholder="Search for trainers" />
+                                <div class="input-group-btn">
+                                    <div class="btn-group" role="group">
+                                        <div class="dropdown dropdown-lg">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                <form class="form-horizontal" role="form">
+                                                <div class="form-group">
+                                                    <label for="filter">Search by</label>
+                                                    <select class="form-control">
+                                                        <option value="0" selected>Name</option>
+                                                        <option value="1">Username</option>
+                                                        <option value="2">Location</option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table">
+                    <tbody>
+                        <tr ng-repeat="trainer in model.trainers">
+                            <td><a href="#/{{model.clientId}}/trainerProfile/{{model.trainerId}}">{{trainer.firstName}} {{trainer.lastName}}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.nav-tabs-custom -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+</div>
+<!-- ./wrapper -->
+
+
+

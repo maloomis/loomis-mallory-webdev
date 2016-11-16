@@ -40,8 +40,10 @@
             controller: "RecipeDetailsController",
             controllerAs: "model"
         })
-        .otherwise({
-            redirectTo: "/clientLogin"
+        .when("/:cid/searchTrainer", {
+            templateUrl: "views/connect/search.trainer.view.client.html",
+            controller: "TrainerSearchController",
+            controllerAs: "model"
         })
     }
 })();

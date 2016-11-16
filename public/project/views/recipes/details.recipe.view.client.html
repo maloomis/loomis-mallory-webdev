@@ -76,13 +76,10 @@
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="row">
-                  <div class="col-xs-4 text-center">
+                  <div class="col-xs-6 text-center">
                     <a href="#">Followers</a>
                   </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
+                  <div class="col-xs-6 text-center">
                     <a href="#">Friends</a>
                   </div>
                 </div>
@@ -124,7 +121,6 @@
         <li><a href="#/clientProfile/{{model.clientId}}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>Talk To a Trainer</span></a></li>
         <li class="active"><a href="#/searchRecipe"><i class="fa fa-link"></i> <span>Search Food Options</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Exercise Plan</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -133,24 +129,19 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-
     <!-- Main content -->
     <section class="content">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <div class="row">
-                <div class="col-xs-10">
-                  <li><h3>&nbsp {{model.recipe.title}}</h3></li>
-                </div>
-                <div class="col-xs-2">
-                  <li><h3><i class="fa fa-star-o"></h3></i></li>
-                </div>
-              </div>
+              <li><a ng-click="model.mainTab()" data-toggle="tab"><b> &nbsp {{model.recipe.title}}</b></a></li>
+              <li><a ng-click="model.ingredientsTab()" data-toggle="tab">Ingredients</a></li>
+              <li><a ng-click="model.instructionsTab()" data-toggle="tab">Instructions</a></li>
+              <li><a ng-click="model.nutritionTab()" data-toggle="tab">Nutrition</a></li>
+              <li><a ng-click="model.commentTab()" data-toggle="tab">Comments</a></li>
             </ul>
 
             <div class="tab-content">
-              <div class="active tab-pane" id="settings">
-
+              <div class="active tab-pane" id="main">
                 <div class="row">
                   <div class="col-md-6 col-sm-6 col-xs-6">
                     <img ng-src="{{model.recipe.image}}" width="200" height="200"/>
@@ -212,15 +203,9 @@
                     {{model.recipe.vegetarian}}
                   </div>
                 </div>
+              </div>
 
-                </br>
-
-                <div class="row">
-                  <div class="col-md-6 col-sm-6 col-xs-6">
-                    <b>Ingredients:</b>
-                  </div>
-                </div>
-
+              <div class="tab-pane" id="ingredients">
                 <div class="row" ng-repeat="ingredient in model.recipe.nutrition.ingredients">
                   <div class="col-md-6 col-sm-6 col-xs-6">
                     {{ingredient.name}}
@@ -229,29 +214,17 @@
                     {{ingredient.amount}} {{ingredient.unit}}
                   </div>
                 </div>
+              </div>
 
-                </br>
-
-               <div class="row">
-                  <div class="col-md-6 col-sm-6 col-xs-6">
-                    <b>Instructions:</b>
-                  </div>
-                </div>
-
+              <div class="tab-pane" id="instructions">
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
                       {{model.recipe.instructions}}
                   </div>
                 </div>
-
-                </br>
-
-                <div class="row">
-                  <div class="col-md-6 col-sm-6 col-xs-6">
-                    <b>Nutrition:</b>
-                  </div>
-                </div>
-
+              </div>
+              
+              <div class="tab-pane" id="nutrition">
                 <div class="row" ng-repeat="nutrient in model.recipe.nutrition.nutrients">
                   <div class="col-md-6 col-sm-6 col-xs-6">
                     {{nutrient.title}}
@@ -260,9 +233,43 @@
                     {{nutrient.amount}} {{nutrient.unit}}
                   </div>
                 </div>
-
               </div>
-              <!-- /.tab-pane -->
+
+              <div class="tab-pane" id="comment">
+                  <div class="form-group">
+                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <a ng-click="model.leaveComment(model.client)" type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login">Leave a Comment</a>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                          <div class="page-header">
+                            <h1><small class="pull-right">45 comments</small> Comments </h1>
+                          </div> 
+                          <div class="comments-list">
+                            <div class="media">
+                                <p class="pull-right"><small>5 days ago</small></p>
+                                <a class="media-left" href="#">
+                                  <img src="http://lorempixel.com/40/40/people/1/">
+                                </a> 
+                                <div class="media-body"> 
+                                  <h4 class="media-heading user_name">Baltej Singh</h4>
+                                  Wow! this is really great.
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                   </div>
+              </div>
+
             </div>
             <!-- /.tab-content -->
           </div>

@@ -13,6 +13,7 @@ module.exports = function() {
     heightFeet: Number, 
     heightInches: Number,
     fitnessGoal: {type: String, enum: ['Loose Weight', 'Maintain Weight', 'Gain Weight']},
+    img: String,
     dateCreated: { type: Date, default: Date.now}
     }, {collection: "client"});
     return ClientSchema;

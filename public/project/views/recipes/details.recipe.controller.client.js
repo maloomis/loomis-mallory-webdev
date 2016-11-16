@@ -8,6 +8,11 @@
             vm.clientId = $routeParams['cid'];
             vm.recipeId = $routeParams["rid"];
             vm.init = init;
+            vm.mainTab = mainTab;
+            vm.ingredientsTab = ingredientsTab;
+            vm.instructionsTab = instructionsTab;
+            vm.nutritionTab = nutritionTab;
+            vm.commentTab = commentTab;
 
             init();
 
@@ -22,6 +27,31 @@
                     .success(function (result) {
                         vm.recipe = result;
                     })
+            }
+
+            function mainTab() {
+                $('.active').removeClass('active');
+                $('#main').addClass('active');
+            }
+
+            function ingredientsTab() {
+                $('.active').removeClass('active');
+                $('#ingredients').addClass('active');
+            }
+
+            function instructionsTab() {
+                $('.active').removeClass('active');
+                $('#instructions').addClass('active');
+            }
+
+            function nutritionTab() {
+                $('.active').removeClass('active');
+                $('#nutrition').addClass('active');
+            }
+
+            function commentTab() {
+                $('.active').removeClass('active');
+                $('#comment').addClass('active');
             }
         }
 })();

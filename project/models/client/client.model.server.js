@@ -8,7 +8,8 @@ module.exports = function() {
         findClientByCredentials: findClientByCredentials,
         findClientById: findClientById,
         updateClient: updateClient,
-        deleteClient: deleteClient
+        deleteClient: deleteClient,
+        uploadImage: uploadImage
     };
     return api;
 
@@ -46,5 +47,17 @@ module.exports = function() {
 
     function deleteClient(clientId) {
         return ClientModel.remove({_id: clientId});
+    }
+
+    function uploadImage(clientId, fileName) {
+        console.log(fileName)
+        return ClientModel.update (
+            {
+                _id: clientId
+            }, 
+            {
+                img: "upload/" + fileName
+            }
+        );
     }
 }
