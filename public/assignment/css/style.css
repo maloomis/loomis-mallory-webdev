@@ -80,3 +80,7 @@ a:hover {
 .navbar-custom {
     background-color:#d9edf7;
 }
+
+.pageListPadding {
+    padding-top: 15px;
+}

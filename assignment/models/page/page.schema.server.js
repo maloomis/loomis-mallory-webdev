@@ -9,8 +9,8 @@ module.exports = function() {
         name: String,
         title: String,
         description: String,
-        widgets: ['WidgetSchema'],
+        widgets: [{type: Schema.Types.ObjectId, ref: 'WidgetModel'}],
         dateCreated: { type: Date, default: Date.now}
-    });
+    }, {collection: "page"});
     return PageSchema;
 }

@@ -20,7 +20,7 @@
 
 <div class="jga-sortable" jga-sortable>
     <div ng-repeat="widget in model.widgets">
-        <div ng-switch="widget.widgetType">
+        <div ng-switch="widget.type">
             <div ng-switch-when="HEADER">
                 <div ng-include src="'views/widget/widget-heading.view.client.html'"></div>
             </div>
@@ -33,7 +33,6 @@
         </div>
     </div>
 </div>
-
 
 <nav class="navbar navbar-custom navbar-fixed-bottom">
     <div class="container-fluid">

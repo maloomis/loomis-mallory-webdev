@@ -94,7 +94,7 @@
         function deleteWebsite() {
             promise = WebsiteService.deleteWebsite(vm.websiteId)
                 .success(function(result) {
-                    if (result == '0') {
+                    if (result) {
                         $location.url("/user/" + vm.userId + "/website");
                     }
                 })
@@ -106,7 +106,7 @@
         function updateWebsite(website) {
             promise = WebsiteService.updateWebsite(vm.websiteId, website)
                 .success(function(result) {
-                    if (result == '0') {
+                    if (result) {
                         $location.url("/user/" + vm.userId + "/website/");
                     }
                 })

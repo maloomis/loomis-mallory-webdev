@@ -20,20 +20,33 @@ module.exports = function() {
         });
     }
 
-    function findAllWebsitesForUser() {
+    function findAllWebsitesForUser(userId) {
+        return WebsiteModel.find({
+            _user: userId
+        });
+    }
+
+    function findWebsiteById(websiteId) {
+        return WebsiteModel
+                .findById(websiteId)
+                .populate('pages');
+    }
+
+    function updateWebsite(website, websiteId) {
+        return WebsiteModel.update(
+            {
+                _id: websiteId
+            }, 
+            {
+                name: website.name,
+                description: website.description
+            }
+        );
 
     }
 
-    function findWebsiteById() {
-
-    }
-
-    function updateWebsite() {
-
-    }
-
-    function deleteWebsite() {
-
+    function deleteWebsite(websiteId) {
+        return WebsiteModel.remove({_id: websiteId});
     }
 
 }

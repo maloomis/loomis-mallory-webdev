@@ -35,7 +35,7 @@
         function savePage(page) {
             promise = PageService.createPage(vm.websiteId, page);
             promise.success(function(result) {
-                if (result == '0') {
+                if (result) {
                     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
                 }
             })
@@ -71,7 +71,7 @@
         function deletePage(pageId) {
             promise = PageService.deletePage(vm.pageId)
                 .success(function(page) {
-                    if (page == '0') {
+                    if (page) {
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
                     }
                     else {
@@ -83,7 +83,7 @@
         function savePage(page) {
             promise = PageService.updatePage(vm.pageId, page)
                 .success(function(page) {
-                    if (page == '0') {
+                    if (page) {
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
                     }
                     else {

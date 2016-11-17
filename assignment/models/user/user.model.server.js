@@ -8,8 +8,7 @@ module.exports = function() {
         findUserByCredentials: findUserByCredentials,
         findUserById: findUserById,
         updateUser: updateUser,
-        deleteUser: deleteUser,
-        addWebsite: addWebsite
+        deleteUser: deleteUser
     };
     return api;
 
@@ -25,7 +24,9 @@ module.exports = function() {
     }
 
     function findUserById(userId) {
-        return UserModel.findById(userId);
+        return UserModel
+                    .findById(userId)
+                    .populate('websites');
     }
 
     function updateUser(user, userId) {
@@ -44,25 +45,5 @@ module.exports = function() {
 
     function deleteUser(userId) {
         return UserModel.remove({_id: userId});
-    }
-
-    function addWebsite(userId, website) {
-        return UserModel.update(
-            {
-                _id: userId
-            },
-            { $push:
-                {"websites": {            
-                        _user: userId,
-                        name: website.name,
-                        description: website.description
-                    }
-                }
-            },
-            {safe: true, upsert: true},
-            function(err, model) {
-                console.log(err);
-            }
-        );
     }
 }

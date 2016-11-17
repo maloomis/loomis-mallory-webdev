@@ -8,9 +8,9 @@
     function WidgetListController($location, $routeParams, $sce, WidgetService) {
         var vm = this;
 
-        vm.userId = parseInt($routeParams['uid']);
-        vm.websiteId = parseInt($routeParams['wid']);
-        vm.pageId = parseInt($routeParams['pid']);
+        vm.userId =$routeParams['uid'];
+        vm.websiteId = $routeParams['wid'];
+        vm.pageId = $routeParams['pid'];
 
         vm.init = init;
 
@@ -39,9 +39,9 @@
     function NewWidgetController($location, $routeParams, WidgetService) {
         var vm = this;
 
-        vm.userId = parseInt($routeParams['uid']);
-        vm.websiteId = parseInt($routeParams['wid']);
-        vm.pageId = parseInt($routeParams['pid']);
+        vm.userId = $routeParams['uid'];
+        vm.websiteId = $routeParams['wid'];
+        vm.pageId = $routeParams['pid'];
         vm.widget = {};
 
         vm.chooseHeaderWidget = chooseHeaderWidget;
@@ -52,6 +52,7 @@
             vm.widget.widgetType = "HEADER";
             promise = WidgetService.createWidget(vm.pageId, vm.widget);
             promise.success(function(widget) {
+                console.log(widget);
                 if (widget != '0') {
                     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId +
                     "/page/" + vm.pageId + "/widget/" + widget._id);
@@ -116,8 +117,8 @@
 
         function deleteWidget(widget) {
             var promise = WidgetService.deleteWidget(widget)
-                .success(function(widget) {
-                    if (widget == '0') {
+                .success(function(result) {
+                    if (result) {
                         $location.url("/user/" + vm.userId + "/website/" + 
                         vm.websiteId + "/page/" + vm.pageId + "/widget");
                     }

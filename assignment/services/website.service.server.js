@@ -10,15 +10,10 @@ module.exports = function (app, model) {
             var website = req.body;
 
             model
-                .userModel
-                .addWebsite(uid, website);
-
-            model
                 .websiteModel
                 .createWebsite(uid, website)
                 .then(
                     function(newWebsite) {
-                        website = newWebsite;
                         res.send(newWebsite);
                     },
                     function(err) {
@@ -28,11 +23,11 @@ module.exports = function (app, model) {
         }
 
         function findAllWebsitesForUser(req,res) {
-            var uid = req.params.uid;
+            var userId = req.params.uid;
 
             model
                 .websiteModel
-                .findAllWebsitesForUser(uid)
+                .findAllWebsitesForUser(userId)
                 .then(
                     function(websites) {
                         res.send(websites);
@@ -44,37 +39,53 @@ module.exports = function (app, model) {
         }
 
         function findWebsiteById(req,res) {
-            var wid = req.params.wid;
-            for (var w in websites) {
-                if (websites[w]._id == wid) {
-                    res.send(websites[w]);
-                    return;
-                }
-            }
-            res.send('0');
+            var websiteId = req.params.wid;
+            model
+                .websiteModel
+                .findWebsiteById(websiteId)
+                .then(
+                    function(website) {
+                        if (website) {
+                            res.send(website);
+                        }
+                        else {
+                            res.send('0');
+                        }
+                    },
+                    function(err) {
+                        res.sendStatus(400).send(err);
+                    }
+                )
         }
 
         function updateWebsite(req,res) {
             var website = req.body;
-            var wid = req.params.wid;
-            for (var x = 0; x < websites.length; x ++) {
-                var site = websites[x];
-                if (site._id == wid) {
-                    site.name = website.name;
-                    site.description = website.description;
-                }
-            }
-            res.send('0');
+            var websiteId = req.params.wid;
+            model
+                .websiteModel
+                .updateWebsite(website, websiteId)
+                .then(
+                    function (status) {
+                        res.sendStatus(200);
+                    },
+                    function(err) {
+                        res.sendStatus(400).send(err);
+                    }
+                );
         }
 
         function deleteWebsite(req,res) {
-            var wid = req.params.wid;
-            for (var x = 0; x < websites.length; x ++) {
-                var website = websites[x];
-                if (website._id == wid) {
-                    websites.splice(x,1);
-                }
-            } 
-            res.send('0');
+            var websiteId = req.params.wid;
+            model
+                .websiteModel
+                .deleteWebsite(websiteId)
+                .then(
+                    function(status) {
+                        res.sendStatus(200);
+                    },
+                    function(err) {
+                        res.sendStatus(400).send(err);
+                    }
+                );
         }
 }

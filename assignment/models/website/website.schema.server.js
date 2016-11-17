@@ -5,11 +5,11 @@ module.exports = function() {
     var WebsiteSchema = new Schema({
         _user: { 
             type: Schema.ObjectId,
-            ref: 'UserSchema'
+            ref: 'User'
         },
         name: String,
         description: String,
-        pages: ['PageSchema'],
+        pages: [{type: Schema.Types.ObjectId, ref: 'PageModel'}],
         dateCreated: { type: Date, default: Date.now}
     }, {collection: "website"});
     return WebsiteSchema;
