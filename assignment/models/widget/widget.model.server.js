@@ -37,6 +37,7 @@ module.exports = function() {
             return updateHeaderWidget(widget, widgetId);
         }
         if (widget.type == "YOUTUBE") {
+            widget.url = widget.url.replace("watch?v=", "v/");
             return updateYoutubeWidget(widget, widgetId);
         }
         if (widget.type == "IMAGE") {
