@@ -48,6 +48,7 @@
         vm.chooseImageWidget = chooseImageWidget;
         vm.chooseYouTubeWidget = chooseYouTubeWidget;
         vm.chooseHTMLWidget = chooseHTMLWidget;
+        vm.chooseTextWidget = chooseTextWidget;
 
         function chooseHeaderWidget() {
             vm.widget.widgetType = "HEADER";
@@ -91,6 +92,20 @@
 
         function chooseHTMLWidget() {
             vm.widget.widgetType = "HTML";
+            promise = WidgetService.createWidget(vm.pageId, vm.widget);
+            promise.success(function(widget) {
+                if (widget != '0') {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId +
+                    "/page/" + vm.pageId + "/widget/" + widget._id);
+                } else {
+                    vm.error = "Could not create Header Widget";
+                }
+            });   
+        }
+
+        function chooseTextWidget() {
+            vm.widget.widgetType = "TEXT";
+            console.log(vm.widget);
             promise = WidgetService.createWidget(vm.pageId, vm.widget);
             promise.success(function(widget) {
                 if (widget != '0') {

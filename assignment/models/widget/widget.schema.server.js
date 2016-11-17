@@ -7,7 +7,7 @@ module.exports = function() {
             type: Schema.ObjectId,
             ref: 'PageSchema'
         },
-        type: { type: String, enum: ['HEADER', 'IMAGE', 'YOUTUBE', 'HTML', 'INPUT'] },
+        type: { type: String, enum: ['HEADER', 'IMAGE', 'YOUTUBE', 'HTML', 'TEXT'] },
         name: String,
         text: String,
         placeholder: String,

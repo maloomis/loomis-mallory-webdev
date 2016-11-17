@@ -1,0 +1,17 @@
+
+<div class="container-fluid BottomPadding">
+    <div class="list-group">
+        <div class="relative-position">
+            <div ng-if="widget.formatted" text-angular ta-toolbar="[['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre', 'quote'],
+                        ['bold', 'italics', 'underline', 'ul', 'ol', 'redo', 'undo', 'clear'],
+                        ['justifyLeft','justifyCenter','justifyRight'],
+                        ['html', 'insertLink']]"></div>
+            <input ng-if="!widget.formatted && (!widget.rows || widget.rows===1)" placeholder="{{widget.placeholder}}" class="form-control"/>
+            <textarea ng-if="!widget.formatted && (widget.rows > 1)" rows="{{widget.rows}}" placeholder="{{widget.placeholder}}" class="form-control">{{widget.text}}</textarea>
+            <div class="absolute-position list-element-menu zero-right-padding round">
+                <h4><span><a ng-href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}"><i class="glyphicon glyphicon-cog"></i></a>
+                <span><i class="glyphicon glyphicon-align-justify"></i></span></h4>
+            </div>
+        </div>
+    </div>
+</div>

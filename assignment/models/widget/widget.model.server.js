@@ -17,8 +17,7 @@ module.exports = function() {
         return WidgetModel.create({
             _page: pageId,
             type: widget.widgetType
-        }
-);
+        });
     }
 
     function findAllWidgetsForPage(pageId) {
@@ -46,6 +45,9 @@ module.exports = function() {
         if (widget.type == "HTML") {
             return updateHTMLWidget(widget, widgetId);
         }
+        if (widget.type == "TEXT") {
+            return updateTextWidget(widget, widgetId);
+        }
     }
 
     function updateHeaderWidget(widget, widgetId) {
@@ -57,8 +59,7 @@ module.exports = function() {
                 name: widget.name,
                 text: widget.text,
                 size: widget.size,
-                deletable: true,
-                formatted: true
+                deletable: true
             }
         );
     }
@@ -73,8 +74,7 @@ module.exports = function() {
                 text: widget.text,
                 url: widget.url,
                 width: widget.width,
-                deletable: true,
-                formatted: true
+                deletable: true
             }
         );
     }
@@ -89,8 +89,7 @@ module.exports = function() {
                 text: widget.text,
                 url: widget.url,
                 width: widget.width,
-                deletable: true,
-                formatted: true
+                deletable: true
             }
         );
     }
@@ -102,8 +101,25 @@ module.exports = function() {
             }, 
             {
                 text: widget.text,
-                deletable: true,
-                formatted: true
+                rows: widget.rows,
+                placeholder: widget.placeholder,
+                formatted: widget.formatted,
+                deletable: true
+            }
+        );
+    }
+
+    function updateTextWidget(widget, widgetId) {
+        return WidgetModel.update(
+            {
+                _id: widgetId
+            }, 
+            {
+                text: widget.text,
+                rows: widget.rows,
+                placeholder: widget.placeholder,
+                formatted: widget.formatted,
+                deletable: true
             }
         );
     }
