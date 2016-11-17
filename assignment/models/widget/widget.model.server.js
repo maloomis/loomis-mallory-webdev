@@ -43,6 +43,9 @@ module.exports = function() {
         if (widget.type == "IMAGE") {
             return updateImageWidget(widget, widgetId);
         }
+        if (widget.type == "HTML") {
+            return updateHTMLWidget(widget, widgetId);
+        }
     }
 
     function updateHeaderWidget(widget, widgetId) {
@@ -86,6 +89,19 @@ module.exports = function() {
                 text: widget.text,
                 url: widget.url,
                 width: widget.width,
+                deletable: true,
+                formatted: true
+            }
+        );
+    }
+
+    function updateHTMLWidget(widget, widgetId) {
+        return WidgetModel.update(
+            {
+                _id: widgetId
+            }, 
+            {
+                text: widget.text,
                 deletable: true,
                 formatted: true
             }

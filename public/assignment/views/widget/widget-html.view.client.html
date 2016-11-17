@@ -1,0 +1,13 @@
+<div class="container-fluid bottomPadding">
+    <div class="list-group">
+        <div class="relative-position">
+            <div ng-bind-html="widget.text" class="container-fluid zero-right-padding">
+                {{widget.text}}
+            </div>
+            <div class="absolute-position list-element-menu zero-right-padding round">
+                <h4><span><a ng-href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}"><i class="glyphicon glyphicon-cog"></i></a>
+                <span><i class="glyphicon glyphicon-align-justify"></i></span></h4>
+            </div>
+        </div>
+    </div>
+</div>
