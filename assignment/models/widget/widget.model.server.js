@@ -14,10 +14,11 @@ module.exports = function() {
     return api;
 
     function createWidget(pageId, widget) {
-        return WidgetModel.create({
-            _page: pageId,
-            type: widget.widgetType
-        });
+        return WidgetModel
+                    .create({
+                                _page: pageId,
+                                type: widget.widgetType,
+                            });
     }
 
     function findAllWidgetsForPage(pageId) {
@@ -128,7 +129,31 @@ module.exports = function() {
         return WidgetModel.remove({_id: widgetId});
     }
 
-    function reorderWidget() {
+    function reorderWidget(start, end) {
+        console.log(start);
+        console.log(end);
+        return WidgetModel.find(function(err, widgets){
+            widgets.forEach(function(widget){
+                console.log(widget.priority);
+                if (start > end) {
+                    if (todo.priority >= end && widget.priority < start) {
+                        widget.priority++;
+                        console.log(widget.priority)
+                    } else if (widget.priority === start) {
+                        widget.priority = end;
+                    }
+                    widget.save();
+                } else {
+                    if (widget.priority === start) {
+                        widget.priority = end;
+                    } else if (widget.priority > start && widget.priority <= end) {
+                        widget.priority--;
+                    }
+                    widget.save();
+                }
+                console.log(widget.priority);
+            });
+        })
 
     }
 

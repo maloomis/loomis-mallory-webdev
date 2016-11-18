@@ -19,6 +19,7 @@
                 .success(function(data) {
                     if (data != '0') {
                         vm.widgets = data;
+                        $('#widgets').sortable();
                     }
                 })
                 .error (function() {

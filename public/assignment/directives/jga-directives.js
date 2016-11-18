@@ -1,55 +1,43 @@
 (function() {
     angular
         .module('jgaDirective', [])
-        .directive('test', function() {
-            console.log("hi");
-        })
         .directive('jgaSortable', jgaSortable);
 
-        console.log("hello");
-
         function jgaSortable() {
-            console.log("test");
+            console.log("hello from sortable");
+
+            function linker(scope, element, attributes) {
+                var start = -1;
+                var end = -1;
+                element
+                    .sortable({
+                        start: function(event, ui) {
+                            start = $(ui.item).index();
+                        },
+                        stop: function(event, ui) {
+                            end = $(ui.item).index();
+                            scope.jgaSortableController.sort(start, end);
+                        }
+                    });
+            }
+
             return {
-                restrict: 'C'
+                scope: {},
+                restrict: 'C',
+                link: linker,
+                controller: jgaSortableController,
+                controllerAs: 'jgaSortableController'
             }
         };
 
-/*
-     function jgaSortable() {
-
-        console.log("test");
-        
-        function linker(scope, element, attr) {
-            var start = -1;
-            var end = -1;
-            $(element).sortable({
-                start: function(event, ui) {
-                    start = $(ui.item).index();
-                },
-                stop: function(event, ui) {
-                    end = $(ui.item).index();
-                    scope.sortableController.sort(start, end);
-                }
-            });
-        }
-
-        return {
-            scope: {},
-            restrict: 'C',      
-            link: linker,
-            controller: sortableController,
-            controllerAs: 'sortableController'
-        }
-
-        function sortableController(WidgetService) {
+        function jgaSortableController(WidgetService, $routeParams) {
             var vm = this;
             vm.sort = sort;
+            vm.pageId = $routeParams['pid'];
 
-            function sort (start, end) {
-
+            function sort(start, end) {
+                WidgetService.sortWidgets(start, end, vm.pageId);
             }
+
         }
-    }
-    */
 })();

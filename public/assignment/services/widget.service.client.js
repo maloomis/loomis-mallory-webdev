@@ -39,13 +39,12 @@
             return $http.delete(url, widget);
         }
 
-        function sortWidgets(start, end) {
-            var url ="/api/sort?start=START&end=END";
+        function sortWidgets(start, end, pageId) {
+            var url ="/api/page/" + pageId + "/widget?start=index1&end=index2";
             url = url
-                    .replace("START", start)
-                    .replace("END", end);
+                    .replace("index1", start)
+                    .replace("index2", end);
             $http.put(url);
-
         }
     }
 })();

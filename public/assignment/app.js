@@ -1,3 +1,3 @@
 (function () {
-        angular.module('WebAppMaker', ['jgaDirective', 'textAngular']);
+        angular.module('WebAppMaker', ['ngRoute, jgaDirective', 'textAngular']);
 })();

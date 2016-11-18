@@ -16,9 +16,8 @@ module.exports = function (app, model) {
         app.get("/api/widget/:wgid", findWidgetById);
         app.put("/api/widget/:wgid", updateWidget);
         app.delete("/api/widget/:wgid", deleteWidget);
-        app.put("/api/page/:pid/widget?initial=index1&final=index2");
         app.post ("/api/upload", upload.single('myFile'), uploadImage);
-        app.put("/api/sort", sortWidgets);
+        app.put("/api/page/:pid/widget", reorderWidget);
 
         function createWidget(req,res) {
             var pageId = req.params.pid;
@@ -145,10 +144,20 @@ module.exports = function (app, model) {
                 );
     }
 
-    function sortWidgets(req, res) {
-        var start = req.query.start;
-        var end = req.query.end;
+    function reorderWidget(req, res) {
+        var start = parseInt(req.query.start);
+        var end = parseInt(req.query.end);
 
-        widgets.splice(end, 0, widget.splice(start, 1)[0]);
+        model
+            .widgetModel
+            .reorderWidget(start, end)
+            .then(
+                function(status) {
+                    res.sendStatus(200);
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
+                }
+            )
     }
 }
