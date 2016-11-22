@@ -1,5 +1,6 @@
 module.exports = function() {
     var mongoose = require("mongoose");
+    var autoIncrement = require('mongoose-auto-increment');
     var Schema = mongoose.Schema;
 
     var WidgetSchema = new Schema({
@@ -24,5 +25,6 @@ module.exports = function() {
         priority: Number,
         dateCreated: { type: Date, default: Date.now}
     }, {collection: "widget"});
+    WidgetSchema.index({_id: 1}, {unique: true});
     return WidgetSchema;
 }

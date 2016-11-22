@@ -115,3 +115,7 @@ a:hover {
     font-size: 100%;
     margin:20px 0;
  }
+
+ .my-large-area .ta-editor{
+    height: 300px;
+}

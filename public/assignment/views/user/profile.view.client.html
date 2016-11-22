@@ -46,6 +46,24 @@
                     <input ng-model="model.user.lastName" class="form-control" type="text">
                 </div>
             </div>
+
+            <div class="row form-group">
+                <div class="col-md-3">
+                    Phone:
+                </div>
+                <div class="col-md-9">
+                    <input ng-model="model.user.phone" class="form-control" type="number">
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-3">
+                    Email:
+                </div>
+                <div class="col-md-9">
+                    <input ng-model="model.user.email" class="form-control" type="email">
+                </div>
+            </div>
                 
                 <a ng-click="model.loadwebsites(model.user)" class="btn btn-primary btn-block">Websites</a>
                 <a href="#/login" class="btn btn-danger btn-block">Logout</a>

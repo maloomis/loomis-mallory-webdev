@@ -12,7 +12,8 @@
             "findUserByCredentials" : findUserByCredentials,
             "findUserById" : findUserById,
             "findUserByUsername" : findUserByUsername,
-            "updateUser" : updateUser
+            "updateUser" : updateUser,
+            "login" :login
         };
 
         return api;
@@ -43,9 +44,16 @@
         }
         
         function updateUser(userId, user) {
-            console.log(userId)
             var url = "/api/user/" + user._id;
             return $http.put(url, user);
+        }
+
+        function login(username,password) {
+            var user = {
+                username : username,
+                password: password
+            }
+            $http.post("/api/login", user);
         }
     }
 })();

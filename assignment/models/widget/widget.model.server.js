@@ -17,14 +17,15 @@ module.exports = function() {
         return WidgetModel
                     .create({
                                 _page: pageId,
-                                type: widget.widgetType,
+                                type: widget.widgetType
                             });
     }
 
     function findAllWidgetsForPage(pageId) {
-        return WidgetModel.find({
-            _page: pageId
-        });
+        return WidgetModel
+                    .find({
+                            _page: pageId
+                        });
     }
 
     function findWidgetById(widgetId) {
@@ -102,9 +103,6 @@ module.exports = function() {
             }, 
             {
                 text: widget.text,
-                rows: widget.rows,
-                placeholder: widget.placeholder,
-                formatted: widget.formatted,
                 deletable: true
             }
         );
@@ -130,15 +128,14 @@ module.exports = function() {
     }
 
     function reorderWidget(start, end) {
-        console.log(start);
-        console.log(end);
+        console.log("start index " + start);
+        console.log("end index " + end);
         return WidgetModel.find(function(err, widgets){
             widgets.forEach(function(widget){
                 console.log(widget.priority);
                 if (start > end) {
-                    if (todo.priority >= end && widget.priority < start) {
+                    if (widget.priority >= end && widget.priority < start) {
                         widget.priority++;
-                        console.log(widget.priority)
                     } else if (widget.priority === start) {
                         widget.priority = end;
                     }
@@ -151,7 +148,7 @@ module.exports = function() {
                     }
                     widget.save();
                 }
-                console.log(widget.priority);
+                console.log("widget priority " + widget.priority);
             });
         })
 
