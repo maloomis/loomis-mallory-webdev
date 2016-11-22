@@ -25,6 +25,5 @@ module.exports = function() {
         priority: Number,
         dateCreated: { type: Date, default: Date.now}
     }, {collection: "widget"});
-    WidgetSchema.index({_id: 1}, {unique: true});
     return WidgetSchema;
 }

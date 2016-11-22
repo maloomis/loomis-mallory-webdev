@@ -26,7 +26,13 @@ module.exports = function() {
     function findUserById(userId) {
         return UserModel
                     .findById(userId)
-                    .populate('websites');
+                    .populate({
+                        path: 'websites',
+                        model: 'WebsiteModel'
+                    })
+                    .exec(function(err,user) {
+                        console.log(user);
+                    });
     }
 
     function updateUser(user, userId) {
