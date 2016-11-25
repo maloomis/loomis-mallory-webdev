@@ -17,36 +17,38 @@ module.exports = function() {
     }
 
     function findUserByCredentials(username, password) {
-        return UserModel.find({
-            username: username,
-            password: password
-        });
+        return UserModel
+                    .find({
+                        username: username,
+                        password: password
+                    })
+                    .populate('websites');
     }
 
     function findUserById(userId) {
         return UserModel
                     .findById(userId)
-                    .populate({
-                        path: 'websites',
-                        model: 'WebsiteModel'
-                    })
-                    .exec(function(err,user) {
-                        console.log(user);
+                    .populate('websites')
+                    .exec(function(err, user){
+                        if (err) return handleError(err);
+                        console.log("The user is " + user);
                     });
     }
 
     function updateUser(user, userId) {
-        return UserModel.update(
-            {
-                _id: userId
-            }, 
-            {
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                phone: user.phone
-            }
-        );
+        return UserModel
+                    .update(
+                        {
+                            _id: userId
+                        }, 
+                        {
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            email: user.email,
+                            phone: user.phone
+                        }
+                    )
+                    .populate('websites');
     }
 
     function deleteUser(userId) {

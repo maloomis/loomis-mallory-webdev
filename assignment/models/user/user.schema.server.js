@@ -1,6 +1,5 @@
 module.exports = function() {
     var mongoose = require("mongoose");
-    var autopopulate = require("mongoose-autopopulate");
     var Schema = mongoose.Schema;
     
     var UserSchema = new Schema({
@@ -11,11 +10,10 @@ module.exports = function() {
     email: String,
     phone: Number,
     websites: [{
-        type: Schema.ObjectId, 
-        ref: 'WebsiteModel', 
-        autopopulate: true}],
+        type: Schema.Types.ObjectId, 
+        ref: 'WebsiteModel'
+    }],
     dateCreated: { type: Date, default: Date.now}
     }, {collection: "user"});
-    UserSchema.plugin(autopopulate);
     return UserSchema;
 }

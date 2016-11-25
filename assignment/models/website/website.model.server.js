@@ -29,6 +29,7 @@ module.exports = function() {
     function findWebsiteById(websiteId) {
         return WebsiteModel
                 .findById(websiteId)
+                .populate('_user')
                 .populate('pages');
     }
 
