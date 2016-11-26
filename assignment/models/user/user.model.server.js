@@ -7,32 +7,34 @@ module.exports = function() {
         createUser: createUser,
         findUserByCredentials: findUserByCredentials,
         findUserById: findUserById,
+        findWebsitesForUser: findWebsitesForUser,
         updateUser: updateUser,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
+        setModel: setModel
     };
     return api;
+
+    function setModel(_model) {
+        model = _model;
+    }
 
     function createUser(user) {
         return UserModel.create(user);
     }
 
     function findUserByCredentials(username, password) {
-        return UserModel
-                    .find({
+        return UserModel.find({
                         username: username,
                         password: password
-                    })
-                    .populate('websites');
+                    });
     }
 
     function findUserById(userId) {
-        return UserModel
-                    .findById(userId)
-                    .populate('websites')
-                    .exec(function(err, user){
-                        if (err) return handleError(err);
-                        console.log("The user is " + user);
-                    });
+        return UserModel.findById(userId);
+    }
+
+    function findWebsitesForUser(userId) {
+        return UserModel.findById(userId).populate("websites", "name").exec();
     }
 
     function updateUser(user, userId) {
@@ -47,11 +49,11 @@ module.exports = function() {
                             email: user.email,
                             phone: user.phone
                         }
-                    )
-                    .populate('websites');
+                    );
     }
 
-    function deleteUser(userId) {
-        return UserModel.remove({_id: userId});
+    function deleteUser(userId) {    
+        return UserModel.
+                            remove({_id: userId});
     }
 }

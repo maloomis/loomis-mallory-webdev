@@ -11,9 +11,9 @@
 
         function init() {
             promise = WebsiteService.findAllWebsitesForUser(vm.userId)
-                .success(function(websites) {
-                    if (websites != '0') {
-                        vm.websiteList = websites;
+                .success(function(user) {
+                    if (user != '0') {
+                        vm.websiteList = user.websites;
                     }
                 })
                 .error (function() {
@@ -45,10 +45,8 @@
 
         function saveSite(website) {
             promise = WebsiteService.createWebsite(vm.userId, website);
-            promise.success(function(result) {
-                if (result) {
-                    $location.url("/user/" + vm.userId + "/website/");
-                }
+            promise.success(function() {
+                $location.url("/user/" + vm.userId + "/website/");
             })
             .error(function() {
                 vm.error = "Could not save website."
@@ -92,7 +90,7 @@
         vm.updateWebsite = updateWebsite;
 
         function deleteWebsite() {
-            promise = WebsiteService.deleteWebsite(vm.websiteId)
+            promise = WebsiteService.deleteWebsite(vm.userId, vm.websiteId)
                 .success(function(result) {
                     if (result) {
                         $location.url("/user/" + vm.userId + "/website");

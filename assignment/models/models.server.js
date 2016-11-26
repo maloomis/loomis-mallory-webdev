@@ -17,5 +17,11 @@ module.exports = function() {
         pageModel: pageModel,
         widgetModel: widgetModel
     }
+
+    userModel.setModel(model);
+    websiteModel.setModel(model);
+    pageModel.setModel(model);
+    widgetModel.setModel(model);
+    
     return model;
 };

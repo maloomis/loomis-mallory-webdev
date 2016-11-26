@@ -13,9 +13,9 @@
 
         function init() {
             promise = PageService.findAllPagesForWebsite(vm.websiteId)
-                .success(function(pages) {
-                    if (pages != '0') {
-                        vm.pageList = pages;
+                .success(function(website) {
+                    if (website != '0') {
+                        vm.pageList = website.pages;
                     }
                     else {
                         vm.error("Could not retrieve pages for website");
@@ -35,9 +35,7 @@
         function savePage(page) {
             promise = PageService.createPage(vm.websiteId, page);
             promise.success(function(result) {
-                if (result) {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-                }
+                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
             })
         }
     }

@@ -18,8 +18,8 @@
             var promise = WidgetService.findAllWidgetsForPage(vm.pageId)
                 .success(function(data) {
                     if (data != '0') {
-                        vm.widgets = data;
-                        $('#widgets').sortable();
+                        vm.widgets = data.widgets;
+                        console.log(vm.widgets);
                     }
                 })
                 .error (function() {
@@ -54,8 +54,7 @@
         function chooseHeaderWidget() {
             vm.widget.widgetType = "HEADER";
             promise = WidgetService.createWidget(vm.pageId, vm.widget);
-            promise.success(function(widget) {
-                console.log(widget);
+            promise.success(function() {
                 if (widget != '0') {
                     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId +
                     "/page/" + vm.pageId + "/widget/" + widget._id);

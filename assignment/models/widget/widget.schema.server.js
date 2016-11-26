@@ -1,12 +1,9 @@
 module.exports = function() {
     var mongoose = require("mongoose");
-    var autoIncrement = require('mongoose-auto-increment');
-    var Schema = mongoose.Schema;
-
-    var WidgetSchema = new Schema({
+    var WidgetSchema = mongoose.Schema({
          _page: { 
-            type: Schema.ObjectId,
-            ref: 'PageSchema'
+            type: mongoose.Schema.ObjectId,
+            ref: 'PageModel'
         },
         type: { type: String, enum: ['HEADER', 'IMAGE', 'YOUTUBE', 'HTML', 'TEXT'] },
         name: String,

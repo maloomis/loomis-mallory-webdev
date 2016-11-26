@@ -7,30 +7,43 @@ module.exports = function() {
         createWebsite: createWebsite,
         findAllWebsitesForUser: findAllWebsitesForUser,
         findWebsiteById: findWebsiteById,
+        findPagesForWebsite: findPagesForWebsite,
         updateWebsite: updateWebsite,
-        deleteWebsite: deleteWebsite
+        deleteWebsite: deleteWebsite,
+        setModel: setModel
     };
     return api;
 
+    function setModel(_model) {
+        model = _model;
+    }
+
     function createWebsite(uid, website) {
-        return WebsiteModel.create({
-            _user: uid,
-            name: website.name,
-            description: website.description
-        });
+        return WebsiteModel
+                    .create(website)
+                    .then(function(websiteObj) {
+                        model.userModel
+                            .findUserById(uid)
+                            .then(function(userObj) {
+                                userObj.websites.push(websiteObj);
+                                websiteObj._user = userObj._id;
+                                websiteObj.save();
+                                return userObj.save();
+                            })
+                    });
     }
 
     function findAllWebsitesForUser(userId) {
-        return WebsiteModel.find({
-            _user: userId
-        });
+        return model.userModel.findWebsitesForUser(userId);
     }
 
     function findWebsiteById(websiteId) {
         return WebsiteModel
-                .findById(websiteId)
-                .populate('_user')
-                .populate('pages');
+                .findById(websiteId);
+    }
+
+    function findPagesForWebsite(websiteId) {
+        return WebsiteModel.findById(websiteId).populate("pages", "name").exec();
     }
 
     function updateWebsite(website, websiteId) {
@@ -46,10 +59,19 @@ module.exports = function() {
 
     }
 
-    function deleteWebsite(websiteId) {
-        return WebsiteModel.remove({_id: websiteId});
+    function deleteWebsite(userId, websiteId) {
+        return WebsiteModel
+                    .remove({_id: websiteId})
+                    .then(function() {
+                            model.userModel
+                                .findUserById(userId)
+                                .then(function(user) {
+                                    var index = user.websites.indexOf(websiteId);
+                                    user.websites.splice(index, 1);
+                                    user.save();
+                                })
+                    });
     }
-
 }
 
 

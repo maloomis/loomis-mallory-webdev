@@ -9,23 +9,34 @@ module.exports = function() {
         findWidgetById: findWidgetById,
         updateWidget: updateWidget,
         deleteWidget: deleteWidget,
-        reorderWidget: reorderWidget
+        reorderWidget: reorderWidget,
+        setModel: setModel
     };
     return api;
+
+    function setModel(_model) {
+        model = _model;
+    }
 
     function createWidget(pageId, widget) {
         return WidgetModel
                     .create({
-                                _page: pageId,
-                                type: widget.widgetType
-                            });
+                        type: widget.widgetType
+                    })
+                    .then(function(widgetObj) {
+                        model.pageModel
+                            .findPageById(pageId)
+                            .then(function(pageObj) {
+                                pageObj.widgets.push(widgetObj);
+                                widgetObj._page = pageObj._id;
+                                pageObj.save();
+                                return widgetObj.save();
+                            })
+                    });
     }
 
     function findAllWidgetsForPage(pageId) {
-        return WidgetModel
-                    .find({
-                            _page: pageId
-                        });
+        return model.pageModel.findWidgetsForPage(pageId);
     }
 
     function findWidgetById(widgetId) {
