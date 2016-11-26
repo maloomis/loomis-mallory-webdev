@@ -53,7 +53,11 @@ module.exports = function() {
     }
 
     function deleteUser(userId) {    
-        return UserModel.
-                            remove({_id: userId});
+        return UserModel
+                    .remove({_id: userId})                    
+                    .then(function() {
+                        model.websiteModel
+                            .deleteWebsitesForUser(userId);
+                    });;
     }
 }

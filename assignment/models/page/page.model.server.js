@@ -7,9 +7,9 @@ module.exports = function() {
         createPage: createPage,
         findAllPagesForWebsite: findAllPagesForWebsite,
         findPageById: findPageById,
-        findWidgetsForPage: findWidgetsForPage,
         updatePage: updatePage,
         deletePage: deletePage,
+        deletePagesForWebsite: deletePagesForWebsite,
         setModel: setModel
     };
     return api;
@@ -42,10 +42,6 @@ module.exports = function() {
                 .findById(pageId);
     }
 
-    function findWidgetsForPage(pageId) {
-        return PageModel.findById(pageId).populate("widgets", "name").exec();
-    }
-
     function updatePage(page, pageId) {
         return PageModel.update(
             {
@@ -60,20 +56,31 @@ module.exports = function() {
 
     }
 
-    function deletePage(pageId) {
+    function deletePage(pageId, websiteId) {
         return PageModel
                     .remove({_id: pageId})
-                    /*
                     .then(function() {
                             model.websiteModel
                                 .findWebsiteById(websiteId)
-                                .then(function(user) {
-                                    var index = user.websites.indexOf(websiteId);
-                                    user.websites.splice(index, 1);
-                                    user.save();
+                                .then(function(website) {
+                                    var index = website.pages.indexOf(pageId);
+                                    website.pages.splice(index, 1);
+                                    website.save();
                                 })
+                    })
+                    .then(function() {
+                        model.widgetModel
+                            .deleteWidgetsForPage(pageId);
                     });
-                    */
+    }
+
+    function deletePagesForWebsite(websiteId) {
+        return PageModel
+                    .find({
+                        _website: websiteId
+                    })
+                    .remove()
+                    .exec();
     }
 
 }

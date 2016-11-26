@@ -66,8 +66,8 @@
         vm.deletePage = deletePage;
         vm.savePage = savePage;
 
-        function deletePage(pageId) {
-            promise = PageService.deletePage(vm.pageId)
+        function deletePage(pageId, websiteId) {
+            promise = PageService.deletePage(vm.pageId, vm.websiteId)
                 .success(function(page) {
                     if (page) {
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");

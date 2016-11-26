@@ -10,7 +10,8 @@ module.exports = function() {
         updateWidget: updateWidget,
         deleteWidget: deleteWidget,
         reorderWidget: reorderWidget,
-        setModel: setModel
+        setModel: setModel,
+        deleteWidgetsForPage: deleteWidgetsForPage
     };
     return api;
 
@@ -21,22 +22,15 @@ module.exports = function() {
     function createWidget(pageId, widget) {
         return WidgetModel
                     .create({
-                        type: widget.widgetType
-                    })
-                    .then(function(widgetObj) {
-                        model.pageModel
-                            .findPageById(pageId)
-                            .then(function(pageObj) {
-                                pageObj.widgets.push(widgetObj);
-                                widgetObj._page = pageObj._id;
-                                pageObj.save();
-                                return widgetObj.save();
-                            })
-                    });
+                                _page: pageId,
+                                type: widget.widgetType
+                            });
     }
 
     function findAllWidgetsForPage(pageId) {
-        return model.pageModel.findWidgetsForPage(pageId);
+        return WidgetModel.find({
+            _page: pageId
+        });
     }
 
     function findWidgetById(widgetId) {
@@ -44,98 +38,172 @@ module.exports = function() {
                 .findById(widgetId);
     }
 
-    function updateWidget(widget, widgetId) {
+    function updateWidget(widget, widgetId, pageId) {
         if (widget.type == "HEADER") {
-            return updateHeaderWidget(widget, widgetId);
+            return updateHeaderWidget(widget, widgetId, pageId);
         }
         if (widget.type == "YOUTUBE") {
             widget.url = widget.url.replace("watch?v=", "v/");
-            return updateYoutubeWidget(widget, widgetId);
+            return updateYoutubeWidget(widget, widgetId, pageId);
         }
         if (widget.type == "IMAGE") {
-            return updateImageWidget(widget, widgetId);
+            return updateImageWidget(widget, widgetId, pageId);
         }
         if (widget.type == "HTML") {
-            return updateHTMLWidget(widget, widgetId);
+            return updateHTMLWidget(widget, widgetId, pageId);
         }
         if (widget.type == "TEXT") {
-            return updateTextWidget(widget, widgetId);
+            return updateTextWidget(widget, widgetId, pageId);
         }
     }
 
-    function updateHeaderWidget(widget, widgetId) {
-        return WidgetModel.update(
-            {
-                _id: widgetId
-            }, 
-            {
-                name: widget.name,
-                text: widget.text,
-                size: widget.size,
-                deletable: true
-            }
-        );
+    function updateHeaderWidget(widget, widgetId, pageId) {
+        return WidgetModel
+                    .update(
+                                {
+                                    _id: widgetId
+                                }, 
+                                {
+                                    name: widget.name,
+                                    text: widget.text,
+                                    size: widget.size,
+                                    deletable: true
+                                }
+                    )
+                    .then(
+                        function(result) {
+                            model.pageModel
+                                .findPageById(pageId)
+                                .then(function(pageObj){
+                                    pageObj.widgets.push(widgetId);
+                                    return pageObj.save();
+                                })
+                        }
+                    );
     }
 
-    function updateYoutubeWidget(widget, widgetId) {
-        return WidgetModel.update(
-            {
-                _id: widgetId
-            }, 
-            {
-                name: widget.name,
-                text: widget.text,
-                url: widget.url,
-                width: widget.width,
-                deletable: true
-            }
-        );
+    function updateYoutubeWidget(widget, widgetId, pageId) {
+        return WidgetModel
+                    .update(
+                        {
+                            _id: widgetId
+                        }, 
+                        {
+                            name: widget.name,
+                            text: widget.text,
+                            url: widget.url,
+                            width: widget.width,
+                            deletable: true
+                        }
+                    )                    
+                    .then(
+                        function(result) {
+                            model.pageModel
+                                .findPageById(pageId)
+                                .then(function(pageObj){
+                                    pageObj.widgets.push(widgetId);
+                                    return pageObj.save();
+                                })
+                        }
+                    );
     }
 
-    function updateImageWidget(widget, widgetId) {
-        return WidgetModel.update(
-            {
-                _id: widgetId
-            }, 
-            {
-                name: widget.name,
-                text: widget.text,
-                url: widget.url,
-                width: widget.width,
-                deletable: true
-            }
-        );
+    function updateImageWidget(widget, widgetId, pageId) {
+        return WidgetModel
+                    .update(
+                        {
+                            _id: widgetId
+                        }, 
+                        {
+                            name: widget.name,
+                            text: widget.text,
+                            url: widget.url,
+                            width: widget.width,
+                            deletable: true
+                        }
+                    )
+                    .then(
+                        function(result) {
+                            model.pageModel
+                                .findPageById(pageId)
+                                .then(function(pageObj){
+                                    pageObj.widgets.push(widgetId);
+                                    return pageObj.save();
+                                })
+                        }
+                    );
     }
 
-    function updateHTMLWidget(widget, widgetId) {
-        return WidgetModel.update(
-            {
-                _id: widgetId
-            }, 
-            {
-                text: widget.text,
-                deletable: true
-            }
-        );
+    function updateHTMLWidget(widget, widgetId, pageId) {
+        return WidgetModel
+                    .update(
+                        {
+                            _id: widgetId
+                        }, 
+                        {
+                            text: widget.text,
+                            deletable: true
+                        }
+                    )                    
+                    .then(
+                        function(result) {
+                            model.pageModel
+                                .findPageById(pageId)
+                                .then(function(pageObj){
+                                    pageObj.widgets.push(widgetId);
+                                    return pageObj.save();
+                                })
+                        }
+                    );
     }
 
-    function updateTextWidget(widget, widgetId) {
-        return WidgetModel.update(
-            {
-                _id: widgetId
-            }, 
-            {
-                text: widget.text,
-                rows: widget.rows,
-                placeholder: widget.placeholder,
-                formatted: widget.formatted,
-                deletable: true
-            }
-        );
+    function updateTextWidget(widget, widgetId, pageId) {
+        return WidgetModel
+                        .update(
+                            {
+                                _id: widgetId
+                            }, 
+                            {
+                                text: widget.text,
+                                rows: widget.rows,
+                                placeholder: widget.placeholder,
+                                formatted: widget.formatted,
+                                deletable: true
+                            }
+                        )
+                        .then(
+                            function(result) {
+                                model.pageModel
+                                    .findPageById(pageId)
+                                    .then(function(pageObj){
+                                        pageObj.widgets.push(widgetId);
+                                        return pageObj.save();
+                                    })
+                            }
+                        );
     }
 
-    function deleteWidget(widgetId) {
-        return WidgetModel.remove({_id: widgetId});
+    function deleteWidget(widgetId, pageId) {
+        return WidgetModel
+                    .remove({_id: widgetId})
+                    .then(function() {
+                            model.pageModel
+                                .findPageById(pageId)
+                                .then(function(page) {
+                                    var index = page.widgets.indexOf(widgetId);
+                                    page.widgets.splice(index, 1);
+                                    page.save();
+                                })
+                    });
+    }
+
+    function deleteWidgetsForPage(pageId) {
+        return WidgetModel
+                    .find({
+                        _page: pageId
+                    })
+                    .remove()
+                    .exec();
     }
 
     function reorderWidget(start, end) {

@@ -31,9 +31,9 @@
 
         function init() {
             promise = WebsiteService.findAllWebsitesForUser(vm.userId)
-                .success(function(websites) {
-                    if (websites != '0') {
-                        vm.websiteList = websites;
+                .success(function(user) {
+                    if (user != '0') {
+                        vm.websiteList = user.websites;
                     }
                 })
                 .error (function() {
@@ -64,9 +64,9 @@
 
         function init() {
             promise = WebsiteService.findAllWebsitesForUser(vm.userId)
-                .success(function(websites) {
-                    if (websites != '0') {
-                        vm.websiteList = websites;
+                .success(function(user) {
+                    if (user != '0') {
+                        vm.websiteList = user.websites;
                     }
                 })
                 .error (function() {

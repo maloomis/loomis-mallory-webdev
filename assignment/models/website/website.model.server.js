@@ -10,6 +10,7 @@ module.exports = function() {
         findPagesForWebsite: findPagesForWebsite,
         updateWebsite: updateWebsite,
         deleteWebsite: deleteWebsite,
+        deleteWebsitesForUser: deleteWebsitesForUser,
         setModel: setModel
     };
     return api;
@@ -70,7 +71,20 @@ module.exports = function() {
                                     user.websites.splice(index, 1);
                                     user.save();
                                 })
+                    })
+                    .then(function() {
+                        model.pageModel
+                            .deletePagesForWebsite(websiteId);
                     });
+    }
+
+    function deleteWebsitesForUser(userId) {
+        return WebsiteModel
+            .find({
+                _user: userId
+            })
+            .remove()
+            .exec();
     }
 }
 

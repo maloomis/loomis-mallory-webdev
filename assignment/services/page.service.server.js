@@ -3,7 +3,7 @@ module.exports = function (app, model) {
         app.get("/api/website/:wid/page", findAllPagesForWebsite);
         app.get("/api/page/:pid", findPageById);
         app.put("/api/page/:pid", updatePage);
-        app.delete("/api/page/:pid", deletePage);
+        app.delete("/api/website/:wid/page/:pid", deletePage);
 
         function createPage(req,res) {
             var websiteId = req.params.wid;
@@ -76,9 +76,10 @@ module.exports = function (app, model) {
 
         function deletePage(req,res) {
             var pageId = req.params.pid;
+            var websiteId = req.params.wid;
             model
                 .pageModel
-                .deletePage(pageId)
+                .deletePage(pageId, websiteId)
                 .then(
                     function(status) {
                         res.sendStatus(200);

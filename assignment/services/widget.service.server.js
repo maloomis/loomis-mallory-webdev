@@ -14,8 +14,8 @@ module.exports = function (app, model) {
         app.post("/api/page/:pid/widget", createWidget);
         app.get("/api/page/:pid/widget", findAllWidgetsForPage);
         app.get("/api/widget/:wgid", findWidgetById);
-        app.put("/api/widget/:wgid", updateWidget);
-        app.delete("/api/widget/:wgid", deleteWidget);
+        app.put("/api/page/:pid/widget/:wgid", updateWidget);
+        app.delete("/api/page/:pid/widget/:wgid", deleteWidget);
         app.post ("/api/upload", upload.single('myFile'), uploadImage);
         app.put("/api/page/:pid/widget", reorderWidget);
 
@@ -73,9 +73,10 @@ module.exports = function (app, model) {
         function updateWidget(req,res) {
             var widget = req.body;
             var widgetId = req.params.wgid;
+            var pageId = req.params.pid;
             model
                 .widgetModel
-                .updateWidget(widget, widgetId)
+                .updateWidget(widget, widgetId, pageId)
                 .then(
                     function (status) {
                         res.sendStatus(200);
@@ -88,9 +89,10 @@ module.exports = function (app, model) {
 
         function deleteWidget(req,res) {
             var widgetId = req.params.wgid;
+            var pageId = req.params.pid;
             model
                 .widgetModel
-                .deleteWidget(widgetId)
+                .deleteWidget(widgetId, pageId)
                 .then(
                     function(status) {
                         res.sendStatus(200);
@@ -102,7 +104,6 @@ module.exports = function (app, model) {
         }
         
         function uploadImage(req, res) {
-            console.log(req.body);
             var widgetId      = req.body.widgetId;
             var userId        = req.body.userId;
             var websiteId     = req.body.websiteId;

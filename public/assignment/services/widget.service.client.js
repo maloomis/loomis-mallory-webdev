@@ -29,13 +29,13 @@
             return $http.get(url);
         }
 
-        function updateWidget(widget) {
-            var url = "/api/widget/" + widget._id;
+        function updateWidget(widget, pageId) {
+            var url = "/api/page/" + pageId +  "/widget/" + widget._id;
             return $http.put(url, widget);
         } 
 
-        function deleteWidget(widget) {
-            var url = "/api/widget/" + widget._id;
+        function deleteWidget(widget, pageId) {
+            var url = "/api/page/" + pageId + "/widget/" + widget._id;
             return $http.delete(url, widget);
         }
 

@@ -1,6 +1,5 @@
 module.exports = function() {
     var mongoose = require("mongoose");
-    //var WebsiteSchema = require("../website/website.schema.server.js");
     var UserSchema = mongoose.Schema({
     username: String,
     password: String,
