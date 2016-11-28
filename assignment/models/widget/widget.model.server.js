@@ -25,6 +25,7 @@ module.exports = function() {
         return WidgetModel
                     .count({}, function(err, count){
                         index = count;
+                        console.log(index);
                     })
                     .then(
                         function(err, result) {
@@ -204,6 +205,18 @@ module.exports = function() {
                                     page.widgets.splice(index, 1);
                                     page.save();
                                 })
+                    })
+                    .then(function(){
+                        WidgetModel.find().sort('priority').exec(function(err, widgets) {
+                            var p = 0;
+                            widgets.forEach(function(widget){
+                                console.log(p);
+                                widget.position = p;
+                                widget.save();
+                                p++;
+                                console.log(widget);
+                            })
+                        })
                     });
     }
 
