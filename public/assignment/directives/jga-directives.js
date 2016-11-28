@@ -10,7 +10,7 @@
                 element
                     .sortable({
                         start: function(event, ui) {
-                            console.log(ui.item);
+                            console.log($(ui.item));
                             start = $(ui.item).index();
                         },
                         stop: function(event, ui) {

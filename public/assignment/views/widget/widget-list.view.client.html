@@ -19,7 +19,7 @@
 </nav>
 
 <div class="jgaSortable">
-    <div ng-repeat="widget in model.widgets">
+    <div ng-repeat="widget in model.widgets | orderBy: model.sortPosition">
         <div ng-switch="widget.type">
             <div ng-switch-when="HEADER">
                 <div ng-include src="'views/widget/widget-heading.view.client.html'"></div>

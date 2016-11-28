@@ -20,11 +20,21 @@ module.exports = function() {
     }
 
     function createWidget(pageId, widget) {
+        var widgetCount = WidgetModel.count('type');
+        var index = 0;
         return WidgetModel
-                    .create({
-                                _page: pageId,
-                                type: widget.widgetType
-                            });
+                    .count({}, function(err, count){
+                        index = count;
+                    })
+                    .then(
+                        function(err, result) {
+                            return WidgetModel.create({
+                                    _page: pageId,
+                                    type: widget.widgetType,
+                                    position: index
+                                })
+                        }
+                    )
     }
 
     function findAllWidgetsForPage(pageId) {
@@ -209,25 +219,32 @@ module.exports = function() {
     function reorderWidget(start, end) {
         console.log("start index " + start);
         console.log("end index " + end);
-        return WidgetModel.find(function(err, widgets){
-            widgets.forEach(function(widget){
-                console.log(widget.priority);
-                if (start > end) {
-                    if (widget.priority >= end && widget.priority < start) {
-                        widget.priority++;
-                    } else if (widget.priority === start) {
-                        widget.priority = end;
+        
+        return WidgetModel.find(
+            
+            function(err, widgets){
+                widgets.forEach(function(widget){
+                    console.log("widget position first - " + widget.position);
+                    if (start > end) {
+                        if (widget.position >= end && widget.position < start) {
+                            console.log("widget position should be 1 " + widget.position);
+                            console.log(widget);
+                            widget.position++;
+                        } else if (widget.position == start) {
+                            console.log("widget should be 0 " + widget.position);
+                            console.log(widget);
+                            widget.position = end;
+                        }
+                        widget.save();
+                    } else {
+                        if (widget.position == start) {
+                            widget.position = end;
+                        } else if (widget.position > start && widget.position <= end) {
+                            widget.position--;
+                        }
+                        widget.save();
                     }
-                    widget.save();
-                } else {
-                    if (widget.priority === start) {
-                        widget.priority = end;
-                    } else if (widget.priority > start && widget.priority <= end) {
-                        widget.priority--;
-                    }
-                    widget.save();
-                }
-                console.log("widget priority " + widget.priority);
+                    console.log("widget position end - " + widget.position);
             });
         })
 

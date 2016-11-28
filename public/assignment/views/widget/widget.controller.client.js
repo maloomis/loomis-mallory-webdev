@@ -11,6 +11,7 @@
         vm.userId =$routeParams['uid'];
         vm.websiteId = $routeParams['wid'];
         vm.pageId = $routeParams['pid'];
+        vm.sortPosition = sortPosition;
 
         vm.init = init;
 
@@ -19,6 +20,9 @@
                 .success(function(data) {
                     if (data != '0') {
                         vm.widgets = data;
+                        console.log(vm.widgets);
+
+                                            
                     }
                 })
                 .error (function() {
@@ -27,6 +31,10 @@
         };
 
         init();
+
+        function sortPosition(widget) {
+            return parseInt(widget.position);
+        }
 
         vm.trustSrc = trustSrc;
 

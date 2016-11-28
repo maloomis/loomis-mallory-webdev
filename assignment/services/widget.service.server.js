@@ -30,7 +30,7 @@ module.exports = function (app, model) {
                         res.send(newWidget);
                     },
                     function(err) {
-                        res.sendStatus(400).send(error);
+                        res.sendStatus(400);
                     }
                 )
         }
@@ -128,8 +128,6 @@ module.exports = function (app, model) {
                 text: text,
                 type: "IMAGE"
             };
-
-            console.log(widget);
 
             model
                 .widgetModel
