@@ -4,6 +4,7 @@ module.exports = function(app, model) {
     var session = require('express-session');
     var LocalStrategy = require('passport-local').Strategy;
     var FacebookStrategy = require('passport-facebook').Strategy;
+    var bcrypt = require("bcrypt-nodejs");
 
     var facebookConfig = {
         clientID     : process.env.FACEBOOK_CLIENT_ID,
@@ -27,8 +28,8 @@ module.exports = function(app, model) {
     app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
     app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
-        successRedirect: '/#/user',
-        failureRedirect: '/#/login'
+        successRedirect: '#/user',
+        failureRedirect: '#/login'
     }));
     
     app.post('/api/login', passport.authenticate('local'), login);
@@ -52,7 +53,9 @@ module.exports = function(app, model) {
             .findUserByCredentials(username, password)
             .then(
                 function (user) {
+                    console.log(user);
                     if (user) {
+                        console.log(user);
                         if (!user) { 
                             return done(null, false); 
                         }
@@ -95,6 +98,14 @@ module.exports = function(app, model) {
                     }
                 }
             )
+            .then(
+                function(user){
+                    return done(null, user);
+                },
+                function(err){
+                    if (err) { return done(err); }
+                }
+            );
     }
 
     function serializeUser(user,done) {
@@ -117,6 +128,7 @@ module.exports = function(app, model) {
 
     function login(req, res) {
         var user = req.user;
+        console.log(user);
         var username = user.username;
         var password = user.password;
         model
@@ -124,7 +136,9 @@ module.exports = function(app, model) {
             .findUserByCredentials(username, password)
             .then(
                 function(user) {
-                    if (user) {
+                    if (user && bcrypt.compareSync(password, user.password)) {
+                        console.log(bcrypt.compareSync(password, user.password));
+                        console.log(user);
                         res.send(user);
                     }
                     else {
@@ -143,6 +157,7 @@ module.exports = function(app, model) {
 
     function register(req, res) {
         var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
         model
             .userModel
             .createUser(user)
@@ -163,6 +178,7 @@ module.exports = function(app, model) {
 
     function createUser(req, res) {
         var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
         model
             .userModel
             .createUser(user)

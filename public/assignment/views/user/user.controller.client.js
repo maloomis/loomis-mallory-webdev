@@ -35,16 +35,6 @@
                                         $location.url("/user/"+user._id);
                                     }
                                 )
-                                /*
-                promise.success(function(userUpdate) {
-                    if (userUpdate === '0') {
-                       vm.error = "Couldn't create user";
-                    } else {
-                        vm.user = userUpdate;
-                        $location.url("/user/" + userUpdate._id);
-                    }
-                });
-                */
         };
     }
     

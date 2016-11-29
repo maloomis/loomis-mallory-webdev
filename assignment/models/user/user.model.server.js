@@ -20,7 +20,7 @@ module.exports = function() {
     }
 
     function findUserByFacebookId(facebookId) {
-        return User.findOne({'facebook.id': facebookId});
+        return UserModel.findOne({'facebook.id': facebookId});
     }
 
     function createUser(user) {
@@ -28,6 +28,8 @@ module.exports = function() {
     }
 
     function findUserByCredentials(username, password) {
+        console.log(username);
+        console.log(password);
         return UserModel.findOne({
                         username: username,
                         password: password
