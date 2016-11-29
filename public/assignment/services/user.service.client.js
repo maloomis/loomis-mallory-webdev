@@ -13,7 +13,10 @@
             "findUserById" : findUserById,
             "findUserByUsername" : findUserByUsername,
             "updateUser" : updateUser,
-            "login" :login
+            "login" : login,
+            "checkLogin" : checkLogin,
+            "logout" : logout,
+            "register" : register
         };
 
         return api;
@@ -54,6 +57,18 @@
                 password: password
             }
             return $http.post("/api/login", user);
+        }
+
+        function checkLogin() {
+            return $http.post("/api/checkLogin");
+        }
+
+        function logout() {
+            return $http.post('/api/logout');
+        }
+
+        function register(user) {
+            return $http.post("/api/register", user);
         }
     }
 })();

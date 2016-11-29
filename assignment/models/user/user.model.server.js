@@ -10,7 +10,8 @@ module.exports = function() {
         findWebsitesForUser: findWebsitesForUser,
         updateUser: updateUser,
         deleteUser: deleteUser,
-        setModel: setModel
+        setModel: setModel,
+        findUserByFacebookId: findUserByFacebookId
     };
     return api;
 
@@ -18,12 +19,16 @@ module.exports = function() {
         model = _model;
     }
 
+    function findUserByFacebookId(facebookId) {
+        return User.findOne({'facebook.id': facebookId});
+    }
+
     function createUser(user) {
         return UserModel.create(user);
     }
 
     function findUserByCredentials(username, password) {
-        return UserModel.find({
+        return UserModel.findOne({
                         username: username,
                         password: password
                     });

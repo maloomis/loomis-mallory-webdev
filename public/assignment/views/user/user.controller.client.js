@@ -10,7 +10,6 @@
         vm.login = login;
 
         function login(username, password) {
-            //var promise = UserService.findUserByCredentials(user.username, user.password);
             var promise = UserService.login(username, password)
             .success(function(user) {
                 console.log(user);
@@ -28,7 +27,15 @@
         vm.register = register;
 
         function register(user) {
-            var promise = UserService.createUser(user);
+            var promise = UserService
+                                .register(user)
+                                .then(
+                                    function(response) {
+                                        var user = response.data;
+                                        $location.url("/user/"+user._id);
+                                    }
+                                )
+                                /*
                 promise.success(function(userUpdate) {
                     if (userUpdate === '0') {
                        vm.error = "Couldn't create user";
@@ -37,6 +44,7 @@
                         $location.url("/user/" + userUpdate._id);
                     }
                 });
+                */
         };
     }
     
@@ -61,6 +69,7 @@
         vm.deleteUser = deleteUser;
         vm.edit = edit;
         vm.loadwebsites = loadwebsites;
+        vm.logout = logout;
 
         function deleteUser() {
             var promise = UserService.deleteUser(vm.userId);
@@ -89,6 +98,13 @@
                     $location.url("/user/" + user._id + "/website");
                 }
             });
+        }
+
+        function logout() {
+            UserService.logout()
+                .success(function(){
+                    $location.url("/login");
+                });
         }
     }
 })();
