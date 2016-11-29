@@ -1,24 +1,23 @@
 module.exports = function(app, model) {
-    /*
-    var passport = require('passport');
-    var localStrategy = require('passport-local').Strategy;
-    var cookieParser = require('cookie-parser');
-    var session = require('express-session');
 
-    app.use(cookieParser());
+    var passport = require('passport');
+    var LocalStrategy = require('passport-local').Strategy;
+
     app.use(passport.initialize());
     app.use(passport.session());
     passport.use(new LocalStrategy(localStrategy));
-    */
 
-   // app.post('/api/login', passport.authenticate('local'), login);
+    app.post('/api/login', login);
     app.post('/api/user', createUser);
     app.get('/api/user/:uid', findUserById);
     app.get('/api/user/', findUserByCredentials);
     app.put('/api/user/:uid', updateUser);
     app.delete('/api/user/:uid', deleteUser);
 
-/*
+    function logout(req, res) {
+        req.logout();
+    }
+
     function localStrategy(username, password, done) {
         var user = req.body;
         var username = user.username;
@@ -46,10 +45,28 @@ module.exports = function(app, model) {
     }
 
     function login(req, res) {
-
-
+        var user = req.body;
+        var username = user.username;
+        var password = user.password;
+        model
+            .userModel
+            .findUserByCredentials(username, password)
+            .then(
+                function(users) {
+                    console.log(users);
+                    if (users[0]) {
+                        console.log(users[0]);
+                        res.send(users[0]);
+                    }
+                    else {
+                        res.send('0');
+                    }
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
+                }
+            );
     }
-    */
 
     function createUser(req, res) {
         var user = req.body;

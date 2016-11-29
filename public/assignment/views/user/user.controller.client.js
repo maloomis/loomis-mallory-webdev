@@ -9,10 +9,11 @@
         var vm = this;
         vm.login = login;
 
-        function login(user) {
-            var promise = UserService.findUserByCredentials(user.username, user.password);
-            //var promise = UserService.login(username, password);
-            promise.success(function(user) {
+        function login(username, password) {
+            //var promise = UserService.findUserByCredentials(user.username, user.password);
+            var promise = UserService.login(username, password)
+            .success(function(user) {
+                console.log(user);
                     if (user === '0') {
                         vm.error = "No such user";
                     } else {
