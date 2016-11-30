@@ -16,6 +16,8 @@ module.exports = function(app, model) {
     app.put('/api/client/:cid', updateClient);
     app.delete('/api/client/:cid', deleteClient);
     app.post ("/api/uploadProfile", upload.single('myFile'), uploadImage);
+    app.put('/api/client/:cid/recipe/:rid', favoriteRecipe);
+    app.delete('/api/client/:cid/recipe/:rid', unfavoriteRecipe);
 
     function createClient(req, res) {
         var client = req.body;
@@ -112,9 +114,6 @@ module.exports = function(app, model) {
         var size          = myFile.size;
         var mimetype      = myFile.mimetype;
 
-        console.log(clientId);
-        console.log(filename);
-
         model
             .clientModel
             .uploadImage(clientId, filename)
@@ -126,5 +125,37 @@ module.exports = function(app, model) {
                     res.sendStatus(400).send(err);
                 }
             );
+    }
+
+    function favoriteRecipe(req, res) {
+        var clientId = req.params.cid;
+        var recipeId = req.params.rid;
+        model
+            .clientModel
+            .favoriteRecipe(clientId, recipeId)
+            .then(
+                function(status) {
+                    res.sendStatus(200);
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
+                }
+            )
+    }
+
+    function unfavoriteRecipe(req, res) {
+        var clientId = req.params.cid;
+        var recipeId = req.params.rid;
+        model
+            .clientModel
+            .unfavoriteRecipe(clientId, recipeId)
+            .then(
+                function(status){
+                    res.sendStatus(200);
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
+                }
+            )
     }
 }

@@ -3,7 +3,8 @@ module.exports = function() {
     var Schema = mongoose.Schema;
     
     var RecipeSchema = new Schema({
-        id: String,   
+        id: String,
+        title: String,   
         comments: [{
                     comment: String,
                     client: {

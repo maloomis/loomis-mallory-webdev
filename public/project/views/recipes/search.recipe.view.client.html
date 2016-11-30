@@ -119,11 +119,10 @@
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li class="header">FITNESS OPTIONS</li>
+        <li class="header">OPTIONS</li>
         <li><a href="#/clientProfile/{{model.client._id}}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>Talk To a Trainer</span></a></li>
-        <li class="active"><a href="#/searchFood"><i class="fa fa-link"></i> <span>Search Food Options</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Exercise Plan</span></a></li>
+        <li class="active"><a href="#/{{model.clientId}}/searchRecipe"><i class="fa fa-link"></i> <span>Search For Recipes</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -144,7 +143,7 @@
                 <form>
                     <div class="form-group">
                         <div class="input-group">
-                            <input ng-model="name" type="text" class="form-control" placeholder="Search (e.g. meatballs, pasta salad)" name="q">
+                            <input ng-model="name" type="text" class="form-control" placeholder="Search (e.g. salad, pasta)" name="q">
                             <div class="input-group-btn">
                                 <button ng-click="model.searchRecipeByName(name)" class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                             </div>

@@ -9,7 +9,9 @@
             "deleteClient" : deleteClient,
             "findClientByCredentials" : findClientByCredentials,
             "findClientById" : findClientById,
-            "updateClient" : updateClient
+            "updateClient" : updateClient,
+            "favoriteRecipe" : favoriteRecipe,
+            "unfavoriteRecipe" : unfavoriterecipe
         };
 
         return api;
@@ -38,5 +40,15 @@
             var url = "/api/client/" + client._id;
             return $http.put(url, client);
         };
+
+        function favoriteRecipe(recipeId, clientId) {
+            var url = "/api/client/" + clientId + "/recipe/" + recipeId;
+            return $http.put(url);
+        };
+
+        function unfavoriterecipe(clientId, recipeId) {
+            var url = "/api/client/" + clientId + "/recipe/" + recipeId;
+            return $http.delete(url);
+        }
     }
 })();

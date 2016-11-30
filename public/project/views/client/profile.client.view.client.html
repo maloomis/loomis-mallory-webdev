@@ -147,10 +147,25 @@
           </div>
           <!-- /.box -->
 
-          <!-- About Me Box -->
+          <!-- Favorite Recipes Box -->
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Favorite Recipes</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div ng-repeat="recipe in model.client.favoriteRecipes">
+                <a href="#/{{model.clientId}}/detailsRecipe/{{recipe.id}}"><h5>{{recipe.title}}</h5></a>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+          <!-- Trainers Box -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Following Trainers</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -160,6 +175,8 @@
           <!-- /.box -->
         </div>
         <!-- /.col -->
+
+
 
         <div class="col-md-9">
           <div class="nav-tabs-custom">

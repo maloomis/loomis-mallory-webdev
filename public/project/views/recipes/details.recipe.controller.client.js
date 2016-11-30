@@ -3,7 +3,7 @@
         .module("FitnessApp")
         .controller("RecipeDetailsController", RecipeDetailsController);
         
-        function RecipeDetailsController($http, $routeParams, ClientService, RecipeService) {
+        function RecipeDetailsController($http, $routeParams, ClientService, RecipeService, $location) {
             var vm = this;
             vm.clientId = $routeParams['cid'];
             vm.recipeId = $routeParams["rid"];
@@ -14,19 +14,41 @@
             vm.nutritionTab = nutritionTab;
             vm.commentTab = commentTab;
             vm.leaveComment = leaveComment;
+            vm.favoriteRecipe = favoriteRecipe;
+            vm.unfavoriteRecipe = unfavoriteRecipe;
 
             init();
 
             function init() {
+                vm.recipeUnfavorited = true;              
                 ClientService.findClientById(vm.clientId)
                     .success(function(client) {
                         if (client != '0') {
                             vm.client = client;
+
+                            for (var i = 0; i < vm.client.favoriteRecipes.length; i++) {
+                                if (vm.client.favoriteRecipes[i].id == vm.recipeId) {
+                                    vm.recipeFavorited = true;
+                                    vm.recipeUnfavorited = false;
+                                    break;
+                                }
+                            }
                         }
                     })
                     .error (function() {
                         vm.error = "Could not retrieve client";
-                    }); 
+                    });
+
+                RecipeService.findRecipeById(vm.recipeId)
+                    .success(function(recipe) {
+                        if (recipe != '0') {
+                            vm.recipe_id = recipe._id;
+                            vm.comments = recipe.comments;
+                        }
+                    })
+                    .error (function() {
+                        vm.error = "Could not retrieve client";
+                    });
                     
                 var url = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/" + vm.recipeId + "/information?includeNutrition=true";
                 var config = {headers: {
@@ -65,28 +87,28 @@
                 $('#comment').addClass('active');
             }
 
-            function leaveComment(comment, clientId) {
-                RecipeService.findRecipeById(vm.recipe.id)
+            function leaveComment(r, clientId) {
+                r.id = vm.recipe.id
+                RecipeService.findRecipeById(r.id)
                     .success(function(recipe){
-                        console.log(recipe);
                         if (recipe != '0') {
-                            RecipeService.addCommentToRecipe(vm.recipe.id, comment, clientId)
-                                .success(function(comments){
-                                    if (comments) {
-                                        vm.comments = comments;
+                            RecipeService.addCommentToRecipe(r, clientId)
+                                .success(function(recipe){
+                                    if (recipe) {
+                                        vm.comments = recipe.comments;
                                     }
                                 })
                                 .error(function(error) {
                                     vm.error = "Could not add comment";
                                 })
                         } else {
-                            RecipeService.createRecipe(vm.recipe)
+                            RecipeService.createRecipe(r)
                                 .success(function(recipe){
                                     if (recipe != '0') {
-                                        RecipeService.addCommentToRecipe(recipe.id, comment, clientId)
-                                            .success(function(comments){
-                                                if(comments != '0') {
-                                                    vm.comments = comments;
+                                        RecipeService.addCommentToRecipe(r, clientId)
+                                            .success(function(recipe){
+                                                if (recipe) {
+                                                    vm.comments = recipe.comments;
                                                 }
                                             })
                                             .error(function(error){
@@ -102,6 +124,53 @@
                     .error(function(error){
                         vm.error = "Could not add comment";
                     });
+            }
+
+            function favoriteRecipe(r) {
+                RecipeService.findRecipeById(vm.recipeId)
+                    .success(function(recipe){
+                        if (recipe != '0') {
+                            ClientService.favoriteRecipe(recipe._id, vm.clientId)
+                                .success(function(response){
+                                    vm.recipeFavorited = true;
+                                    vm.recipeUnfavorited = false;
+                                })
+                                .error(function(error) {
+                                    vm.error = "Could not favorite recipe";
+                                })
+                        } else {
+                            RecipeService.createRecipe(r)
+                                .success(function(recipe) {
+                                    if (recipe != '0') {
+                                        ClientService.favoriteRecipe(recipe._id, vm.clientId)
+                                            .success(function(response){
+                                                vm.recipeFavorited = true;
+                                                vm.recipeUnfavorited = false;
+                                            })
+                                            .error(function(error){
+                                                vm.error = "Could not favorite recipe";
+                                            })
+                                    }
+                                })
+                                .error(function(error){
+                                    vm.error = "Could not favorite recipe";
+                                })
+                        }
+                    })
+                    .error(function(error){
+                        vm.error = "Could not favorite recipe";
+                    })
+            }
+
+            function unfavoriteRecipe() {
+                ClientService.unfavoriteRecipe(vm.clientId, vm.recipe_id)
+                    .success(function(response){
+                        vm.recipeFavorited = false;
+                        vm.recipeUnfavorited = true;
+                    })
+                    .error(function(error){
+                        vm.error = "Could not unfavorite recipe";
+                    })
             }
         }
 })();

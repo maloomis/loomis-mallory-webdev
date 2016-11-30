@@ -23,8 +23,8 @@ module.exports = function() {
         });
     }
 
-    function findTrainerById(userId) {
-        return UserModel.findById(userId);
+    function findTrainerById(trainerId) {
+        return TrainerModel.findById(trainerId);
     }
 
     function updateTrainer(user, userId) {

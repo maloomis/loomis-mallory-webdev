@@ -9,7 +9,9 @@ module.exports = function() {
         findClientById: findClientById,
         updateClient: updateClient,
         deleteClient: deleteClient,
-        uploadImage: uploadImage
+        uploadImage: uploadImage,
+        favoriteRecipe: favoriteRecipe,
+        unfavoriteRecipe: unfavoriteRecipe
     };
     return api;
 
@@ -25,7 +27,7 @@ module.exports = function() {
     }
 
     function findClientById(clientId) {
-        return ClientModel.findById(clientId);
+        return ClientModel.findById(clientId).populate('favoriteRecipes').exec();
     }
 
     function updateClient(client, clientId) {
@@ -50,13 +52,34 @@ module.exports = function() {
     }
 
     function uploadImage(clientId, fileName) {
-        console.log(fileName)
         return ClientModel.update (
             {
                 _id: clientId
             }, 
             {
                 img: "upload/" + fileName
+            }
+        );
+    }
+
+    function favoriteRecipe(clientId, recipeId) {
+        return ClientModel.update(
+            {
+                _id: clientId
+            }, 
+            {
+                "$push" : {"favoriteRecipes" : recipeId }
+            }
+        );
+    }
+
+    function unfavoriteRecipe(clientId, recipeId) {
+        return ClientModel.update(
+            {
+                _id: clientId
+            },
+            {
+                $pull: { 'favoriteRecipes':  recipeId } 
             }
         );
     }

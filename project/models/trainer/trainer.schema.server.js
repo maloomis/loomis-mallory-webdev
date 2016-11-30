@@ -8,8 +8,6 @@ module.exports = function() {
     firstName: String,
     lastName: String,
     email: String,
-    phone: String,
-    employer: String,
     dateCreated: { type: Date, default: Date.now}
     }, {collection: "trainer"});
     return TrainerSchema;

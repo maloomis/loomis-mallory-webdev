@@ -1,6 +1,6 @@
 module.exports = function(app, model) {
     app.post('/api/trainer', createTrainer);
-    app.get('/api/trainer/:uid', findTrainerById);
+    app.get('/api/trainer/:tid', findTrainerById);
     app.get('/api/trianer/', findTrainerByCredentials);
     app.put('/api/trainer/:uid', updateTrainer);
     app.delete('/api/trainer/:uid', deleteTrainer);
@@ -36,14 +36,20 @@ module.exports = function(app, model) {
     };
 
     function findTrainerById(req, res) {
-        var userId = req.params.uid;
-        for (var u in users) {
-            if (users[u]._id === userId){
-                res.send(users[u]);
-                return;
-            }
-        }
-        res.send('0');
+        var trainerId = req.params.tid;
+        model
+            .trainerModel
+            .findTrainerById(trainerId)
+            .then(
+                function(trainer) {
+                    if (trainer) {
+                        res.send(trainer);
+                    }
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
+                }
+            );
     };
 
     function updateTrainer(req, res) {

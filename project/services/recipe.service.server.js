@@ -1,17 +1,15 @@
 module.exports = function(app, model) {
     app.post('/api/recipe', createRecipe);
     app.get('/api/recipe/:rid', findRecipeById);
-    app.put('/api/client/:cid/recipe/:rid', addCommentToRecipe);
+    app.put('/api/client/:cid/recipe', addCommentToRecipe);
 
     function createRecipe(req, res) {
         var recipe = req.body;
-        console.log(recipe);
         model
             .recipeModel
             .createRecipe(recipe)
             .then(
                 function(newRecipe) {
-                    console.log(newRecipe);
                     res.send(newRecipe);
                 },
                 function(err) {
@@ -27,7 +25,6 @@ module.exports = function(app, model) {
             .findRecipeById(recipeId)
             .then(
                 function(recipe) {
-                    console.log(recipe);
                     if (recipe) {
                         res.send(recipe);
                     }
@@ -41,21 +38,30 @@ module.exports = function(app, model) {
             )
     };
 
-    function addCommmentToRecipe(req, res) {
-        var comment = req.body;
+    function addCommentToRecipe(req, res) {
+        var recipe = req.body;
         var clientId = req.params.cid;
-        var recipeId = req.params.rid;
-
-        console.log(comment);
-        console.log(clientId);
-        console.log(recipeId);
-
         model
             .recipeModel
-            .addCommentToRecipe(comment, clientId, recipeId)
+            .addCommentToRecipe(recipe, clientId)
             .then(
                 function (status) {
-                    res.sendStatus(200);
+                    model
+                        .recipeModel
+                        .findRecipeById(recipe.id)
+                        .then(
+                            function(recipe) {
+                                if (recipe) {
+                                    res.send(recipe);
+                                }
+                                else {
+                                    res.send('0');
+                                }
+                            },
+                            function (err) {
+                                res.sendStatus(400).send(err);
+                            }
+                        )
                 },
                 function(err) {
                     res.sendStatus(400).send(err);

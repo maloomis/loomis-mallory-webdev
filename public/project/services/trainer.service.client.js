@@ -29,8 +29,8 @@
             return $http.get(url);
         };
 
-        function findTrainerById(userId) {
-            var url = '/api/trainer/' + userId;
+        function findTrainerById(trainerId) {
+            var url = '/api/trainer/' + trainerId;
             return $http.get(url);
         };
 

@@ -7,13 +7,12 @@
         var api = {
             "createRecipe" : createRecipe,
             "findRecipeById" : findRecipeById,
-            "addCommentToRecipe" : addCommentToRecipe
+            "addCommentToRecipe" : addCommentToRecipe,
         };
 
         return api;
 
         function createRecipe(recipe) {
-            console.log(recipe);
             var url = '/api/recipe';
             return $http.post(url, recipe);
         };
@@ -23,9 +22,9 @@
             return $http.get(url);
         };
 
-        function addCommentToRecipe(recipeId, comment, clientId) {
-            var url = "/api/client/" + clientId + '/recipe/' + recipeId;
-            return $http.put(url, comment);
+        function addCommentToRecipe(recipe, clientId) {
+            var url = "/api/client/" + clientId + '/recipe';
+            return $http.put(url, recipe);
         };
     }
 })();

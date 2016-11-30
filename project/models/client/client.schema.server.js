@@ -14,6 +14,10 @@ module.exports = function() {
         heightInches: Number,
         fitnessGoal: {type: String, enum: ['Loose Weight', 'Maintain Weight', 'Gain Weight']},
         img: String,
+        favoriteRecipes: [{
+            type: mongoose.Schema.ObjectId,
+            ref: 'RecipeModel'
+        }],
         dateCreated: { type: Date, default: Date.now}
         }, {collection: "client"});
     return ClientSchema;

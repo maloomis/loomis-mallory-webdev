@@ -12,25 +12,26 @@ module.exports = function() {
 
     function createRecipe(recipe) {
         return RecipeModel.create({
-            id: recipe.id
+            id: recipe.id,
+            title: recipe.title
         });
     }
 
     function findRecipeById(recipeId) {
-        return RecipeModel.findOne({'id': recipeId});
+        return RecipeModel.findOne({'id': recipeId}).populate('comments.client').exec();
     }
 
-    function addCommentToRecipe(comment, clientId, recipeId) {
+    function addCommentToRecipe(recipe, clientId) {
         var comment = {
-            comment: comment,
+            comment: recipe.comment,
             client: clientId
         }
         return RecipeModel.update(
             {
-                id: recipe
+                id: recipe.id
             }, 
             {
-                comments.push(comment);
+                "$push" : {"comments" : comment }
             }
         );
     }
