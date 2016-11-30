@@ -3,8 +3,14 @@ module.exports = function() {
     var Schema = mongoose.Schema;
     
     var RecipeSchema = new Schema({
-        title: String,   
-        comment: [String],
+        id: String,   
+        comments: [{
+                    comment: String,
+                    client: {
+                        type: mongoose.Schema.ObjectId,
+                        ref: 'ClientModel'
+                }
+        }],
         dateCreated: { type: Date, default: Date.now}
         }, {collection: "recipe"});
         return RecipeSchema;

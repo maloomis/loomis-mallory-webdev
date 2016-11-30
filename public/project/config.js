@@ -45,5 +45,9 @@
             controller: "TrainerSearchController",
             controllerAs: "model"
         })
+        .otherwise({
+            redirectTo: "/clientLogin"
+        });
+
     }
 })();

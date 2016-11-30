@@ -63,9 +63,6 @@ module.exports = function(app, model) {
                     if (client) {
                         res.send(client);
                     }
-                    else {
-                        res.send('0');
-                    }
                 },
                 function(err) {
                     res.sendStatus(400).send(err);

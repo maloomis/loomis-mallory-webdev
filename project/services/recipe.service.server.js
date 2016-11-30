@@ -1,16 +1,18 @@
 module.exports = function(app, model) {
     app.post('/api/recipe', createRecipe);
     app.get('/api/recipe/:rid', findRecipeById);
-    app.put('/api/recipe/:rid', updateRecipe);
+    app.put('/api/client/:cid/recipe/:rid', addCommentToRecipe);
 
     function createRecipe(req, res) {
-        var client = req.body;
+        var recipe = req.body;
+        console.log(recipe);
         model
-            .clientModel
-            .createClient(client)
+            .recipeModel
+            .createRecipe(recipe)
             .then(
-                function(newClient) {
-                    res.send(newClient);
+                function(newRecipe) {
+                    console.log(newRecipe);
+                    res.send(newRecipe);
                 },
                 function(err) {
                     res.sendStatus(400).send(error);
@@ -19,14 +21,15 @@ module.exports = function(app, model) {
     }
 
     function findRecipeById(req, res) {
-        var clientId = req.params.cid;
+        var recipeId = req.params.rid;
         model
-            .clientModel
-            .findClientById(clientId)
+            .recipeModel
+            .findRecipeById(recipeId)
             .then(
-                function(client) {
-                    if (client) {
-                        res.send(client);
+                function(recipe) {
+                    console.log(recipe);
+                    if (recipe) {
+                        res.send(recipe);
                     }
                     else {
                         res.send('0');
@@ -38,12 +41,18 @@ module.exports = function(app, model) {
             )
     };
 
-    function updateRecipe(req, res) {
-        var client = req.body;
+    function addCommmentToRecipe(req, res) {
+        var comment = req.body;
         var clientId = req.params.cid;
+        var recipeId = req.params.rid;
+
+        console.log(comment);
+        console.log(clientId);
+        console.log(recipeId);
+
         model
-            .clientModel
-            .updateClient(client, clientId)
+            .recipeModel
+            .addCommentToRecipe(comment, clientId, recipeId)
             .then(
                 function (status) {
                     res.sendStatus(200);

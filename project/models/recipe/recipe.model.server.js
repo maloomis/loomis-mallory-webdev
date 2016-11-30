@@ -6,31 +6,31 @@ module.exports = function() {
     var api = {
         createRecipe: createRecipe,
         findRecipeById: findRecipeById,
-        updateRecipe: updateRecipe
+        addCommentToRecipe: addCommentToRecipe
     };
     return api;
 
-    function createRecipe(client) {
-        return ClientModel.create(client);
+    function createRecipe(recipe) {
+        return RecipeModel.create({
+            id: recipe.id
+        });
     }
 
-    function findRecipeById(clientId) {
-        return ClientModel.findById(clientId);
+    function findRecipeById(recipeId) {
+        return RecipeModel.findOne({'id': recipeId});
     }
 
-    function updateRecipe(client, clientId) {
-        return ClientModel.update(
+    function addCommentToRecipe(comment, clientId, recipeId) {
+        var comment = {
+            comment: comment,
+            client: clientId
+        }
+        return RecipeModel.update(
             {
-                _id: clientId
+                id: recipe
             }, 
             {
-                firstName: client.firstName,
-                lastName: client.lastName,
-                email: client.email,
-                weight: client.weight,
-                heightFeet: client.heightFeet, 
-                heightInches: client.heightInches,
-                fitnessGoal: client.fitnessGoal,  
+                comments.push(comment);
             }
         );
     }
