@@ -35,8 +35,8 @@
         };
 
         function updateTrainer(trainer) {
-            var url = "/api/trainer/" + user._id;
-            return $http.put(url, user);
+            var url = "/api/trainer";
+            return $http.put(url, trainer);
         };
     }
 })();

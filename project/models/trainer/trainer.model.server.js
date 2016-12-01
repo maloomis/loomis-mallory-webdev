@@ -8,7 +8,8 @@ module.exports = function() {
         findTrainerByCredentials: findTrainerByCredentials,
         findTrainerById: findTrainerById,
         updateTrainer: updateTrainer,
-        deleteTrainer: deleteTrainer
+        deleteTrainer: deleteTrainer,
+        uploadImage: uploadImage
     };
     return api;
 
@@ -17,7 +18,7 @@ module.exports = function() {
     }
 
     function findTrainerByCredentials(username, password) {
-        return UserModel.find({
+        return TrainerModel.find({
             username: username,
             password: password
         });
@@ -27,21 +28,31 @@ module.exports = function() {
         return TrainerModel.findById(trainerId);
     }
 
-    function updateTrainer(user, userId) {
-        return UserModel.update(
+    function updateTrainer(trainer) {
+        return TrainerModel.update(
             {
-                _id: userId
+                _id: trainer._id
             }, 
             {
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                phone: user.phone
+                firstName: trainer.firstName,
+                lastName: trainer.lastName,
+                email: trainer.email
             }
         );
     }
 
-    function deleteTrainer(userId) {
-        return UserModel.remove({_id: userId});
+    function deleteTrainer(trainerId) {
+        return TrainerModel.remove({_id: trainerId});
+    }
+
+    function uploadImage(trainerId, fileName) {
+        return TrainerModel.update (
+            {
+                _id: trainerId
+            }, 
+            {
+                img: "upload/" + fileName
+            }
+        );
     }
 }

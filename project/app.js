@@ -3,4 +3,5 @@ module.exports = function(app) {
     require("./services/client.service.server.js")(app, model);
     require("./services/trainer.service.server.js")(app, model);
     require("./services/recipe.service.server.js")(app, model);
+    require("./services/workout.service.server.js")(app, model);
 }

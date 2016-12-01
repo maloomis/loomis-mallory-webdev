@@ -45,6 +45,11 @@
             controller: "TrainerSearchController",
             controllerAs: "model"
         })
+        .when("/:tid/createWorkout", {
+            templateUrl: "views/workouts/createWorkouts.view.client.html",
+            controller: "CreateWorkoutsController",
+            controllerAs: "model"
+        })
         .otherwise({
             redirectTo: "/clientLogin"
         });

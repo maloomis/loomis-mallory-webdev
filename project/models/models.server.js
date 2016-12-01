@@ -7,11 +7,13 @@ module.exports = function() {
     var clientModel = require("./client/client.model.server")();
     var trainerModel = require("./trainer/trainer.model.server")();
     var recipeModel = require("./recipe/recipe.model.server")();
+    var workoutModel = require("./workout/workout.model.server")();
 
     var model = {
         clientModel: clientModel,
         trainerModel: trainerModel,
-        recipeModel: recipeModel
+        recipeModel: recipeModel, 
+        workoutModel: workoutModel
     }
     return model;
 };

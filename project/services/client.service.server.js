@@ -10,6 +10,7 @@ module.exports = function(app, model) {
         }
     });
     var upload = multer({ storage: storage });
+    
     app.post('/api/client', createClient);
     app.get('/api/client/:cid', findClientById);
     app.get('/api/client/', findClientByCredentials);

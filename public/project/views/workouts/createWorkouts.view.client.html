@@ -5,7 +5,7 @@
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-        <a href="#/trainerProfile/{{model.trainer._id}}" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <a href="#/{{model.trainerId}}/createWorkout" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
         <!-- Navbar Right Menu -->
@@ -14,7 +14,7 @@
             <!-- Messages: style can be found in dropdown.less-->
             <li class="dropdown messages-menu">
                 <!-- Menu toggle button -->
-                <a href="#/trainerProfile/{{model.trainer._id}}" class="dropdown-toggle" data-toggle="dropdown">
+                <a href="#/{{model.trainerId}}/createWorkout" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-envelope-o"></i>
                 <span class="label label-success">4</span>
                 </a>
@@ -24,7 +24,7 @@
                     <!-- inner menu: contains the messages -->
                     <ul class="menu">
                     <li><!-- start message -->
-                        <a href="#/trainerProfile/{{model.trainer._id}}">
+                        <a href="#/{{model.trainer._id}}/createWorkout">
                         <div class="pull-left">
                             <!-- User Image -->
                             <img ng-src="{{model.trainer.img}}" class="img-circle" alt="User Image">
@@ -50,7 +50,7 @@
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-            <a href="#/trainerProfile/{{model.trainer._id}}" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#/{{model.trainerId}}/createWorkout" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
               <img ng-src="{{model.trainer.img}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
@@ -80,7 +80,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-right">
-                  <a href="#/trainerLogin" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="#/clientLogin" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -110,8 +110,8 @@
       <ul class="sidebar-menu">
         <li class="header">OPTIONS</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#/trainerProfile/{{model.trainer._id}}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
-        <li><a href="#/{{model.trainer._id}}/createWorkout"><i class="fa fa-link"></i> <span>Create New Workout</span></a></li>
+        <li><a href="#/trainerProfile/{{model.trainerId}}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
+        <li class="active"><a href="#/{{model.trainerId}/createWorkout"><i class="fa fa-link"></i> <span>Create New Workout</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -125,107 +125,64 @@
     <section class="content">
 
       <div class="row">
-        <div class="col-md-3">
-
-          <!-- Profile Image -->
-          <div class="box box-primary">
-            <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" ng-src="{{model.trainer.img}}" alt="User profile picture">
-
-              <h3 class="profile-username text-center">{{model.trainer.username}}</h3>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-
-          <!-- Favorite Recipes Box -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Workouts</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-
-          <!-- Trainers Box -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Client Followers</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-
-
-
-        <div class="col-md-9">
+        <div class="col-md-12">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li><a ng-click="model.informationTab()" data-toggle="tab">Information</a></li>
-              <li><a ng-click="model.uploadTab()" data-toggle="tab">Upload Profile Image</a></li>
+              <li><a ng-click="model.informationTab()" data-toggle="tab">Create Workout</a></li>
             </ul>
 
             <div class="tab-content">
               <div class="active tab-pane" id="information">
                 <form class="form-horizontal">
+
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">Name</label>
+
+                        <div class="col-sm-10">
+                        <input ng-model="model.workout.name" type="text" class="form-control" id="inputName" placeholder="Workout Name">
+                        </div>
+                  </div>
                   
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">First Name</label>
+                   <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">Type</label>
 
-                    <div class="col-sm-10">
-                      <input ng-model="model.trainer.firstName" type="text" class="form-control" id="inputName" placeholder="First Name">
+                        <div class="col-sm-10">
+                        <div class="radio">
+                            <label><input ng-model="model.workout.type" type="radio" name="optradio" value="Cardio">Cardio</label>
+                        </div>
+                        <div class="radio">
+                            <label><input ng-model="model.workout.type" type="radio" name="optradio" value="Circuit">Circuit</label>
+                        </div>
+                        <div class="radio">
+                            <label><input ng-model="model.workout.type" type="radio" name="optradio" value="Gym/Strength">Gym/Strength</label>
+                        </div>
+                        </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">Time Length</label>
+
+                        <div class="col-sm-10">
+                        <input ng-model="model.workout.time" type="number" class="form-control" id="inputName" placeholder="Minutes">
+                        </div>
                   </div>
 
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Last Name</label>
-
-                    <div class="col-sm-10">
-                      <input ng-model="model.trainer.lastName" type="text" class="form-control" id="inputName" placeholder="Last Name">
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">Description</label>
+                        <div class="col-sm-10">
+                            <textarea ng-model="model.workout.description" class="form-control" rows="5"></textarea>
+                        </div>
                     </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Email</label>
-
-                    <div class="col-sm-10">
-                      <input ng-model="model.trainer.email" type="text" class="form-control" id="inputName" placeholder="Email">
-                    </div>
-                  </div>
 
                   <div class="form-group">
                     <div class="col-xs-6">
-                      <button ng-click="model.saveInformation(model.trainer)" type="submit" class="btn btn-success">Save Information</button>
-                    </div>
-                    <div class="col-xs-6">
-                      <button ng-click="model.deleteTrainer()" type="submit" class="btn btn-danger">Delete Trainer</button>
+                      <button ng-click="model.createWorkout(model.workout)" type="submit" class="btn btn-success">Create</button>
                     </div>
                   </div>
                 </form>
 
               </div>
               <!-- /.tab-pane -->
-              
-              <div class="tab-pane" id="upload">
-                </br>
-                <form action="/api/uploadTrainerProfile" method="post" enctype="multipart/form-data">
-                  <input name="myFile" type="file" class="form-control"/>
-                  <input name="trainerId" value="{{model.trainerId}}" style="display: none"/>
-                  </br>
-                  <button name="submit" class="btn btn-block btn-success">Upload Profile Image</button>
-                </form>
-              </div>
-
-            </div>
-            <!-- /.tab-content -->
           </div>
           <!-- /.nav-tabs-custom -->
         </div>
