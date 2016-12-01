@@ -6,7 +6,7 @@
             var vm = this;
             vm.clientId = $routeParams["cid"];
             vm.init = init;
-            vm.searchTrainerByName = searchTrainerByName;
+            vm.searchForTrainers = searchForTrainers;
 
             init();
 
@@ -15,6 +15,7 @@
                 .success(function(client) {
                     if (client != '0') {
                         vm.client = client;
+                        console.log(client)
                     }
                 })
                 .error (function() {
@@ -22,7 +23,8 @@
                 });
             }
 
-            function searchTrainerByName(name) {
+            function searchForTrainers(trainer) {
+                console.log(trainer);
 
             }
         }

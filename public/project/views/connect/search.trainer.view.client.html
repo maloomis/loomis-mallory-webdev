@@ -35,7 +35,7 @@
                         <a href="#/{{model.client._id}}/searchTrainer">
                         <div class="pull-left">
                             <!-- User Image -->
-                            <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                            <img src="{{model.client.img}}" class="img-circle" alt="User Image">
                         </div>
                         <!-- Message title and timestamp -->
                         <h4>
@@ -60,14 +60,14 @@
             <!-- Menu Toggle Button -->
             <a href="#/{{model.client._id}}/searchTrainer" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="{{model.client.img}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{model.client.firstName}} {{model.client.lastName}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="{{model.client.img}}" class="img-circle" alt="User Image">
 
                 <p>
                   {{model.client.firstName}} {{model.client.lastName}}
@@ -107,7 +107,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="{{model.client.img}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>{{model.client.firstName}} {{model.client.lastName}}</p>
@@ -119,7 +119,7 @@
         <li class="header">FITNESS OPTIONS</li>
         <li><a href="#/clientProfile/{{model.client._id}}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
         <li class="active"><a href="#/{{model.client._id}}/searchTrainer"><i class="fa fa-link"></i> <span>Talk To a Trainer</span></a></li>
-        <li><a href="#/{{model.client._id}}/searchRecipe"><i class="fa fa-link"></i> <span>Search Food Options</span></a></li>
+        <li><a href="#/{{model.client._id}}/searchRecipe"><i class="fa fa-link"></i> <span>Search For Recipes</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -141,7 +141,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="input-group" id="adv-search">
-                                <input type="text" class="form-control" placeholder="Search for trainers" />
+                                <input ng-model="model.trainer.searchValue" type="text" class="form-control" placeholder="Search for trainers" />
                                 <div class="input-group-btn">
                                     <div class="btn-group" role="group">
                                         <div class="dropdown dropdown-lg">
@@ -150,17 +150,16 @@
                                                 <form class="form-horizontal" role="form">
                                                 <div class="form-group">
                                                     <label for="filter">Search by</label>
-                                                    <select class="form-control">
-                                                        <option value="0" selected>Name</option>
-                                                        <option value="1">Username</option>
-                                                        <option value="2">Location</option>
+                                                    <select ng-model="model.trainer.searchCriteria" class="form-control">
+                                                        <option ng-selected="model.trainer.firstname" ng-model="model.trainer.firstname" value="firstname" selected>First Name</option>
+                                                        <option ng-model="model.trainer.lastname" value="lastname">Last Name</option>
+                                                        <option ng-model="model.trainer.username" value="username">Username</option>
                                                     </select>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                                                 </form>
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                        <button ng-click="model.searchForTrainers(model.trainer)" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                                     </div>
                                 </div>
                             </div>

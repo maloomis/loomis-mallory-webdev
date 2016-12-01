@@ -3,7 +3,7 @@
         .module("FitnessApp")
         .controller("ProfileTrainerController", ProfileTrainerController);
 
-        function ProfileTrainerController($location, TrainerService, $routeParams) {
+        function ProfileTrainerController($location, TrainerService, $routeParams, WorkoutService) {
             var vm = this;
             vm.trainerId = $routeParams["tid"];
             vm.saveInformation = saveInformation;
@@ -20,7 +20,19 @@
                 })
                 .error (function() {
                     vm.error = "Could not retrieve trainer";
-                });               
+                });
+
+                                
+                WorkoutService.findWorkoutsForTrainer(vm.trainerId)
+                    .success(function(workouts){
+                        if (workouts) {
+                            vm.workouts = workouts;
+                            console.log(workouts);
+                        }
+                    }) 
+                    .error(function(){
+                        vm.error = "Could not retrieve workouts";
+                    })              
             }
             init();
 

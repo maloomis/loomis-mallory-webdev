@@ -6,13 +6,20 @@
     function WorkoutService($http) {        
         var api = {
             "createWorkout" : createWorkout,
+            "findWorkoutsForTrainer" : findWorkoutsForTrainer
         };
 
         return api;
 
-        function createWorkout(workout) {
-            var url = '/api/workout';
+        function createWorkout(trainerId, workout) {
+            console.log(trainerId)
+            var url = '/api/workout/' + trainerId;
             return $http.post(url, workout);
         };
+
+        function findWorkoutsForTrainer(trainerId) {
+            var url = '/api/workout/' + trainerId;
+            return $http.get(url);
+        }
     }
 })();

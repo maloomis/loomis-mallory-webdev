@@ -20,7 +20,7 @@
             init();
 
             function createWorkout(workout) {
-                WorkoutService.createWorkout(workout)
+                WorkoutService.createWorkout(vm.trainerId, workout)
                     .success(function(response){
                         location.reload();
                     })

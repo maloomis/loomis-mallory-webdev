@@ -5,11 +5,23 @@ module.exports = function() {
 
     var api = {
         createWorkout: createWorkout,
+        findWorkoutsForTrainer: findWorkoutsForTrainer
     };
     return api;
 
-    function createWorkout(workout) {
-        console.log(workout)
-        return WorkoutModel.create(workout);
+    function createWorkout(trainerId, workout) {
+        return WorkoutModel.create({
+            _trainer: trainerId,
+            name: workout.name,
+            type: workout.type,
+            length: workout.length,
+            description: workout.description
+        });
+    }
+
+    function findWorkoutsForTrainer(trainerId) {
+        return WorkoutModel.find({
+            _trainer: trainerId
+        });
     }
 }

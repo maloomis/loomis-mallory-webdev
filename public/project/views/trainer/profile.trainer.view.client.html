@@ -145,6 +145,24 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Length</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="workout in model.workouts">
+                            <td>{{workout.name}}</td>
+                            <td>{{workout.type}}</td>
+                            <td>{{workout.length}}</td>
+                            <td>{{workout.description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <!-- /.box-body -->
           </div>
