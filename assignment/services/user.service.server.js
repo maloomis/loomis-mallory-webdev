@@ -53,9 +53,7 @@ module.exports = function(app, model) {
             .findUserByCredentials(username, password)
             .then(
                 function (user) {
-                    console.log(user);
-                    if (user) {
-                        console.log(user);
+                    if (user && bcrypt.compareSync(password, user.password)) {
                         if (!user) { 
                             return done(null, false); 
                         }
@@ -128,7 +126,6 @@ module.exports = function(app, model) {
 
     function login(req, res) {
         var user = req.user;
-        console.log(user);
         var username = user.username;
         var password = user.password;
         model
@@ -136,9 +133,7 @@ module.exports = function(app, model) {
             .findUserByCredentials(username, password)
             .then(
                 function(user) {
-                    if (user && bcrypt.compareSync(password, user.password)) {
-                        console.log(bcrypt.compareSync(password, user.password));
-                        console.log(user);
+                    if (user) {
                         res.send(user);
                     }
                     else {

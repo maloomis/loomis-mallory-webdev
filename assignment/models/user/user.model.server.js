@@ -28,12 +28,8 @@ module.exports = function() {
     }
 
     function findUserByCredentials(username, password) {
-        console.log(username);
-        console.log(password);
-        password = bcrypt.compareSync(password, user.password)
         return UserModel.findOne({
-                        username: username,
-                        password: password
+                        username: username
                     });
     }
 
