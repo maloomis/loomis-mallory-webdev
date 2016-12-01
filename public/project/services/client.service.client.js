@@ -11,7 +11,9 @@
             "findClientById" : findClientById,
             "updateClient" : updateClient,
             "favoriteRecipe" : favoriteRecipe,
-            "unfavoriteRecipe" : unfavoriterecipe
+            "unfavoriteRecipe" : unfavoriterecipe,
+            "followTrainer": followTrainer,
+            "unfollowTrainer": unfollowTrainer
         };
 
         return api;
@@ -48,6 +50,16 @@
 
         function unfavoriterecipe(clientId, recipeId) {
             var url = "/api/client/" + clientId + "/recipe/" + recipeId;
+            return $http.delete(url);
+        }
+
+        function followTrainer(clientId, trainerId) {
+            var url = "/api/client/" + clientId + "/trainer/" + trainerId;
+            return $http.put(url);
+        }
+
+        function unfollowTrainer(clientId, trainerId) {
+            var url = "/api/client/" + clientId + "/trainer/" + trainerId;
             return $http.delete(url);
         }
     }

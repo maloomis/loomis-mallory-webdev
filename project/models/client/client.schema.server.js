@@ -18,6 +18,10 @@ module.exports = function() {
             type: mongoose.Schema.ObjectId,
             ref: 'RecipeModel'
         }],
+        trainers: [{
+            type: mongoose.Schema.ObjectId,
+            ref: 'TrainerModel'
+        }],
         dateCreated: { type: Date, default: Date.now}
         }, {collection: "client"});
     return ClientSchema;

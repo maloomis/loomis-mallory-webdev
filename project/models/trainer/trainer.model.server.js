@@ -7,6 +7,8 @@ module.exports = function() {
         createTrainer: createTrainer,
         findTrainerByCredentials: findTrainerByCredentials,
         findTrainerById: findTrainerById,
+        findTrainers: findTrainers,
+        findTrainersByName: findTrainersByName,
         updateTrainer: updateTrainer,
         deleteTrainer: deleteTrainer,
         uploadImage: uploadImage
@@ -26,6 +28,17 @@ module.exports = function() {
 
     function findTrainerById(trainerId) {
         return TrainerModel.findById(trainerId);
+    }
+
+    function findTrainers() {
+        return TrainerModel.find();
+    }
+
+    function findTrainersByName(trainerFirstName, trainerLastName) {
+        return TrainerModel.find({
+            firstName: trainerFirstName,
+            lastName: trainerLastName
+        })
     }
 
     function updateTrainer(trainer) {

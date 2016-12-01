@@ -19,6 +19,8 @@ module.exports = function(app, model) {
     app.post ("/api/uploadProfile", upload.single('myFile'), uploadImage);
     app.put('/api/client/:cid/recipe/:rid', favoriteRecipe);
     app.delete('/api/client/:cid/recipe/:rid', unfavoriteRecipe);
+    app.put('/api/client/:cid/trainer/:tid', followTrainer);
+    app.delete('/api/client/:cid/trainer/:tid', unfollowTrainer);
 
     function createClient(req, res) {
         var client = req.body;
@@ -152,6 +154,38 @@ module.exports = function(app, model) {
             .unfavoriteRecipe(clientId, recipeId)
             .then(
                 function(status){
+                    res.sendStatus(200);
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
+                }
+            )
+    }
+
+    function followTrainer(req, res) {
+        var clientId = req.params.cid;
+        var trainerId = req.params.tid;
+        model
+            .clientModel
+            .followTrainer(clientId, trainerId)
+            .then(
+                function(status) {
+                    res.sendStatus(200);
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
+                }
+            )
+    }
+
+    function unfollowTrainer(req, res) {
+        var clientId = req.params.cid;
+        var trainerId = req.params.tid;
+        model
+            .clientModel
+            .unfollowTrainer(clientId, trainerId)
+            .then(
+                function(status) {
                     res.sendStatus(200);
                 },
                 function(err) {

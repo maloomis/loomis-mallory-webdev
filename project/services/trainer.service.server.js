@@ -14,11 +14,14 @@ module.exports = function(app, model) {
     app.post('/api/trainer', createTrainer);
     app.get('/api/trainer/:tid', findTrainerById);
     app.get('/api/trainer/', findTrainerByCredentials);
+    app.get('/api/searchTrainer', findTrainersByName);
     app.put('/api/trainer', updateTrainer);
     app.delete('/api/trainer/:tid', deleteTrainer);
     app.post ("/api/uploadTrainerProfile", upload.single('myFile'), uploadImage);
+    app.get('/api/trainers', findTrainers);
 
     function createTrainer(req, res) {
+        console.log("hello");
         var trainer = req.body;
         console.log(trainer);
         model
@@ -55,6 +58,47 @@ module.exports = function(app, model) {
                 }
             );
     };
+
+    function findTrainers(req, res) {
+        console.log("hello")
+        model
+            .trainerModel
+            .findTrainers()
+            .then(
+                function(trainers) {
+                    if(trainers) {
+                        res.json(trainers);
+                    } else {
+                        res.send('0');
+                    }
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
+                }
+            )
+    }
+
+    function findTrainersByName(req, res) {
+        var trainerFirstName = req.query.firstname;
+        var trainerLastName = req.query.lastname;
+        console.log(trainerFirstName);
+        console.log(trainerLastName);
+        model
+            .trainerModel
+            .findTrainersByName(trainerFirstName, trainerLastName)
+            .then(
+                function(trainers) {
+                    if(trainers) {
+                        res.json(trainers);
+                    } else {
+                        res.send('0');
+                    }
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
+                }
+            )
+    }
 
     function findTrainerById(req, res) {
         var trainerId = req.params.tid;

@@ -27,7 +27,6 @@
                     .success(function(workouts){
                         if (workouts) {
                             vm.workouts = workouts;
-                            console.log(workouts);
                         }
                     }) 
                     .error(function(){

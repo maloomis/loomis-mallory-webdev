@@ -11,7 +11,9 @@ module.exports = function() {
         deleteClient: deleteClient,
         uploadImage: uploadImage,
         favoriteRecipe: favoriteRecipe,
-        unfavoriteRecipe: unfavoriteRecipe
+        unfavoriteRecipe: unfavoriteRecipe,
+        followTrainer: followTrainer,
+        unfollowTrainer: unfollowTrainer
     };
     return api;
 
@@ -27,7 +29,8 @@ module.exports = function() {
     }
 
     function findClientById(clientId) {
-        return ClientModel.findById(clientId).populate('favoriteRecipes').exec();
+        var populateQuery = [{path:'favoriteRecipes', select:'title'}, {path:'trainers', select: 'username'}];
+        return ClientModel.findById(clientId).populate(populateQuery).exec();
     }
 
     function updateClient(client, clientId) {
@@ -68,7 +71,7 @@ module.exports = function() {
                 _id: clientId
             }, 
             {
-                "$push" : {"favoriteRecipes" : recipeId }
+                "$push": {"favoriteRecipes" : recipeId }
             }
         );
     }
@@ -82,5 +85,27 @@ module.exports = function() {
                 $pull: { 'favoriteRecipes':  recipeId } 
             }
         );
+    }
+
+    function followTrainer(clientId, trainerId) {
+        return ClientModel.update(
+            {
+                _id: clientId
+            },
+            {
+                "$push": {"trainers": trainerId}
+            }
+        )
+    }
+
+    function unfollowTrainer(clientId, trainerId) {
+        return ClientModel.update(
+            {
+                _id: clientId
+            },
+            {
+                $pull: {"trainers": trainerId}
+            }
+        )
     }
 }

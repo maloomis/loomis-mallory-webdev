@@ -50,6 +50,11 @@
             controller: "CreateWorkoutsController",
             controllerAs: "model"
         })
+        .when("/:cid/profileTrainerConnect/:tid", {
+            templateUrl: "views/connect/profile.trainer.connect.view.client.html",
+            controller: "ProfileTrainerConnectController",
+            controllerAs: "model"
+        })
         .otherwise({
             redirectTo: "/clientLogin"
         });

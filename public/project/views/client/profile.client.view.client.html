@@ -169,6 +169,9 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+              <div ng-repeat="trainer in model.client.trainers">
+                <a href="#/{{model.clientId}}/profileTrainerConnect/{{trainer._id}}"><h5>{{trainer.username}}</h5></a>
+              </div>
             </div>
             <!-- /.box-body -->
           </div>
