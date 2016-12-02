@@ -28,6 +28,7 @@
         var vm = this;
         vm.userId = $routeParams["uid"];
         vm.saveSite = saveSite;
+        vm.submitted = false;
 
         function init() {
             promise = WebsiteService.findAllWebsitesForUser(vm.userId)
@@ -44,6 +45,16 @@
         init();
 
         function saveSite(website) {
+            vm.submitted = true;
+
+            if (!website) {
+                return;
+            }
+
+            if (!website.name) {
+                return;
+            }
+
             promise = WebsiteService.createWebsite(vm.userId, website);
             promise.success(function() {
                 $location.url("/user/" + vm.userId + "/website/");
@@ -59,6 +70,7 @@
         var vm = this;
         vm.userId = $routeParams['uid'];
         vm.websiteId = $routeParams['wid'];
+        vm.submitted = false;
 
         vm.init = init;
 
@@ -102,6 +114,16 @@
         }
 
         function updateWebsite(website) {
+            vm.submitted = true;
+
+            if (!website) {
+                return;
+            }
+
+            if (!website.name) {
+                return;
+            }
+
             promise = WebsiteService.updateWebsite(vm.websiteId, website)
                 .success(function(result) {
                     if (result) {

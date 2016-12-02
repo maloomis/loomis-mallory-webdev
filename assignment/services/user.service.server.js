@@ -5,6 +5,7 @@ module.exports = function(app, model) {
     var LocalStrategy = require('passport-local').Strategy;
     var FacebookStrategy = require('passport-facebook').Strategy;
     var bcrypt = require("bcrypt-nodejs");
+    var auth = authorized;
 
     var facebookConfig = {
         clientID     : process.env.FACEBOOK_CLIENT_ID,
@@ -36,11 +37,19 @@ module.exports = function(app, model) {
     app.post('/api/checkLogin', checkLogin);
     app.post('/api/register', register);
     app.post('/api/logout', logout);
-    app.post('/api/user', createUser);
+    app.post('/api/user', auth, createUser);
     app.get('/api/user/:uid', findUserById);
     app.get('/api/user/', findUserByCredentials);
-    app.put('/api/user/:uid', updateUser);
-    app.delete('/api/user/:uid', deleteUser);
+    app.put('/api/user/:uid', auth, updateUser);
+    app.delete('/api/user/:uid', auth, deleteUser);
+
+    function authorized(req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
+    }
 
     function logout(req, res) {
         req.logout();
@@ -126,24 +135,7 @@ module.exports = function(app, model) {
 
     function login(req, res) {
         var user = req.user;
-        var username = user.username;
-        var password = user.password;
-        model
-            .userModel
-            .findUserByCredentials(username, password)
-            .then(
-                function(user) {
-                    if (user) {
-                        res.send(user);
-                    }
-                    else {
-                        res.send('0');
-                    }
-                },
-                function(err) {
-                    res.sendStatus(400).send(err);
-                }
-            );
+        res.json(user);
     }
 
     function checkLogin(req, res) {

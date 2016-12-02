@@ -1,8 +1,14 @@
 <div id="editpageform" class="container-fluid pad">
-    <form action="/api/upload" method="post" enctype="multipart/form-data">
+    <form action="/api/upload" method="post" enctype="multipart/form-data" name="imageForm">
         <div class="form-group">
             <label for="name">Name</label>
-            <input name="name" type="text" class="form-control" ng-model="model.widget.name">
+            <input name="name" type="text" class="form-control" ng-model="model.widget.name" required/>
+        </div>
+
+        <div ng-show="model.submitted">
+            <div class="alert alert-danger" ng-show="imageForm.name.$error.required">
+                Name is a required field
+            </div>
         </div>
         
         <div class="form-group">

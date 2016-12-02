@@ -179,7 +179,8 @@ module.exports = function() {
                                 rows: widget.rows,
                                 placeholder: widget.placeholder,
                                 formatted: widget.formatted,
-                                deletable: true
+                                deletable: true,
+                                name: widget.name
                             }
                         )
                         .then(

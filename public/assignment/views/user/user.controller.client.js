@@ -8,11 +8,12 @@
     function LoginController($location, UserService) {
         var vm = this;
         vm.login = login;
+        vm.submitted = false;
 
         function login(username, password) {
+            vm.submitted = true;
             var promise = UserService.login(username, password)
             .success(function(user) {
-                console.log(user);
                     if (user === '0') {
                         vm.error = "No such user";
                     } else {
@@ -25,8 +26,24 @@
     function RegisterController($location, UserService) {
         var vm = this;
         vm.register = register;
+        vm.submitted = false;
 
         function register(user) {
+            vm.submitted = true;
+            vm.passwordMatch = false;
+
+            if (!user) {
+                return;
+            }
+            
+            if (user.password == user.verifyPassword) {
+                vm.passwordMatch = true;
+            }
+
+            if (!vm.passwordMatch) {
+                return;
+            }
+
             var promise = UserService
                                 .register(user)
                                 .then(

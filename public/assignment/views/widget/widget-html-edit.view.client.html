@@ -1,7 +1,3 @@
-<div ng-model="model.widget.text"
->
-</div>
-
 <div id="editpageform" class="container-fluid pad">
     <div
         class= "my-large-area" 
@@ -12,5 +8,7 @@
                         ['justifyLeft','justifyCenter','justifyRight'],
                         ['html', 'insertLink']]">
     </div>
+    <input name="name" ng-model="model.widget.name" value="name" style="display: none"/>
+</div>
     <a ng-click="model.deleteWidget(model.widget)" type="button" class="btn btn-danger btn-block">Delete</a>
 </div>

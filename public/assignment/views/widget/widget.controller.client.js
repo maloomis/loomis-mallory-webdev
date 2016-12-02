@@ -19,10 +19,7 @@
             var promise = WidgetService.findAllWidgetsForPage(vm.pageId)
                 .success(function(data) {
                     if (data != '0') {
-                        vm.widgets = data;
-                        console.log(vm.widgets);
-
-                                            
+                        vm.widgets = data;                       
                     }
                 })
                 .error (function() {
@@ -112,7 +109,6 @@
 
         function chooseTextWidget() {
             vm.widget.widgetType = "TEXT";
-            console.log(vm.widget);
             promise = WidgetService.createWidget(vm.pageId, vm.widget);
             promise.success(function(widget) {
                 if (widget != '0') {
@@ -131,8 +127,12 @@
         vm.websiteId = $routeParams['wid'];
         vm.pageId = $routeParams['pid'];
         vm.widgetId = $routeParams['wgid'];
-
         vm.init = init;
+        vm.deleteWidget = deleteWidget;
+        vm.saveWidget = saveWidget;
+        vm.submitted = false;
+
+        init(); 
 
         function init() {
             var promise = WidgetService.findWidgetById(vm.widgetId)
@@ -145,11 +145,6 @@
                     vm.error = "Could not retrieve widget";
                 });
         }
-
-        init();
-
-        vm.deleteWidget = deleteWidget;
-        vm.saveWidget = saveWidget; 
 
         function deleteWidget(widget) {
             var promise = WidgetService.deleteWidget(widget, vm.pageId)
@@ -165,6 +160,20 @@
         }
 
         function saveWidget(widget) {
+            vm.submitted = true;
+
+            if (!widget) {
+                return;
+            }
+
+            if (!widget.name && widget.type != "HTML") {
+                return;
+            }
+
+            if (widget.type == "TEXT" && !widget.rows) { 
+                return;
+            }
+
             var promise = WidgetService.updateWidget(widget, vm.pageId)
                 .success(function(widget) {
                     if (widget != '0') {

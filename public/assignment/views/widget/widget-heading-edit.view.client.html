@@ -1,8 +1,14 @@
 <div id="editpageform" class="container-fluid pad">
-    <form>
+    <form name="headingForm">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" ng-model="model.widget.name">
+            <input name="name" type="text" class="form-control" ng-model="model.widget.name" required/>
+        </div>
+
+        <div ng-show="model.submitted">
+            <div class="alert alert-danger" ng-show="headingForm.name.$error.required">
+                Name is a required field
+            </div>
         </div>
         
         <div class="form-group">
@@ -12,7 +18,13 @@
 
         <div class="form-group">
             <label for="name">Size</label>
-            <input type="number" class="form-control" ng-model="model.widget.size">
+            <input name="size" type="number" class="form-control" ng-model="model.widget.size" required/>
+        </div>
+
+        <div ng-show="model.submitted">
+            <div class="alert alert-danger" ng-show="headingForm.size.$error.required">
+                Size is a required field
+            </div>
         </div>
 
         <a ng-click="model.deleteWidget(model.widget)" type="button" class="btn btn-danger btn-block">Delete</a>

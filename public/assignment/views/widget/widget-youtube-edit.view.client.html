@@ -1,8 +1,14 @@
 <div id="editpageform" class="container-fluid pad">
-    <form>
+    <form name="youtubeForm">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" ng-model="model.widget.name">
+            <input name="name" type="text" class="form-control" ng-model="model.widget.name" required />
+        </div>
+
+        <div ng-show="model.submitted">
+            <div class="alert alert-danger" ng-show="youtubeForm.name.$error.required">
+                Name is a required field
+            </div>
         </div>
         
         <div class="form-group">
@@ -12,7 +18,13 @@
 
         <div class="form-group">
             <label for="name">Url</label>
-            <input type="text" class="form-control" ng-model="model.widget.url">
+            <input name="url" type="text" class="form-control" ng-model="model.widget.url" required />
+        </div>
+
+        <div ng-show="model.submitted">
+            <div class="alert alert-danger" ng-show="youtubeForm.url.$error.required">
+                Url is a required field
+            </div>
         </div>
 
         <div class="form-group">

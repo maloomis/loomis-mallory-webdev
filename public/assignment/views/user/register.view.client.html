@@ -8,17 +8,30 @@
         </div>
 
         <div class="panel-body">
-            <form id="resiterform" class="form-horizontal" role="form">
+            <form id="resiterform" class="form-horizontal" role="form" name="registerForm">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input ng-model="model.user.username" type="text" class="form-control" placeholder="username"/>
+                    <input name="username" ng-model="model.user.username" type="text" class="form-control" placeholder="username" required/>
+                </div>
+
+                <div ng-show="model.submitted">
+                    <div class="alert alert-danger" ng-show="registerForm.username.$error.required">
+                        Username is a required field</div>
                 </div>
 
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input ng-model="model.user.password" type="password" class="form-control" placeholder="password"/>
+                    <input ng-model="model.user.password" type="password" class="form-control" placeholder="password" name="password" required/>
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input ng-model="model.user.password" type="password" class="form-control" placeholder="verify password"/>
+                    <input ng-model="model.user.verifyPassword" type="password" class="form-control" placeholder="verify password" name="verifyPassword" required/>
+                </div>
+                <div ng-show="model.submitted">
+                    <div class="alert alert-danger" ng-show="registerForm.password.$error.required">
+                        Password is a required field</div>
+                    <div class="alert alert-danger" ng-show="registerForm.verifyPassword.$error.required">
+                        Verify Password is a required field</div>
+                    <div class="alert alert-danger" ng-show="!model.passwordMatch">
+                        Password and Verify Password fields must match</div>
                 </div>
 
                 </br>

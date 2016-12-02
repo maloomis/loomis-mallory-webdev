@@ -19,11 +19,18 @@
 </nav>
 
 <div id="newwebsiteform" class="container-fluid pad">
-    <form>
+    <form name="newPageForm">
         <div class="form-group">
             <label for="name">Name</label>
-            <input ng-model="model.page.name" type="text" class="form-control" placeholder="Enter Page Name">
+            <input name="name" ng-model="model.page.name" type="text" class="form-control" placeholder="Enter Page Name" required/>
         </div>
+
+        <div ng-show="model.submitted">
+            <div class="alert alert-danger" ng-show="newPageForm.name.$error.required">
+                Name is a required field
+            </div>
+        </div>
+
         <div class="form-group">
             <label for="name">Title</label>
             <input ng-model="model.page.title" type="text" class="form-control" placeholder="Enter Page Title">

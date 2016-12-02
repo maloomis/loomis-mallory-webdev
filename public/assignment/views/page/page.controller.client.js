@@ -31,8 +31,19 @@
         vm.userId = $routeParams['uid'];
         vm.websiteId = $routeParams['wid'];
         vm.savePage = savePage;
+        vm.submitted = false;
 
         function savePage(page) {
+            vm.submitted = true;
+
+            if (!page) {
+                return;
+            }
+
+            if (!page.name) {
+                return;
+            }
+
             promise = PageService.createPage(vm.websiteId, page);
             promise.success(function(result) {
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
@@ -42,12 +53,11 @@
 
     function EditPageController($routeParams, PageService, $location) {
         var vm = this;
-
         vm.userId = $routeParams['uid'];
         vm.websiteId = $routeParams['wid'];
         vm.pageId = $routeParams['pid'];
-
         vm.init = init;
+        vm.submitted = false;
 
         function init() {
             promise = PageService.findPageById(vm.pageId)
@@ -79,6 +89,16 @@
         }
 
         function savePage(page) {
+            vm.submitted = true;
+
+            if (!page) {
+                return;
+            }
+
+            if (!page.name) {
+                return;
+            }
+            
             promise = PageService.updatePage(vm.pageId, page)
                 .success(function(page) {
                     if (page) {
