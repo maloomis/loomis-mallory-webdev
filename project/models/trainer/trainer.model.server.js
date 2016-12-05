@@ -11,7 +11,8 @@ module.exports = function() {
         findTrainersByName: findTrainersByName,
         updateTrainer: updateTrainer,
         deleteTrainer: deleteTrainer,
-        uploadImage: uploadImage
+        uploadImage: uploadImage,
+        messageTrainer: messageTrainer
     };
     return api;
 
@@ -67,5 +68,20 @@ module.exports = function() {
                 img: "upload/" + fileName
             }
         );
+    }
+
+    function messageTrainer(message, trainerId, clientId) {
+        var message = {
+            message: message,
+            client: clientId
+        }
+        return TrainerModel.update (
+            {
+                _id: trainerId
+            },
+            {
+                "$push" : {"messages" : message}
+            }
+        )
     }
 }

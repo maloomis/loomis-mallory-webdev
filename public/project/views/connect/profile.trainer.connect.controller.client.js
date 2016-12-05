@@ -3,12 +3,13 @@
         .module("FitnessApp")
         .controller("ProfileTrainerConnectController", ProfileTrainerConnectController);
         
-        function ProfileTrainerConnectController($http, ClientService, $routeParams, TrainerService, WorkoutService) {
+        function ProfileTrainerConnectController($http, ClientService, $routeParams, TrainerService, WorkoutService, $location) {
             var vm = this;
             vm.clientId = $routeParams['cid'];
             vm.trainerId = $routeParams['tid'];
             vm.followTrainer = followTrainer;
             vm.unfollowTrainer = unfollowTrainer;
+            vm.messageTrainer = messageTrainer;
 
             function init() {
                 vm.trainerUnfollowed = true;
@@ -75,6 +76,10 @@
                     .error(function(){
                         vm.error("Could not follow trainer");
                     });
+            }
+
+            function messageTrainer() {
+                $location.url(vm.clientId + "/" + vm.trainerId + "/message");
             }
         }
             

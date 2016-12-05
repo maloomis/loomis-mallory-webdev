@@ -19,6 +19,7 @@ module.exports = function(app, model) {
     app.delete('/api/trainer/:tid', deleteTrainer);
     app.post ("/api/uploadTrainerProfile", upload.single('myFile'), uploadImage);
     app.get('/api/trainers', findTrainers);
+    app.put('/api/trainer/:tid/client/:cid/message', messageTrainer);
 
     function createTrainer(req, res) {
         console.log("hello");
@@ -146,6 +147,24 @@ module.exports = function(app, model) {
                 }
             );
 
+    }
+
+    function messageTrainer(req, res) {
+        var trainerId = req.params.tid;
+        var clientId = req.params.cid;
+        var message = req.body;
+
+        model
+            .trainerModel
+            .messageTrainer(message, clientId, trainerId)
+            .then(
+                function(status) {
+                    res.sendStatus(200);
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
+                }
+            );
     }
 
     function uploadImage(req, res) {

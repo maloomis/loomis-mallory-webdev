@@ -55,6 +55,11 @@
             controller: "ProfileTrainerConnectController",
             controllerAs: "model"
         })
+        .when("/:cid/:tid/message", {
+            templateUrl: "views/connect/message.connect.view.client.html",
+            controller: "MessageController",
+            controllersAs: "model"
+        })
         .otherwise({
             redirectTo: "/clientLogin"
         });

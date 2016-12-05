@@ -11,7 +11,8 @@
             "findTrainerById": findTrainerById,
             "findTrainersByName": findTrainersByName,
             "updateTrainer": updateTrainer,
-            "findTrainers": findTrainers
+            "findTrainers": findTrainers,
+            "messageTrainer": messageTrainer
         };
 
         return api;
@@ -50,5 +51,10 @@
             var url = "/api/trainer";
             return $http.put(url, trainer);
         };
+
+        function messageTrainer(message, clientId, trainerId) {
+            var url = "/api/trainer/" + trainerId + "/client/" + clientId + "/message";
+            return $http.put(url, message);
+        }
     }
 })();
