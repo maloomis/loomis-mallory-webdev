@@ -21,6 +21,7 @@ module.exports = function(app, model) {
     app.delete('/api/client/:cid/recipe/:rid', unfavoriteRecipe);
     app.put('/api/client/:cid/trainer/:tid', followTrainer);
     app.delete('/api/client/:cid/trainer/:tid', unfollowTrainer);
+    app.put('/api/client/:cid/trainer/:tid/message', messageClient);
 
     function createClient(req, res) {
         var client = req.body;
@@ -192,5 +193,23 @@ module.exports = function(app, model) {
                     res.sendStatus(400).send(err);
                 }
             )
+    }
+
+    function messageClient(req, res) {
+        var trainerId = req.params.tid;
+        var clientId = req.params.cid;
+        var message = req.body;
+
+        model
+            .clientModel
+            .messageClient(message, trainerId, clientId)
+            .then(
+                function(status) {
+                    res.sendStatus(200);
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
+                }
+            );
     }
 }

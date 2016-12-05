@@ -13,7 +13,8 @@ module.exports = function() {
         favoriteRecipe: favoriteRecipe,
         unfavoriteRecipe: unfavoriteRecipe,
         followTrainer: followTrainer,
-        unfollowTrainer: unfollowTrainer
+        unfollowTrainer: unfollowTrainer,
+        messageClient: messageClient
     };
     return api;
 
@@ -29,7 +30,7 @@ module.exports = function() {
     }
 
     function findClientById(clientId) {
-        var populateQuery = [{path:'favoriteRecipes', select:'title'}, {path:'trainers', select: 'username'}];
+        var populateQuery = [{path:'favoriteRecipes', select:'title'}, {path:'trainers', select: 'username'}, {path:'messages.trainer'}];
         return ClientModel.findById(clientId).populate(populateQuery).exec();
     }
 
@@ -105,6 +106,21 @@ module.exports = function() {
             },
             {
                 $pull: {"trainers": trainerId}
+            }
+        )
+    }
+
+    function messageClient(message, trainerId, clientId) {
+        var message = {
+            message: message.text,
+            trainer: trainerId
+        }
+        return ClientModel.update (
+            {
+                _id: clientId
+            },
+            {
+                "$push" : {"messages" : message}
             }
         )
     }

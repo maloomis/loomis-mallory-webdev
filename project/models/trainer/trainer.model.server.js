@@ -12,7 +12,8 @@ module.exports = function() {
         updateTrainer: updateTrainer,
         deleteTrainer: deleteTrainer,
         uploadImage: uploadImage,
-        messageTrainer: messageTrainer
+        messageTrainer: messageTrainer,
+        deleteMessage: deleteMessage
     };
     return api;
 
@@ -28,7 +29,7 @@ module.exports = function() {
     }
 
     function findTrainerById(trainerId) {
-        return TrainerModel.findById(trainerId);
+        return TrainerModel.findById(trainerId).populate('messages.client').exec();
     }
 
     function findTrainers() {
@@ -72,10 +73,21 @@ module.exports = function() {
 
     function messageTrainer(message, trainerId, clientId) {
         var message = {
-            message: message,
+            message: message.text,
             client: clientId
         }
         return TrainerModel.update (
+            {
+                _id: trainerId
+            },
+            {
+                "$push" : {"messages" : message}
+            }
+        )
+    }
+
+    function deleteMessage(trainerId, messageId) {
+        return TrainerModel.update(
             {
                 _id: trainerId
             },

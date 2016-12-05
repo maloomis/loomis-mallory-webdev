@@ -13,7 +13,8 @@
             "favoriteRecipe" : favoriteRecipe,
             "unfavoriteRecipe" : unfavoriterecipe,
             "followTrainer": followTrainer,
-            "unfollowTrainer": unfollowTrainer
+            "unfollowTrainer": unfollowTrainer,
+            "messageClient": messageClient
         };
 
         return api;
@@ -61,6 +62,11 @@
         function unfollowTrainer(clientId, trainerId) {
             var url = "/api/client/" + clientId + "/trainer/" + trainerId;
             return $http.delete(url);
+        }
+
+        function messageClient(message, clientId, trainerId) {
+            var url = "/api/client/" + clientId + "/trainer/" + trainerId + "/message";
+            return $http.put(url, message);
         }
     }
 })();

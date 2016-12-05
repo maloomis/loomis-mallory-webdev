@@ -1,15 +1,6 @@
 <div class="hold-transition skin-blue-light sidebar-mini">
     <!-- Main Header -->
     <header class="main-header">
-
-        <!-- Logo -->
-        <a href="#" class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"></span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"></span>
-        </a>
-
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
@@ -22,43 +13,42 @@
             <!-- Messages: style can be found in dropdown.less-->
             <li class="dropdown messages-menu">
                 <!-- Menu toggle button -->
-                <a href="#/detailsRecipe/{{model.recipeId}}" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-envelope-o"></i>
-                <span class="label label-success">4</span>
+                <a href="#/{{model.clientId}}/detailsRecipe/{{model.recipeId}}" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-envelope-o"></i>
+                  <span class="label label-success">{{model.client.messages.length}}</span>
                 </a>
                 <ul class="dropdown-menu">
-                <li class="header">You have 4 messages</li>
-                <li>
-                    <!-- inner menu: contains the messages -->
-                    <ul class="menu">
-                    <li><!-- start message -->
-                        <a href="#/detailsRecipe/{{model.recipeId}}">
-                        <div class="pull-left">
-                            <!-- User Image -->
-                            <img src="{{model.client.img}}" class="img-circle" alt="User Image">
-                        </div>
-                        <!-- Message title and timestamp -->
-                        <h4>
-                            Support Team
-                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                        </h4>
-                        <!-- The message -->
-                        <p>Why not buy a new awesome theme?</p>
-                        </a>
-                    </li>
-                    <!-- end message -->
-                    </ul>
-                    <!-- /.menu -->
-                </li>
-                <li class="footer"><a href="#">See All Messages</a></li>
-                </ul>
+                  <li class="header">You have {{model.client.messages.length}} messages</li>
+                  <li>
+                      <!-- inner menu: contains the messages -->
+                      <ul class="menu">
+                        <li ng-repeat="message in model.client.messages"><!-- start message -->
+                            <a href="#/{{model.clientId}}/detailsRecipe/{{model.recipeId}}">
+                            <div class="pull-left">
+                                <!-- User Image -->
+                                <img ng-src="{{message.trainer.img}}" class="img-circle" alt="User Image">
+                            </div>
+                            <!-- Message title and timestamp -->
+                            <h4>
+                                {{message.trainer.username}}
+                            </h4>
+                            <!-- The message -->
+                            <p>{{message.message}}</p>
+                            </a>
+                        </li>
+                        <!-- end message -->
+                      </ul>
+                      <!-- /.menu -->
+                  </li>
+                  <li class="footer"><a href="#">See All Messages</a></li>
+              </ul>
             </li>
             <!-- /.messages-menu -->
 
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-            <a href="#/detailsRecipe/{{model.recipeId}}" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#/{{model.clientId}}/detailsRecipe/{{model.recipeId}}" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
               <img src="{{model.client.img}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
@@ -68,22 +58,9 @@
               <!-- The user image in the menu -->
               <li class="user-header">
                 <img src="{{model.client.img}}" class="img-circle" alt="User Image">
-
                 <p>
                   {{model.client.firstName}} {{model.client.lastName}}
                 </p>
-              </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-6 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-6 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
@@ -147,6 +124,7 @@
                     <img ng-src="{{model.recipe.image}}" width="200" height="200"/>
                   </div>
                   <div class="col-md-4 col-sm-4">
+                      <a href="#/{{model.clientId}}/searchRecipe" type="submit" class="btn btn-primary">Back To Search Recipes</i></a>
                       <button ng-hide="model.recipeFavorited" ng-click="model.favoriteRecipe(model.recipe)" type="submit" class="btn btn-success">Favorite Recipe
                       <i class="fa fa-star-o fa-1x" aria-hidden="true"></i></button>
                       <button ng-hide="model.recipeUnfavorited" ng-click="model.unfavoriteRecipe()" type="submit" class="btn btn-danger">Unfavorite Recipe

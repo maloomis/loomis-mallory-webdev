@@ -3,7 +3,7 @@
         .module("FitnessApp")
         .controller("ProfileTrainerConnectController", ProfileTrainerConnectController);
         
-        function ProfileTrainerConnectController($http, ClientService, $routeParams, TrainerService, WorkoutService, $location) {
+        function ProfileTrainerConnectController($route, $http, ClientService, $routeParams, TrainerService, WorkoutService, $location) {
             var vm = this;
             vm.clientId = $routeParams['cid'];
             vm.trainerId = $routeParams['tid'];
@@ -37,9 +37,6 @@
                     .success(function(client) {
                         if (client != '0') {
                             vm.client = client;
-
-                            console.log(client)
-
                             for (var i = 0; i < vm.client.trainers.length; i++) {
                                 if (vm.client.trainers[i]._id == vm.trainerId) {
                                     vm.trainerFollowed = true;
@@ -78,8 +75,14 @@
                     });
             }
 
-            function messageTrainer() {
-                $location.url(vm.clientId + "/" + vm.trainerId + "/message");
+            function messageTrainer(message) {
+                TrainerService.messageTrainer(message, vm.clientId, vm.trainerId)
+                    .success(function(status) {
+                        $route.reload();
+                    })
+                    .error(function(err) {
+                        vm.error = err;
+                    });
             }
         }
             

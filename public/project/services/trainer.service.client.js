@@ -56,5 +56,10 @@
             var url = "/api/trainer/" + trainerId + "/client/" + clientId + "/message";
             return $http.put(url, message);
         }
+
+        function deleteMessage(messageId) {
+            var url = "/api/trainer/message/" + messageId;
+            return $http.delete(url);
+        }
     }
 })();

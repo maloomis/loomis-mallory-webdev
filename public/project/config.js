@@ -41,7 +41,7 @@
             controllerAs: "model"
         })
         .when("/:cid/searchTrainer", {
-            templateUrl: "views/connect/search.trainer.view.client.html",
+            templateUrl: "views/client/searchTrainer.client.view.client.html",
             controller: "TrainerSearchController",
             controllerAs: "model"
         })
@@ -55,14 +55,21 @@
             controller: "ProfileTrainerConnectController",
             controllerAs: "model"
         })
-        .when("/:cid/:tid/message", {
-            templateUrl: "views/connect/message.connect.view.client.html",
+        .when("/:tid/messages", {
+            templateUrl: "views/trainer/messages.trainer.view.client.html",
             controller: "MessageController",
-            controllersAs: "model"
+            controllerAs: "model"
         })
+        .when("/:tid/replyToClient/:cid", {
+            templateUrl: "views/trainer/replyToClient.trainer.view.client.html",
+            controller: "ReplyController",
+            controllerAs: "model"
+        })
+        /*
         .otherwise({
             redirectTo: "/clientLogin"
         });
+        */
 
     }
 })();

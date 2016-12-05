@@ -22,6 +22,13 @@ module.exports = function() {
             type: mongoose.Schema.ObjectId,
             ref: 'TrainerModel'
         }],
+        messages: [{
+            message: String,
+            trainer: {
+                type: mongoose.Schema.ObjectId,
+                ref: 'TrainerModel'
+            }
+        }],
         dateCreated: { type: Date, default: Date.now}
         }, {collection: "client"});
     return ClientSchema;

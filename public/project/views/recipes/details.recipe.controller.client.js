@@ -20,30 +20,31 @@
             init();
 
             function init() {
-                vm.recipeUnfavorited = true;              
-                ClientService.findClientById(vm.clientId)
-                    .success(function(client) {
-                        if (client != '0') {
-                            vm.client = client;
-
-                            for (var i = 0; i < vm.client.favoriteRecipes.length; i++) {
-                                if (vm.client.favoriteRecipes[i].id == vm.recipeId) {
-                                    vm.recipeFavorited = true;
-                                    vm.recipeUnfavorited = false;
-                                    break;
-                                }
-                            }
-                        }
-                    })
-                    .error (function() {
-                        vm.error = "Could not retrieve client";
-                    });
+                vm.recipeUnfavorited = true;  
 
                 RecipeService.findRecipeById(vm.recipeId)
                     .success(function(recipe) {
                         if (recipe != '0') {
                             vm.recipe_id = recipe._id;
                             vm.comments = recipe.comments;
+                        }
+                    })
+                    .error (function() {
+                        vm.error = "Could not retrieve client";
+                    });
+
+                ClientService.findClientById(vm.clientId)
+                    .success(function(client) {
+                        if (client != '0') {
+                            vm.client = client;
+
+                            for (var i = 0; i < vm.client.favoriteRecipes.length; i++) {
+                                if (vm.client.favoriteRecipes[i]._id == vm.recipe_id) {
+                                    vm.recipeFavorited = true;
+                                    vm.recipeUnfavorited = false;
+                                    break;
+                                }
+                            }
                         }
                     })
                     .error (function() {
