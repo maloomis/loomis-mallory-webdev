@@ -3,10 +3,10 @@ module.exports = function() {
     var autoIncrement = require('mongoose-auto-increment');
     var connectionString = 'mongodb://127.0.0.1:27017/webappmaker';
     mongoose.Promise = global.Promise;
-    //var connection = mongoose.connect(connectionString);   
-    //console.log("connected to mongoose - assignment");
+    var connection = mongoose.connect(connectionString);   
+    console.log("connected to mongoose - assignment");
 
-    //autoIncrement.initialize(connection);
+    autoIncrement.initialize(connection);
 
     var userModel = require("./user/user.model.server")();
     var websiteModel = require("./website/website.model.server")();
