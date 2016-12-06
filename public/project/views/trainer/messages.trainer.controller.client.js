@@ -3,7 +3,7 @@
         .module("FitnessApp")
         .controller("TrainerMessageController", TrainerMessageController);
         
-        function TrainerMessageController($routeParams, ClientService, TrainerService, $location) {
+        function TrainerMessageController($route, $routeParams, ClientService, TrainerService, $location) {
             var vm = this;
             vm.trainerId = $routeParams['tid'];
             vm.deleteMessage = deleteMessage;
@@ -24,17 +24,17 @@
             init();
 
             function deleteMessage(messageId) {
-                TrainerService.deleteMessage(messageId)
+                TrainerService.deleteMessage(messageId, vm.trainerId)
                     .success(function(status){
-                        console.log(status);
+                        $route.reload();
                     })
                     .error(function(err){
                         vm.error = "Could not delete message";
                     })
-                console.log(messageId);
             }
 
             function logout() {
+                console.log("logout")
                 TrainerService.trainerLogout()
                     .success(function(){
                         $location.url("/trainerLogin");

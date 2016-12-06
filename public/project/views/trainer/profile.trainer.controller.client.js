@@ -11,14 +11,10 @@
             vm.informationTab = informationTab;
             vm.deleteTrainer = deleteTrainer;
             vm.logout = logout;
-
-            console.log(vm.trainerId);
-
+            
             function init() {
-                console.log("init");
                 TrainerService.findTrainerById(vm.trainerId)
                 .success(function(trainer) {
-                    console.log(trainer)
                     if (trainer != '0') {
                         vm.trainer = trainer;
                     }
@@ -55,7 +51,7 @@
             function deleteTrainer() {
                 TrainerService.deleteTrainer(vm.trainerId)
                     .success(function(response) {
-                        $location.url("/clientLogin");
+                        $location.url("/trainerLogin");
                     });
             }
 

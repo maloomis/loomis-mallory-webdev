@@ -5,7 +5,7 @@
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-        <a href="#/{{model.trainerId}}/messages" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <a href="#/{{model.trainerId}}/replyToClient/{{model.clientId}}" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
         <!-- Navbar Right Menu -->
@@ -14,7 +14,7 @@
             <!-- Messages: style can be found in dropdown.less-->
             <li class="dropdown messages-menu">
                 <!-- Menu toggle button -->
-                <a href="#/{{model.trainerId}}/messages" class="dropdown-toggle" data-toggle="dropdown">
+                <a href="#/{{model.trainerId}}/replyToClient/{{model.clientId}}" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-envelope-o"></i>
                 <span class="label label-success">{{model.trainer.messages.length}}</span>
                 </a>
@@ -24,7 +24,7 @@
                     <!-- inner menu: contains the messages -->
                     <ul class="menu">
                     <li ng-repeat="message in model.trainer.messages"><!-- start message -->
-                        <a href="#/{{}}">
+                        <a href="#/{{model.trainerId}}/replyToClient/{{model.clientId}}">
                         <div class="pull-left">
                             <!-- User Image -->
                             <img ng-src="{{message.client.img}}" class="img-circle" alt="User Image">
@@ -41,7 +41,7 @@
                     </ul>
                     <!-- /.menu -->
                 </li>
-                <li class="footer"><a href="#/{{model.trainerId}}/messages">See All Messages</a></li>
+                <li class="footer"><a href="#/trainer/{{model.trainerId}}/messages">See All Messages</a></li>
                 </ul>
             </li>
             <!-- /.messages-menu -->
@@ -49,7 +49,7 @@
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-            <a href="#/{{model.trainerId}}/messages" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#/{{model.trainerId}}/replyToClient/{{model.clientId}}" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
               <img ng-src="{{model.trainer.img}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
@@ -67,7 +67,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-right">
-                  <a href="#/clientLogin" class="btn btn-default btn-flat">Sign out</a>
+                  <a ng-click="model.logout()" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -96,9 +96,9 @@
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <li class="header">OPTIONS</li>
-        <li><a href="#/clientProfile/{{model.clientId}}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
-        <li><a href="#/{{model.clientId}}/searchTrainer"><i class="fa fa-link"></i> <span>Search For Trainers</span></a></li>
-        <li><a href="#/{{model.clientId}}/searchRecipe"><i class="fa fa-link"></i> <span>Search For Recipes</span></a></li>
+        <!-- Optionally, you can add icons to the links -->
+        <li class="active"><a href="#/trainerProfile/{{model.trainer._id}}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
+        <li><a href="#/{{model.trainer._id}}/createWorkout"><i class="fa fa-link"></i> <span>Create New Workout</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

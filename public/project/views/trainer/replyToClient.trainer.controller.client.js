@@ -8,6 +8,7 @@
             vm.trainerId = $routeParams['tid'];
             vm.clientId = $routeParams['cid'];
             vm.messageClient = messageClient;
+            vm.logout = logout;
 
             function init() {
                 TrainerService.findTrainerById(vm.trainerId)
@@ -26,11 +27,18 @@
             function messageClient(message) {
                 ClientService.messageClient(message, vm.clientId, vm.trainerId)
                     .success(function(response) {
-                        $location.url(vm.trainerId + "/messages");
+                        $location.url("trainer/" + vm.trainerId + "/messages");
                     })
                     .error(function(err){
                         vm.error = "Could not send client message";
                     })
+            }
+
+            function logout() {
+                TrainerService.trainerLogout()
+                    .success(function(){
+                        $location.url("/trainerLogin");
+                    });
             }
         }
 })();

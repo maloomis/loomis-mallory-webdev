@@ -13,7 +13,6 @@
                         if (trainer === '0') {
                             vm.error = "No such trainer";
                         } else {
-                            console.log(trainer);
                             $location.url("/trainerProfile/" + trainer._id);
                         }
                     });

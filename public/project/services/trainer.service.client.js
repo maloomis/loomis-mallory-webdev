@@ -14,7 +14,8 @@
             "findTrainersByName": findTrainersByName,
             "updateTrainer": updateTrainer,
             "findTrainers": findTrainers,
-            "messageTrainer": messageTrainer
+            "messageTrainer": messageTrainer,
+            "deleteMessage": deleteMessage
         };
 
         return api;
@@ -43,7 +44,6 @@
         };
 
         function findTrainerById(trainerId) {
-            console.log("get trainer")
             var url = '/api/trainer/' + trainerId;
             return $http.get(url);
         };
@@ -68,8 +68,8 @@
             return $http.put(url, message);
         }
 
-        function deleteMessage(messageId) {
-            var url = "/api/trainer/message/" + messageId;
+        function deleteMessage(messageId, trainerId) {
+            var url = "/api/trainer/" + trainerId + "/message/" + messageId;
             return $http.delete(url);
         }
     }

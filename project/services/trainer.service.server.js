@@ -39,7 +39,7 @@ module.exports = function(app, model) {
     app.post ("/api/uploadTrainerProfile", upload.single('myFile'), uploadImage);
     app.get('/api/trainers', findTrainers);
     app.put('/api/trainer/:tid/client/:cid/message', messageTrainer);
-    app.delete('/api/trainer/message/:mid', deleteMessage);
+    app.delete('/api/trainer/:tid/message/:mid', deleteMessage);
 
     function authorized(req, res, next) {
         if (!req.isAuthenticated()) {
@@ -235,10 +235,11 @@ module.exports = function(app, model) {
 
     function deleteMessage(req, res) {
         var messageId = req.params.mid;
+        var trainerId = req.params.tid;
 
         model
             .trainerModel
-            .deleteMessage(messageId)
+            .deleteMessage(trainerId, messageId)
             .then(
                 function(status) {
                     res.sendStatus(200);

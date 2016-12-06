@@ -39,47 +39,74 @@
         .when("/:cid/searchRecipe", {
             templateUrl: "views/recipes/search.recipe.view.client.html",
             controller: "RecipeSearchController",
-            controllerAs: "model"
+            controllerAs: "model",
+            resolve: {
+                checkLogin: checkLogin
+            }
         })
         .when("/:cid/detailsRecipe/:rid", {
             templateUrl: "views/recipes/details.recipe.view.client.html",
             controller: "RecipeDetailsController",
-            controllerAs: "model"
+            controllerAs: "model",
+            resolve: {
+                checkLogin: checkLogin
+            }
         })
         .when("/:cid/searchTrainer", {
             templateUrl: "views/client/searchTrainer.client.view.client.html",
             controller: "TrainerSearchController",
-            controllerAs: "model"
+            controllerAs: "model",
+            resolve: {
+                checkLogin: checkLogin
+            }
         })
         .when("/:tid/createWorkout", {
             templateUrl: "views/workouts/createWorkouts.view.client.html",
             controller: "CreateWorkoutsController",
             controllerAs: "model",
+            resolve: {
+                checkLogin: checkLogin
+            }
         })
         .when("/:cid/profileTrainerConnect/:tid", {
             templateUrl: "views/client/trainerProfile.client.view.client.html",
             controller: "TrainerProfileClientController",
-            controllerAs: "model"
+            controllerAs: "model",
+            resolve: {
+                checkLogin: checkLogin
+            }
         })
         .when("/trainer/:tid/messages", {
             templateUrl: "views/trainer/messages.trainer.view.client.html",
             controller: "TrainerMessageController",
             controllerAs: "model",
+            resolve: {
+                checkLogin: checkLogin
+            }
         })
         .when("/:tid/replyToClient/:cid", {
             templateUrl: "views/trainer/replyToClient.trainer.view.client.html",
             controller: "TrainerReplyController",
-            controllerAs: "model"
+            controllerAs: "model",
+            resolve: {
+                checkLogin: checkLogin
+            }
         })
         .when("/client/:cid/messages", {
             templateUrl: "views/client/messages.client.view.client.html",
             controller: "ClientMessageController",
-            controllerAs: "model"
+            controllerAs: "model",
+            resolve: {
+                checkLogin: checkLogin
+            }
         })
         .when("/:cid/replyToTrainer/:tid", {
             templateUrl: "views/client/replyToTrainer.client.view.client.html",
             controller: "ClientReplyController",
-            controllerAs: "model"
+            controllerAs: "model",
+            resolve: {
+                checkLogin: checkLogin
+            }
         })
         .otherwise({
             redirectTo: "/clientLogin"
@@ -88,7 +115,7 @@
 
     function checkLogin($q, ClientService, $location, TrainerService) {
             var deferred = $q.defer();
-            if ($location.$$path.includes('clientProfile')) {
+            if ($location.$$path.includes('client') || $location.$$path.includes('Recipe') || $location.$$path.includes('Trainer') ) {
                     ClientService
                         .checkClientLogin()
                         .success(function (client){
@@ -103,7 +130,7 @@
                         })
             }
 
-            if ($location.$$path.includes('trainerProfile')) {
+            if ($location.$$path.includes('trainer') || $location.$$path.includes('createWorkout') || $location.$$path.includes('replyToClient')) {
                     TrainerService
                         .checkTrainerLogin()
                         .success(function (trainer){

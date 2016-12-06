@@ -100,17 +100,5 @@
             var url = "/api/client/" + clientId + "/message/" + messageId;
             return $http.delete(url);
         }
-
-        function checkLogin() {
-            return $http.post("/api/checkLogin");
-        }
-
-        function logout() {
-            return $http.post('/api/logout');
-        }
-
-        function register(client) {
-            return $http.post("/api/registerClient", client);
-        }
     }
 })();

@@ -92,7 +92,7 @@ module.exports = function() {
                 _id: trainerId
             },
             {
-                "$push" : {"messages" : message}
+                $pull: { 'messages':  {_id: messageId} }
             }
         )
     }
