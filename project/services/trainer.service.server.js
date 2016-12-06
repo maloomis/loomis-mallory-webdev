@@ -1,4 +1,10 @@
 module.exports = function(app, model) {
+    var passport = require('passport');
+    var cookieParser = require('cookie-parser');
+    var session = require('express-session');
+    var LocalStrategy = require('passport-local').Strategy;
+    var bcrypt = require("bcrypt-nodejs");
+    var auth = authorized;
     var mime = require('mime');
     var multer = require('multer'); // npm install multer --save
     var storage = multer.diskStorage({
@@ -11,9 +17,18 @@ module.exports = function(app, model) {
     });
     var upload = multer({ storage: storage });
 
-    app.post('/api/trainer', createTrainer);
+    app.use(cookieParser());
+    app.use(passport.initialize());
+    app.use(passport.session());
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeTrainer);
+    passport.deserializeUser(deserializeTrainer);
+
+    app.post('/api/registerTrainer', registerTrainer);
+    app.post('/api/trainerLogin', passport.authenticate('local'), trainerLogin);
+    app.post('/api/checkTrainerLogin', checkTrainerLogin);
+    app.post('/api/trainerLogout', trainerLogout);
     app.get('/api/trainer/:tid', findTrainerById);
-    app.get('/api/trainer/', findTrainerByCredentials);
     app.get('/api/searchTrainer', findTrainersByName);
     app.put('/api/trainer', updateTrainer);
     app.delete('/api/trainer/:tid', deleteTrainer);
@@ -22,47 +37,89 @@ module.exports = function(app, model) {
     app.put('/api/trainer/:tid/client/:cid/message', messageTrainer);
     app.delete('/api/trainer/message/:mid', deleteMessage);
 
-    function createTrainer(req, res) {
-        console.log("hello");
-        var trainer = req.body;
-        console.log(trainer);
+    function authorized(req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
+    }
+
+    function trainerLogout(req, res) {
+        req.logout();
+        res.sendStatus(200);
+    }
+
+    function localStrategy(username, password, done) {
         model
             .trainerModel
-            .createTrainer(trainer)
+            .findTrainerByUsername(username)
             .then(
-                function(newTrainer) {
-                    console.log(newTrainer);
-                    res.send(newTrainer);
+                function (trainer) {
+                    if (trainer && bcrypt.compareSync(password, trainer.password)) {
+                        if (!trainer) { 
+                            return done(null, false); 
+                        }
+                        return done(null, trainer);
+                    } else {
+                        res.send('0');
+                    }
                 },
-                function(err) {
+                function (error) {
                     res.sendStatus(400).send(error);
                 }
             );
     }
 
-    function findTrainerByCredentials(req,res) {
-        var username = req.query.username;
-        var password = req.query.password;
+    function serializeTrainer(trainer, done) {
+        done(null, trainer);
+    }
+
+    function deserializeTrainer(trainer, done) {
         model
             .trainerModel
-            .findTrainerByCredentials(username, password)
+            .findTrainerById(trainer._id)
             .then(
-                function(trainers) {
-                    if (trainers[0]) {
-                        res.json(trainers[0]);
-                    }
-                    else {
-                        res.send('0');
-                    }
-                },
-                function(err) {
-                    res.sendStatus(400).send(err);
+                function(trainer) {
+                    done(null, trainer);
+                }, 
+                function (error) {
+                    done(error, null);
                 }
-            );
-    };
+            )
+    }
+
+    function trainerLogin(req, res) {
+        var trainer = req.user;
+        res.json(trainer);
+    }
+
+    function checkTrainerLogin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function registerTrainer(req, res) {
+        var trainer = req.body;
+        trainer.password = bcrypt.hashSync(trainer.password);
+        model
+            .trainerModel
+            .createTrainer(trainer)
+            .then(
+                function(trainer) {
+                    if(trainer) {
+                        req.login(trainer, function(err) {
+                            if (err) {
+                                res.sendStatus(400).send(err);
+                            } else {
+                                res.json(trainer);
+                            }
+                        })
+                    }
+                }
+            )
+    }
 
     function findTrainers(req, res) {
-        console.log("hello")
         model
             .trainerModel
             .findTrainers()
@@ -83,8 +140,6 @@ module.exports = function(app, model) {
     function findTrainersByName(req, res) {
         var trainerFirstName = req.query.firstname;
         var trainerLastName = req.query.lastname;
-        console.log(trainerFirstName);
-        console.log(trainerLastName);
         model
             .trainerModel
             .findTrainersByName(trainerFirstName, trainerLastName)

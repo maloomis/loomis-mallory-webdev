@@ -25,7 +25,6 @@
                 TrainerService.findTrainers()
                     .success(function(trainers){
                         if(trainers != '0') {
-                            console.log(trainers)
                             vm.trainers = trainers;
                         }
                     })

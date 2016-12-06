@@ -10,6 +10,7 @@
             vm.uploadTab = uploadTab;
             vm.informationTab = informationTab;
             vm.deleteTrainer = deleteTrainer;
+            vm.logout = logout;
 
             function init() {
                 TrainerService.findTrainerById(vm.trainerId)
@@ -61,6 +62,13 @@
             function informationTab() {
                 $('.active').removeClass('active');
                 $('#information').addClass('active');
+            }
+
+            function logout() {
+                TrainerService.trainerLogout()
+                    .success(function(){
+                        $location.url("/trainerLogin");
+                    });
             }
         }
 })();

@@ -14,7 +14,12 @@
             "unfavoriteRecipe" : unfavoriterecipe,
             "followTrainer": followTrainer,
             "unfollowTrainer": unfollowTrainer,
-            "messageClient": messageClient
+            "messageClient": messageClient,
+            "deleteMessage": deleteMessage,
+            "login": login,
+            "checkLogin": checkLogin,
+            "logout": logout,
+            "register": register
         };
 
         return api;
@@ -28,6 +33,10 @@
             var url = '/api/client/' + clientId;
             return $http.delete(url);
         };
+
+        function login(client) {
+            return $http.post("/api/clientLogin", client);
+        }
 
         function findClientByCredentials(username, password) {
             var url = '/api/client/?username=' + username + '&password=' + password;
@@ -67,6 +76,23 @@
         function messageClient(message, clientId, trainerId) {
             var url = "/api/client/" + clientId + "/trainer/" + trainerId + "/message";
             return $http.put(url, message);
+        }
+
+        function deleteMessage(messageId, clientId) {
+            var url = "/api/client/" + clientId + "/message/" + messageId;
+            return $http.delete(url);
+        }
+
+        function checkLogin() {
+            return $http.post("/api/checkLogin");
+        }
+
+        function logout() {
+            return $http.post('/api/logout');
+        }
+
+        function register(client) {
+            return $http.post("/api/registerClient", client);
         }
     }
 })();

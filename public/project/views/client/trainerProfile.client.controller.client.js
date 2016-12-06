@@ -1,9 +1,9 @@
 (function() {
     angular
         .module("FitnessApp")
-        .controller("ProfileTrainerConnectController", ProfileTrainerConnectController);
+        .controller("TrainerProfileClientController", TrainerProfileClientController);
         
-        function ProfileTrainerConnectController($route, $http, ClientService, $routeParams, TrainerService, WorkoutService, $location) {
+        function TrainerProfileClientController($route, $http, ClientService, $routeParams, TrainerService, WorkoutService, $location) {
             var vm = this;
             vm.clientId = $routeParams['cid'];
             vm.trainerId = $routeParams['tid'];

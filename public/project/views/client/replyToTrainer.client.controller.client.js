@@ -1,19 +1,19 @@
 (function() {
     angular
         .module("FitnessApp")
-        .controller("TrainerReplyController", TrainerReplyController);
+        .controller("ClientReplyController", ClientReplyController);
         
-        function TrainerReplyController($routeParams, ClientService, TrainerService, $location) {
+        function ClientReplyController($routeParams, ClientService, TrainerService, $location) {
             var vm = this;
             vm.trainerId = $routeParams['tid'];
             vm.clientId = $routeParams['cid'];
-            vm.messageClient = messageClient;
+            vm.messageTrainer = messageTrainer;
 
             function init() {
-                TrainerService.findTrainerById(vm.trainerId)
-                    .success(function(trainer){
-                        if (trainer) {
-                            vm.trainer = trainer;
+                ClientService.findClientById(vm.clientId)
+                    .success(function(client){
+                        if (client) {
+                            vm.client = client;
                         }
                     })
                     .error(function (err){
@@ -23,10 +23,10 @@
 
             init();
 
-            function messageClient(message) {
-                ClientService.messageClient(message, vm.clientId, vm.trainerId)
+            function messageTrainer(message) {
+                TrainerService.messageTrainer(message, vm.clientId, vm.trainerId)
                     .success(function(response) {
-                        $location.url(vm.trainerId + "/messages");
+                        $location.url("/client/" + vm.clientId + "/messages");
                     })
                     .error(function(err){
                         vm.error = "Could not send client message";

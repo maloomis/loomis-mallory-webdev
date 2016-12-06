@@ -18,7 +18,10 @@
         .when("/clientProfile/:cid", {
             templateUrl: "views/client/profile.client.view.client.html",
             controller: "ProfileClientController",
-            controllerAs: "model"
+            controllerAs: "model",
+            resolve: {
+                checkClientLogin: checkClientLogin
+            }
         })
         .when("/trainerLogin", {
             templateUrl: "views/trainer/login.trainer.view.client.html",
@@ -28,7 +31,15 @@
         .when("/trainerProfile/:tid", {
             templateUrl: "views/trainer/profile.trainer.view.client.html",
             controller: "ProfileTrainerController",
-            controllerAs: "model"
+            controllerAs: "model",
+            resolve: {
+                checkTrainerLogin: checkTrainerLogin
+            }
+        })
+        .when("/trainerProfile", {
+            templateUrl: "views/trainer/profile.trainer.view.client.html",
+            controller: "ProfileTrainerController",
+            controllerAs: "model",
         })
         .when("/:cid/searchRecipe", {
             templateUrl: "views/recipes/search.recipe.view.client.html",
@@ -51,25 +62,66 @@
             controllerAs: "model"
         })
         .when("/:cid/profileTrainerConnect/:tid", {
-            templateUrl: "views/connect/profile.trainer.connect.view.client.html",
-            controller: "ProfileTrainerConnectController",
+            templateUrl: "views/client/trainerProfile.client.view.client.html",
+            controller: "TrainerProfileClientController",
             controllerAs: "model"
         })
-        .when("/:tid/messages", {
+        .when("/trainer/:tid/messages", {
             templateUrl: "views/trainer/messages.trainer.view.client.html",
-            controller: "MessageController",
+            controller: "TrainerMessageController",
             controllerAs: "model"
         })
         .when("/:tid/replyToClient/:cid", {
             templateUrl: "views/trainer/replyToClient.trainer.view.client.html",
-            controller: "ReplyController",
+            controller: "TrainerReplyController",
             controllerAs: "model"
         })
-        /*
+        .when("/client/:cid/messages", {
+            templateUrl: "views/client/messages.client.view.client.html",
+            controller: "ClientMessageController",
+            controllerAs: "model"
+        })
+        .when("/:cid/replyToTrainer/:tid", {
+            templateUrl: "views/client/replyToTrainer.client.view.client.html",
+            controller: "ClientReplyController",
+            controllerAs: "model"
+        })
         .otherwise({
             redirectTo: "/clientLogin"
         });
-        */
-
     }
+
+    function checkClientLogin($q, ClientService, $location) {
+            var deferred = $q.defer();
+            ClientService
+                .checkLogin()
+                .success(
+                    function (user) {
+                        if (user != '0') {
+                            deferred.resolve();
+                        } else {
+                            deferred.reject();
+                            $location.url("/login");
+                        }
+                    }
+                );
+            return deferred.promise;
+        }
+    
+    function checkTrainerLogin($q, TrainerService, $location) {
+            var deferred = $q.defer();
+            TrainerService
+                .checkTrainerLogin()
+                .success(
+                    function (trainer) {
+                        if (trainer != '0') {
+                            deferred.resolve();
+                        } else {
+                            deferred.reject();
+                            $location.url("/login");
+                        }
+                    }
+                );
+            return deferred.promise;
+        }
 })();

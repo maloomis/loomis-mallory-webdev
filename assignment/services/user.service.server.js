@@ -18,6 +18,7 @@ module.exports = function(app, model) {
         resave: true,
         saveUninitialized: true
     }))
+    /*
     app.use(cookieParser());
     app.use(passport.initialize());
     app.use(passport.session());
@@ -25,7 +26,7 @@ module.exports = function(app, model) {
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
     passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
-
+*/
     app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
     app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
@@ -115,6 +116,7 @@ module.exports = function(app, model) {
             );
     }
 
+/*
     function serializeUser(user,done) {
         done(null, user);
     }
@@ -132,6 +134,7 @@ module.exports = function(app, model) {
                 }
             )
     }
+    */
 
     function login(req, res) {
         var user = req.user;

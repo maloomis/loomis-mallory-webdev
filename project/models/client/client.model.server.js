@@ -5,7 +5,7 @@ module.exports = function() {
 
     var api = {
         createClient: createClient,
-        findClientByCredentials: findClientByCredentials,
+        findClientByUsername: findClientByUsername,
         findClientById: findClientById,
         updateClient: updateClient,
         deleteClient: deleteClient,
@@ -14,7 +14,8 @@ module.exports = function() {
         unfavoriteRecipe: unfavoriteRecipe,
         followTrainer: followTrainer,
         unfollowTrainer: unfollowTrainer,
-        messageClient: messageClient
+        messageClient: messageClient,
+        deleteMessage: deleteMessage
     };
     return api;
 
@@ -22,15 +23,16 @@ module.exports = function() {
         return ClientModel.create(client);
     }
 
-    function findClientByCredentials(username, password) {
-        return ClientModel.find({
-            username: username,
-            password: password
+    function findClientByUsername(username) {
+        return ClientModel.findOne({
+            username: username
         });
     }
 
     function findClientById(clientId) {
-        var populateQuery = [{path:'favoriteRecipes', select:'title'}, {path:'trainers', select: 'username'}, {path:'messages.trainer'}];
+        var populateQuery = [{path:'favoriteRecipes'}, 
+                            {path:'trainers', select: 'username'}, 
+                            {path:'messages.trainer'}];
         return ClientModel.findById(clientId).populate(populateQuery).exec();
     }
 
@@ -121,6 +123,17 @@ module.exports = function() {
             },
             {
                 "$push" : {"messages" : message}
+            }
+        )
+    }
+
+    function deleteMessage(messageId, clientId) {
+        return ClientModel.update(
+            {
+                _id: clientId
+            },
+            {
+                $pull: { 'messages':  {_id: messageId} }
             }
         )
     }

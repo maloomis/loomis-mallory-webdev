@@ -1,18 +1,18 @@
 (function() {
     angular
         .module("FitnessApp")
-        .controller("TrainerMessageController", TrainerMessageController);
+        .controller("ClientMessageController", ClientMessageController);
         
-        function TrainerMessageController($routeParams, ClientService, TrainerService) {
+        function ClientMessageController($routeParams, ClientService, TrainerService, $route) {
             var vm = this;
-            vm.trainerId = $routeParams['tid'];
+            vm.clientId = $routeParams['cid'];
             vm.deleteMessage = deleteMessage;
 
             function init() {
-                TrainerService.findTrainerById(vm.trainerId)
-                    .success(function(trainer){
-                        if (trainer) {
-                            vm.trainer = trainer;
+                ClientService.findClientById(vm.clientId)
+                    .success(function(client){
+                        if (client) {
+                            vm.client = client;
                         }
                     })
                     .error(function (err){
@@ -23,14 +23,13 @@
             init();
 
             function deleteMessage(messageId) {
-                TrainerService.deleteMessage(messageId)
+                ClientService.deleteMessage(messageId, vm.clientId)
                     .success(function(status){
-                        console.log(status);
+                        $route.reload();
                     })
                     .error(function(err){
                         vm.error = "Could not delete message";
                     })
-                console.log(messageId);
             }
         }
 })();

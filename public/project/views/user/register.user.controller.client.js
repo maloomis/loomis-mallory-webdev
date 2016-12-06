@@ -17,27 +17,54 @@
             }
 
             function registerClient(client) {
-                var promise = ClientService.createClient(client);
-                promise.success(function(newClient) {
-                    if (newClient) {
-                        vm.client = newClient;
-                        $location.url("/clientProfile/" + newClient._id);
-                    } else {
-                        vm.error = "Couldn't create client";
-                    }
-                });
+                vm.submitted = true;
+                vm.passwordMatch = false;
+
+                if (!client) {
+                    return;
+                }
+                
+                if (client.password == client.verifyPassword) {
+                    vm.passwordMatch = true;
+                }
+
+                if (!vm.passwordMatch) {
+                    return;
+                }
+
+                var promise = ClientService
+                                    .register(client)
+                                    .then(
+                                        function(response) {
+                                            var client = response.data;
+                                            $location.url("/clientProfile/" + client._id);
+                                        });
             }
 
             function registerTrainer(trainer) {
-                var promise = TrainerService.createTrainer(trainer);
-                promise.success(function(newTrainer) {
-                    if (newTrainer) {
-                        vm.trainer = newTrainer;
-                        $location.url("/trainerProfile/" + newTrainer._id);
-                    } else {
-                        vm.error = "Couldn't create trainer";
-                    }
-                })
+                vm.submitted = true;
+                vm.passwordMatch = false;
+
+                if (!trainer) {
+                    return;
+                }
+                
+                if (trainer.password == trainer.verifyPassword) {
+                    vm.passwordMatch = true;
+                }
+
+                if (!vm.passwordMatch) {
+                    return;
+                }
+
+                var promise = TrainerService
+                                    .registerTrainer(trainer)
+                                    .then(
+                                        function(response) {
+                                            var trainer = response.data;
+                                            console.log(trainer);
+                                            $location.url("/clientTrainer/" + trainer._id);
+                                        });
             }
         }
 })();

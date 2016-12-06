@@ -10,6 +10,7 @@
             vm.uploadTab = uploadTab;
             vm.informationTab = informationTab;
             vm.deleteClient = deleteClient;
+            vm.logout = logout;
 
             function init() {
                 ClientService.findClientById(vm.clientId)
@@ -51,6 +52,13 @@
             function informationTab() {
                 $('.active').removeClass('active');
                 $('#information').addClass('active');
+            }
+
+            function logout() {
+                ClientService.logout()
+                    .success(function(){
+                        $location.url("/clientLogin");
+                    });
             }
         };
 })();

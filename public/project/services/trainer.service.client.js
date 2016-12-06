@@ -5,9 +5,11 @@
     
     function TrainerService($http) {        
         var api = {
-            "createTrainer": createTrainer,
+            "registerTrainer": registerTrainer,
+            "trainerLogin": trainerLogin,
+            "checkTrainerLogin": checkTrainerLogin,
+            "trainerLogout": trainerLogout,
             "deleteTrainer": deleteTrainer,
-            "findTrainerByCredentials": findTrainerByCredentials,
             "findTrainerById": findTrainerById,
             "findTrainersByName": findTrainersByName,
             "updateTrainer": updateTrainer,
@@ -17,19 +19,27 @@
 
         return api;
 
-        function createTrainer(trainer) {
-            var url = '/api/trainer';
+        function registerTrainer(trainer) {
+            var url = "/api/registerTrainer";
             return $http.post(url, trainer);
-        };
+        }
+
+        function trainerLogin(trainer) {
+            var url = "/api/trainerLogin";
+            return $http.post(url, trainer);
+        }
+
+        function checkTrainerLogin() {
+            return $http.post("/api/checkTrainerLogin");
+        }
+
+        function trainerLogout() {
+            return $http.post('/api/trainerLogout');
+        }
 
         function deleteTrainer(trainerId) {
             var url = '/api/trainer/' + trainerId;
             return $http.delete(url);
-        };
-
-        function findTrainerByCredentials(username, password) {
-            var url = '/api/trainer/?username=' + username + '&password=' + password;
-            return $http.get(url);
         };
 
         function findTrainerById(trainerId) {

@@ -5,7 +5,7 @@ module.exports = function() {
 
     var api = {
         createTrainer: createTrainer,
-        findTrainerByCredentials: findTrainerByCredentials,
+        findTrainerByUsername: findTrainerByUsername,
         findTrainerById: findTrainerById,
         findTrainers: findTrainers,
         findTrainersByName: findTrainersByName,
@@ -21,10 +21,9 @@ module.exports = function() {
         return TrainerModel.create(trainer);
     }
 
-    function findTrainerByCredentials(username, password) {
-        return TrainerModel.find({
-            username: username,
-            password: password
+    function findTrainerByUsername(username) {
+        return TrainerModel.findOne({
+            username: username
         });
     }
 
