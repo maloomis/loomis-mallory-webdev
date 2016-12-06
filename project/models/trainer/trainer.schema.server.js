@@ -24,6 +24,7 @@ module.exports = function() {
             ref: 'ClientModel'
         }
     }],
+    type: String,
     dateCreated: { type: Date, default: Date.now}
     }, {collection: "trainer"});
     return TrainerSchema;

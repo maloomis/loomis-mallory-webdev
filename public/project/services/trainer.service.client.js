@@ -43,6 +43,7 @@
         };
 
         function findTrainerById(trainerId) {
+            console.log("get trainer")
             var url = '/api/trainer/' + trainerId;
             return $http.get(url);
         };

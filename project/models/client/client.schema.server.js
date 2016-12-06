@@ -29,6 +29,7 @@ module.exports = function() {
                 ref: 'TrainerModel'
             }
         }],
+        type: String,
         dateCreated: { type: Date, default: Date.now}
         }, {collection: "client"});
     return ClientSchema;

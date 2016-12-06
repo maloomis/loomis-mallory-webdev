@@ -5,6 +5,10 @@
     
     function ClientService($http) {        
         var api = {
+            "registerClient": registerClient,
+            "clientLogin": clientLogin,
+            "checkClientLogin": checkClientLogin,
+            "clientLogout": clientLogout,
             "createClient" : createClient,
             "deleteClient" : deleteClient,
             "findClientByCredentials" : findClientByCredentials,
@@ -15,14 +19,28 @@
             "followTrainer": followTrainer,
             "unfollowTrainer": unfollowTrainer,
             "messageClient": messageClient,
-            "deleteMessage": deleteMessage,
-            "login": login,
-            "checkLogin": checkLogin,
-            "logout": logout,
-            "register": register
+            "deleteMessage": deleteMessage
         };
 
         return api;
+
+        function registerClient(client) {
+            var url = "/api/registerClient";
+            return $http.post(url, client);
+        }
+
+        function clientLogin(client) {
+            var url = "/api/clientLogin";
+            return $http.post(url, client);
+        }
+
+        function checkClientLogin() {
+            return $http.post("/api/checkClientLogin");
+        }
+
+        function clientLogout() {
+            return $http.post('/api/clientLogout');
+        }
 
         function createClient(client) {
             var url = '/api/client';

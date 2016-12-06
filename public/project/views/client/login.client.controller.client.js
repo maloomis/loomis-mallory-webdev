@@ -8,8 +8,7 @@
             vm.login = login;
 
             function login(client) {
-                var promise = ClientService.login(client);
-                //var promise = ClientService.findClientByCredentials(client.username, client.password);
+                var promise = ClientService.clientLogin(client);
                 promise.success(function(client) {
                         if (client === '0') {
                             vm.error = "No such client";

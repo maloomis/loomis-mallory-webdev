@@ -55,7 +55,7 @@
             }
 
             function logout() {
-                ClientService.logout()
+                ClientService.clientLogout()
                     .success(function(){
                         $location.url("/clientLogin");
                     });

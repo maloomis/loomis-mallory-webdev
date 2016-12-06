@@ -20,10 +20,12 @@ module.exports = function() {
     return api;
 
     function createClient(client) {
+        client.type = 'client';
         return ClientModel.create(client);
     }
 
     function findClientByUsername(username) {
+        console.log(username);
         return ClientModel.findOne({
             username: username
         });

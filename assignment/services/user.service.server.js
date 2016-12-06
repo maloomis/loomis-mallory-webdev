@@ -1,4 +1,5 @@
 module.exports = function(app, model) {
+    /*
     var passport = require('passport');
     var cookieParser = require('cookie-parser');
     var session = require('express-session');
@@ -27,6 +28,7 @@ module.exports = function(app, model) {
     passport.deserializeUser(deserializeUser);
     passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 */
+/*
     app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
     app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {

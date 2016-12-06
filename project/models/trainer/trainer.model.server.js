@@ -18,6 +18,7 @@ module.exports = function() {
     return api;
 
     function createTrainer(trainer) {
+        trainer.type = 'trainer';
         return TrainerModel.create(trainer);
     }
 

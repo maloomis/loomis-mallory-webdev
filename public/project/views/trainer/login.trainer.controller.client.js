@@ -9,7 +9,6 @@
 
             function login(trainer) {
                 var promise = TrainerService.trainerLogin(trainer);
-                //var promise = TrainerService.findTrainerByCredentials(trainer.username, trainer.password);
                 promise.success(function(trainer) {
                         if (trainer === '0') {
                             vm.error = "No such trainer";

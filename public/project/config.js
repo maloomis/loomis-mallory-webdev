@@ -19,8 +19,8 @@
             templateUrl: "views/client/profile.client.view.client.html",
             controller: "ProfileClientController",
             controllerAs: "model",
-            resolve: {
-                checkClientLogin: checkClientLogin
+            resolve: { 
+                checkLogin: checkLogin
             }
         })
         .when("/trainerLogin", {
@@ -33,13 +33,8 @@
             controller: "ProfileTrainerController",
             controllerAs: "model",
             resolve: {
-                checkTrainerLogin: checkTrainerLogin
+                checkLogin: checkLogin
             }
-        })
-        .when("/trainerProfile", {
-            templateUrl: "views/trainer/profile.trainer.view.client.html",
-            controller: "ProfileTrainerController",
-            controllerAs: "model",
         })
         .when("/:cid/searchRecipe", {
             templateUrl: "views/recipes/search.recipe.view.client.html",
@@ -59,7 +54,7 @@
         .when("/:tid/createWorkout", {
             templateUrl: "views/workouts/createWorkouts.view.client.html",
             controller: "CreateWorkoutsController",
-            controllerAs: "model"
+            controllerAs: "model",
         })
         .when("/:cid/profileTrainerConnect/:tid", {
             templateUrl: "views/client/trainerProfile.client.view.client.html",
@@ -69,7 +64,7 @@
         .when("/trainer/:tid/messages", {
             templateUrl: "views/trainer/messages.trainer.view.client.html",
             controller: "TrainerMessageController",
-            controllerAs: "model"
+            controllerAs: "model",
         })
         .when("/:tid/replyToClient/:cid", {
             templateUrl: "views/trainer/replyToClient.trainer.view.client.html",
@@ -91,37 +86,36 @@
         });
     }
 
-    function checkClientLogin($q, ClientService, $location) {
+    function checkLogin($q, ClientService, $location, TrainerService) {
             var deferred = $q.defer();
-            ClientService
-                .checkLogin()
-                .success(
-                    function (user) {
-                        if (user != '0') {
-                            deferred.resolve();
-                        } else {
-                            deferred.reject();
-                            $location.url("/login");
-                        }
-                    }
-                );
-            return deferred.promise;
-        }
-    
-    function checkTrainerLogin($q, TrainerService, $location) {
-            var deferred = $q.defer();
-            TrainerService
-                .checkTrainerLogin()
-                .success(
-                    function (trainer) {
-                        if (trainer != '0') {
-                            deferred.resolve();
-                        } else {
-                            deferred.reject();
-                            $location.url("/login");
-                        }
-                    }
-                );
-            return deferred.promise;
+            if ($location.$$path.includes('clientProfile')) {
+                    ClientService
+                        .checkClientLogin()
+                        .success(function (client){
+                            if (client != '0') {
+                                deferred.resolve();
+                                return deferred.promise;
+                            } else {
+                                deferred.reject();
+                                $location.url('/clientLogin');
+                                return deferred.promise;
+                            }
+                        })
+            }
+
+            if ($location.$$path.includes('trainerProfile')) {
+                    TrainerService
+                        .checkTrainerLogin()
+                        .success(function (trainer){
+                            if (trainer != '0') {
+                                deferred.resolve();
+                                return deferred.promise;
+                            } else {
+                                deferred.reject();
+                                $location.url('/trainerLogin');
+                                return deferred.promise;
+                            }
+                        })
+            }
         }
 })();

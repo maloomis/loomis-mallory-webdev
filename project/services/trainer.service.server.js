@@ -17,15 +17,19 @@ module.exports = function(app, model) {
     });
     var upload = multer({ storage: storage });
 
+    app.use(session({
+        secret: 'this is the secret',
+        resave: true,
+        saveUninitialized: true
+    }))
+
     app.use(cookieParser());
     app.use(passport.initialize());
     app.use(passport.session());
-    passport.use(new LocalStrategy(localStrategy));
-    passport.serializeUser(serializeTrainer);
-    passport.deserializeUser(deserializeTrainer);
+    passport.use('trainer-local', new LocalStrategy(localTrainerStrategy));
 
     app.post('/api/registerTrainer', registerTrainer);
-    app.post('/api/trainerLogin', passport.authenticate('local'), trainerLogin);
+    app.post('/api/trainerLogin', passport.authenticate('trainer-local'), trainerLogin);
     app.post('/api/checkTrainerLogin', checkTrainerLogin);
     app.post('/api/trainerLogout', trainerLogout);
     app.get('/api/trainer/:tid', findTrainerById);
@@ -50,7 +54,7 @@ module.exports = function(app, model) {
         res.sendStatus(200);
     }
 
-    function localStrategy(username, password, done) {
+    function localTrainerStrategy(username, password, done) {
         model
             .trainerModel
             .findTrainerByUsername(username)
@@ -69,24 +73,6 @@ module.exports = function(app, model) {
                     res.sendStatus(400).send(error);
                 }
             );
-    }
-
-    function serializeTrainer(trainer, done) {
-        done(null, trainer);
-    }
-
-    function deserializeTrainer(trainer, done) {
-        model
-            .trainerModel
-            .findTrainerById(trainer._id)
-            .then(
-                function(trainer) {
-                    done(null, trainer);
-                }, 
-                function (error) {
-                    done(error, null);
-                }
-            )
     }
 
     function trainerLogin(req, res) {

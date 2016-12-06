@@ -7,6 +7,7 @@
             var vm = this;
             vm.trainerId = $routeParams['tid'];
             vm.createWorkout = createWorkout;
+            vm.logout = logout
 
             function init() {
                 TrainerService.findTrainerById(vm.trainerId)
@@ -27,6 +28,13 @@
                     .error(function(err){
                         vm.error = "Could not create workout";
                     })
+            }
+                
+            function logout() {
+                TrainerService.trainerLogout()
+                    .success(function(){
+                        $location.url("/trainerLogin");
+                    });
             }
         }
 })();

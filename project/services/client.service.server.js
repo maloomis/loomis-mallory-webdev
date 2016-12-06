@@ -22,19 +22,19 @@ module.exports = function(app, model) {
         resave: true,
         saveUninitialized: true
     }))
+
     app.use(cookieParser());
     app.use(passport.initialize());
     app.use(passport.session());
-    passport.use(new LocalStrategy(localStrategy));
-    passport.serializeUser(serializeClient);
-    //passport.deserializeUser(deserializeClient);
-       
-    app.post('/api/clientLogin', passport.authenticate('local'), clientLogin);
-    app.post('/api/checkLogin', checkLogin);
-    app.post('/api/registerClient', register);
-    app.post('/api/client', auth, createClient);
+    passport.use('client-local', new LocalStrategy(localClientStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+   
+    app.post('/api/registerClient', registerClient);
+    app.post('/api/clientLogin', passport.authenticate('client-local'), clientLogin);
+    app.post('/api/checkClientLogin', checkClientLogin);
+    app.post('/api/clientLogout', clientLogout);;
     app.get('/api/client/:cid', findClientById);
-    app.get('/api/client/', findClientByCredentials);
     app.put('/api/client/:cid', auth, updateClient);
     app.delete('/api/client/:cid', auth, deleteClient);
     app.post ("/api/uploadProfile", upload.single('myFile'), uploadImage);
@@ -53,12 +53,12 @@ module.exports = function(app, model) {
         }
     }
 
-    function logout(req, res) {
+    function clientLogout(req, res) {
         req.logout();
         res.sendStatus(200);
     }
 
-    function localStrategy(username, password, done) {
+    function localClientStrategy(username, password, done) {
         model
             .clientModel
             .findClientByUsername(username)
@@ -79,36 +79,52 @@ module.exports = function(app, model) {
             );
     }
 
-    function serializeClient(client, done) {
-        console.log(client);
-        done(null, client);
+    function serializeUser(user, done) {
+        done(null, user);
     }
 
-/*
-    function deserializeClient(client, done) {
-        model
-            .clientModel
-            .findClientById(client._id)
-            .then(
-                function(client) {
-                    done(null, client);
-                }, 
-                function (error) {
-                    done(error, null);
-                }
-            )
+    function deserializeUser(user, done) {
+       if (user.type == 'client') {
+            model
+                .clientModel
+                .findClientById(user._id)
+                .then(
+                    function(client) {
+                        if (client) {
+                            done(null, client)
+                        }
+                    },
+                    function (err) {
+                        done(err, null);
+                    });
+       }
+
+       if (user.type == 'trainer') {
+           model
+                .trainerModel
+                .findTrainerById(user._id)
+                .then(
+                    function(trainer){
+                        if (trainer) {
+                            done(null, trainer);
+                        }
+                    },
+                    function (err){
+                        done(err, null);
+                    });
+       }
     }
-*/
+
     function clientLogin(req, res) {
-        var client = req.client;
+        var client = req.user;
         res.json(client);
     }
 
-    function checkLogin(req, res) {
-        res.send(req.isAuthenticated() ? req.client : '0');
+    function checkClientLogin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
     }
 
-    function register(req, res) {
+    function registerClient(req, res) {
         var client = req.body;
         client.password = bcrypt.hashSync(client.password);
         model
@@ -128,42 +144,6 @@ module.exports = function(app, model) {
                 }
             )
     }
-
-    function createClient(req, res) {
-        var client = req.body;
-        model
-            .clientModel
-            .createClient(client)
-            .then(
-                function(newClient) {
-                    res.send(newClient);
-                },
-                function(err) {
-                    res.sendStatus(400).send(error);
-                }
-            );
-    }
-
-    function findClientByCredentials(req,res) {
-        var username = req.query.username;
-        var password = req.query.password;
-        model
-            .clientModel
-            .findClientByCredentials(username, password)
-            .then(
-                function(clients) {
-                    if (clients[0]) {
-                        res.json(clients[0]);
-                    }
-                    else {
-                        res.send('0');
-                    }
-                },
-                function(err) {
-                    res.sendStatus(400).send(err);
-                }
-            );
-    };
 
     function findClientById(req, res) {
         var clientId = req.params.cid;

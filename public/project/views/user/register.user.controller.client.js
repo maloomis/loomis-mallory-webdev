@@ -33,7 +33,7 @@
                 }
 
                 var promise = ClientService
-                                    .register(client)
+                                    .registerClient(client)
                                     .then(
                                         function(response) {
                                             var client = response.data;
@@ -62,8 +62,7 @@
                                     .then(
                                         function(response) {
                                             var trainer = response.data;
-                                            console.log(trainer);
-                                            $location.url("/clientTrainer/" + trainer._id);
+                                            $location.url("/trainerProfile/" + trainer._id);
                                         });
             }
         }
