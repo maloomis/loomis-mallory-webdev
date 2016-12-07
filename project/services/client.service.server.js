@@ -44,6 +44,8 @@ module.exports = function(app, model) {
     app.delete('/api/client/:cid/trainer/:tid', unfollowTrainer);
     app.put('/api/client/:cid/trainer/:tid/message', messageClient);
     app.delete('/api/client/:cid/message/:mid', deleteMessage);
+    app.get('/api/clients', findClients);
+    app.get('/api/searchClient', findClientsByName);
 
     function authorized(req, res, next) {
         if (!req.isAuthenticated()) {
@@ -329,6 +331,44 @@ module.exports = function(app, model) {
             .then(
                 function(status) {
                     res.sendStatus(200);
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
+                }
+            )
+    }
+
+    function findClients(req, res) {
+        model
+            .clientModel
+            .findClients()
+            .then(
+                function(clients) {
+                    if(clients) {
+                        res.json(clients);
+                    } else {
+                        res.send('0');
+                    }
+                },
+                function(err) {
+                    res.sendStatus(400).send(err);
+                }
+            )
+    }
+
+    function findClientsByName(req, res) {
+        var clientFirstName = req.query.firstname;
+        var clientLastName = req.query.lastname;
+        model
+            .clientModel
+            .findClientsByName(clientFirstName, clientLastName)
+            .then(
+                function(clients) {
+                    if(clients) {
+                        res.json(clients);
+                    } else {
+                        res.send('0');
+                    }
                 },
                 function(err) {
                     res.sendStatus(400).send(err);

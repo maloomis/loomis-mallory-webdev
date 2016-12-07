@@ -70,7 +70,7 @@
         })
         .when("/:cid/profileTrainerConnect/:tid", {
             templateUrl: "views/client/trainerProfile.client.view.client.html",
-            controller: "TrainerProfileClientController",
+            controller: "ProfileTrainerConnectController",
             controllerAs: "model",
             resolve: {
                 checkLogin: checkLogin
@@ -108,6 +108,22 @@
                 checkLogin: checkLogin
             }
         })
+        .when("/:tid/searchClient", {
+            templateUrl: "views/trainer/searchClient.trainer.view.client.html",
+            controller: "ClientSearchController",
+            controllerAs: "model",
+            resolve: {
+                checkLogin: checkLogin
+            }
+        })
+        .when("/:tid/profileClientConnect/:cid", {
+            templateUrl: "views/trainer/clientProfile.trainer.view.client.html",
+            controller: "ProfileClientConnectController",
+            controllerAs: "model",
+            resolve: {
+                checkLogin: checkLogin
+            }
+        })
         .otherwise({
             redirectTo: "/clientLogin"
         });
@@ -130,7 +146,8 @@
                         })
             }
 
-            if ($location.$$path.includes('trainer') || $location.$$path.includes('createWorkout') || $location.$$path.includes('replyToClient')) {
+            if ($location.$$path.includes('trainer') || $location.$$path.includes('createWorkout') || $location.$$path.includes('replyToClient')
+                || $location.$$path.includes('Client')) {
                     TrainerService
                         .checkTrainerLogin()
                         .success(function (trainer){

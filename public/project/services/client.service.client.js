@@ -19,7 +19,9 @@
             "followTrainer": followTrainer,
             "unfollowTrainer": unfollowTrainer,
             "messageClient": messageClient,
-            "deleteMessage": deleteMessage
+            "deleteMessage": deleteMessage,
+            "findClients": findClients,
+            "findClientsByName": findClientsByName
         };
 
         return api;
@@ -99,6 +101,16 @@
         function deleteMessage(messageId, clientId) {
             var url = "/api/client/" + clientId + "/message/" + messageId;
             return $http.delete(url);
+        }
+
+        function findClients() {
+            var url = '/api/clients';
+            return $http.get(url);
+        }
+
+        function findClientsByName(client) {
+            var url = '/api/searchClient?firstname=' + client.firstName + '&lastname=' + client.lastName;
+            return $http.get(url);
         }
     }
 })();

@@ -9,8 +9,7 @@ module.exports = function() {
         },
         name: String,
         type: {type: String, enum: ['Cardio', 'Circuit', 'Gym/Strength']},
-        time: Number,
-        level: {type: String, enum: ['Beginner', 'Intermediate', 'Advanced']},
+        length: Number,
         description: String,
         dateCreated: { type: Date, default: Date.now},
     }, {collection: "workout"});

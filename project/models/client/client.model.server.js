@@ -15,7 +15,9 @@ module.exports = function() {
         followTrainer: followTrainer,
         unfollowTrainer: unfollowTrainer,
         messageClient: messageClient,
-        deleteMessage: deleteMessage
+        deleteMessage: deleteMessage,
+        findClients: findClients,
+        findClientsByName: findClientsByName
     };
     return api;
 
@@ -137,5 +139,16 @@ module.exports = function() {
                 $pull: { 'messages':  {_id: messageId} }
             }
         )
+    }
+
+    function findClients() {
+        return ClientModel.find();
+    }
+
+    function findClientsByName(clientFirstName, clientLastName) {
+        return ClientModel.find({
+            firstName: clientFirstName,
+            lastName: clientLastName
+        })
     }
 }

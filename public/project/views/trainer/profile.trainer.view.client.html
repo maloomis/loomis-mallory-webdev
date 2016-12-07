@@ -98,6 +98,7 @@
         <li class="header">OPTIONS</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="#/trainerProfile/{{model.trainer._id}}"><i class="fa fa-link"></i> <span>My Profile</span></a></li>
+         <li><a href="#/{{model.trainerId}}/searchClient"><i class="fa fa-link"></i> <span>Search For Clients</span></a></li>
         <li><a href="#/{{model.trainer._id}}/createWorkout"><i class="fa fa-link"></i> <span>Create New Workout</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
@@ -145,7 +146,7 @@
                         <tr ng-repeat="workout in model.workouts">
                             <td>{{workout.name}}</td>
                             <td>{{workout.type}}</td>
-                            <td>{{workout.length}}</td>
+                            <td>{{workout.length}} (mins)</td>
                             <td>{{workout.description}}</td>
                         </tr>
                     </tbody>

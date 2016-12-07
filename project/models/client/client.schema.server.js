@@ -12,7 +12,7 @@ module.exports = function() {
         weight: Number, 
         heightFeet: Number, 
         heightInches: Number,
-        fitnessGoal: {type: String, enum: ['Loose Weight', 'Maintain Weight', 'Gain Weight']},
+        fitnessGoal: {type: String, enum: ['Lose Weight', 'Maintain Weight', 'Gain Weight']},
         img: String,
         favoriteRecipes: [{
             type: mongoose.Schema.ObjectId,
