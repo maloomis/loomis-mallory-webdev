@@ -67,7 +67,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-right">
-                  <a href="#/clientLogin" class="btn btn-default btn-flat">Sign out</a>
+                  <a ng-click="model.logout()" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -127,6 +127,10 @@
                         class="form-control btn btn-login">Send Trainer a Message</a>
                     </div>
                 </div>
+            </div>
+
+            <div class="alert alert-danger" ng-show="model.submitted">
+                Please fill out message box before submitting.
             </div>
         </div>
     </div>

@@ -13,7 +13,9 @@ module.exports = function() {
         deleteTrainer: deleteTrainer,
         uploadImage: uploadImage,
         messageTrainer: messageTrainer,
-        deleteMessage: deleteMessage
+        deleteMessage: deleteMessage,
+        addClient: addClient,
+        removeClient: removeClient
     };
     return api;
 
@@ -29,7 +31,9 @@ module.exports = function() {
     }
 
     function findTrainerById(trainerId) {
-        return TrainerModel.findById(trainerId).populate('messages.client').exec();
+        var populateQuery = [{path:'messages.client'}, 
+                    {path:'clients'}];
+        return TrainerModel.findById(trainerId).populate(populateQuery).exec();
     }
 
     function findTrainers() {
@@ -75,7 +79,7 @@ module.exports = function() {
         var message = {
             message: message.text,
             client: clientId
-        }
+        };
         return TrainerModel.update (
             {
                 _id: trainerId
@@ -83,7 +87,7 @@ module.exports = function() {
             {
                 "$push" : {"messages" : message}
             }
-        )
+        );
     }
 
     function deleteMessage(trainerId, messageId) {
@@ -93,6 +97,28 @@ module.exports = function() {
             },
             {
                 $pull: { 'messages':  {_id: messageId} }
+            }
+        );
+    }
+
+    function addClient(clientId, trainerId) {
+        return TrainerModel.update(
+            {
+                _id: trainerId
+            },
+            {
+                $push: { 'clients':  clientId }
+            }
+        );
+    }
+
+    function removeClient(clientId, trainerId) {
+        return TrainerModel.update(
+            {
+                _id: trainerId
+            },
+            {
+                $pull: { 'clients': clientId }
             }
         )
     }

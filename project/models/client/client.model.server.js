@@ -25,7 +25,6 @@ module.exports = function() {
     }
 
     function findClientByUsername(username) {
-        console.log(username);
         return ClientModel.findOne({
             username: username
         });

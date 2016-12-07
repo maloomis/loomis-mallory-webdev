@@ -9,10 +9,6 @@ module.exports = function() {
     lastName: String,
     email: String,
     img: String,
-    workouts: [{
-        type: mongoose.Schema.ObjectId,
-        ref: 'WorkoutModel'
-    }],
     clients: [{
         type: mongoose.Schema.ObjectId,
         ref: 'ClientModel'

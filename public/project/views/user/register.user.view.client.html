@@ -50,21 +50,21 @@
                         <div class="col-lg-12">
                             <form id="register-form" role="form">
                                 <div class="form-group">
-                                    <input ng-model="model.user.username" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                                    <input ng-model="model.user.username" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" required />
                                 </div>
                                 <div class="form-group">
-                                    <input ng-model="model.user.email" type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+                                    <input ng-model="model.user.email" type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" required />
                                 </div>
                                 <div class="form-group">
-                                    <input  ng-model="model.user.password" type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                    <input  ng-model="model.user.password" type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required />
                                 </div>
                                 <div class="form-group">
-                                    <input ng-model="model.user.verifyPassword" type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+                                    <input ng-model="model.user.verifyPassword" type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" required/>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-10">
                                         <div class="radio">
-                                            <label><input ng-model="radioValue" value="Trainer" type="radio" name="optradio">Trainer</label>
+                                            <label><input ng-model="radioValue" value="Trainer" type="radio" name="optradio" required>Trainer</label>
                                         </div>
                                         <div class="radio">
                                             <label><input ng-model="radioValue" value="Client" type="radio" name="optradio">Client</label>

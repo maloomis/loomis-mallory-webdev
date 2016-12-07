@@ -10,6 +10,7 @@
             vm.followTrainer = followTrainer;
             vm.unfollowTrainer = unfollowTrainer;
             vm.messageTrainer = messageTrainer;
+            vm.logout = logout;
 
             function init() {
                 vm.trainerUnfollowed = true;
@@ -76,12 +77,26 @@
             }
 
             function messageTrainer(message) {
+                vm.submitted = true;
+
+                if (!message) {
+                    return;
+                }
+
+                vm.submitted = false;
                 TrainerService.messageTrainer(message, vm.clientId, vm.trainerId)
                     .success(function(status) {
                         $route.reload();
                     })
                     .error(function(err) {
                         vm.error = err;
+                    });
+            }
+
+            function logout() {
+                ClientService.clientLogout()
+                    .success(function(){
+                        $location.url("/clientLogin");
                     });
             }
         }

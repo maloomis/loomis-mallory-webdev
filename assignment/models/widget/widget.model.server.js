@@ -25,7 +25,6 @@ module.exports = function() {
         return WidgetModel
                     .count({}, function(err, count){
                         index = count;
-                        console.log(index);
                     })
                     .then(
                         function(err, result) {
@@ -211,11 +210,9 @@ module.exports = function() {
                         WidgetModel.find().sort('priority').exec(function(err, widgets) {
                             var p = 0;
                             widgets.forEach(function(widget){
-                                console.log(p);
                                 widget.position = p;
                                 widget.save();
                                 p++;
-                                console.log(widget);
                             })
                         })
                     });
@@ -231,22 +228,14 @@ module.exports = function() {
     }
 
     function reorderWidget(start, end) {
-        console.log("start index " + start);
-        console.log("end index " + end);
-        
         return WidgetModel.find(
             
             function(err, widgets){
                 widgets.forEach(function(widget){
-                    console.log("widget position first - " + widget.position);
                     if (start > end) {
                         if (widget.position >= end && widget.position < start) {
-                            console.log("widget position should be 1 " + widget.position);
-                            console.log(widget);
                             widget.position++;
                         } else if (widget.position == start) {
-                            console.log("widget should be 0 " + widget.position);
-                            console.log(widget);
                             widget.position = end;
                         }
                         widget.save();
@@ -258,7 +247,6 @@ module.exports = function() {
                         }
                         widget.save();
                     }
-                    console.log("widget position end - " + widget.position);
             });
         })
 

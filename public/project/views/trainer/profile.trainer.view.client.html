@@ -158,7 +158,10 @@
           <!-- Trainers Box -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Client Followers</h3>
+              <h3 class="box-title">Client Followers ({{model.trainer.clients.length}})</h3>
+              <div ng-repeat="client in model.trainer.clients">
+                <h5>{{client.username}}</h5>
+              </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

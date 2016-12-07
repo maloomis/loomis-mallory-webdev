@@ -126,8 +126,12 @@
                         <label for="inputName" class="col-sm-2 control-label">Name</label>
 
                         <div class="col-sm-10">
-                        <input ng-model="model.workout.name" type="text" class="form-control" id="inputName" placeholder="Workout Name">
+                          <input ng-model="model.workout.name" type="text" class="form-control" id="inputName" placeholder="Workout Name"/>
                         </div>
+                  </div>
+
+                  <div class="alert alert-danger" ng-show="model.submitted">
+                    Name is a required field.
                   </div>
                   
                    <div class="form-group">

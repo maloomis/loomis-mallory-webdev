@@ -89,6 +89,13 @@
             }
 
             function leaveComment(r, clientId) {
+                vm.submitted = true;
+
+                if (!r.comment) {
+                    return;
+                }
+
+                vm.submitted = false;
                 r.id = vm.recipe.id
                 RecipeService.findRecipeById(r.id)
                     .success(function(recipe){

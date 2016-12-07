@@ -25,6 +25,13 @@
             init();
 
             function messageClient(message) {
+                vm.submitted = true;
+
+                if (!message) {
+                    return;
+                }
+
+                vm.submitted = false;
                 ClientService.messageClient(message, vm.clientId, vm.trainerId)
                     .success(function(response) {
                         $location.url("trainer/" + vm.trainerId + "/messages");

@@ -21,6 +21,17 @@
             init();
 
             function createWorkout(workout) {
+                vm.submitted = true;
+
+                if (!workout) {
+                    return;
+                }
+
+                if (!workout.name) {
+                    return;
+                }
+
+                vm.submitted = false;
                 WorkoutService.createWorkout(vm.trainerId, workout)
                     .success(function(response){
                         location.reload();

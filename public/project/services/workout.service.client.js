@@ -12,7 +12,6 @@
         return api;
 
         function createWorkout(trainerId, workout) {
-            console.log(trainerId)
             var url = '/api/workout/' + trainerId;
             return $http.post(url, workout);
         };

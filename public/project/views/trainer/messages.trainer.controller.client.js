@@ -34,7 +34,6 @@
             }
 
             function logout() {
-                console.log("logout")
                 TrainerService.trainerLogout()
                     .success(function(){
                         $location.url("/trainerLogin");

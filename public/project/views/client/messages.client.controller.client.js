@@ -3,10 +3,11 @@
         .module("FitnessApp")
         .controller("ClientMessageController", ClientMessageController);
         
-        function ClientMessageController($routeParams, ClientService, TrainerService, $route) {
+        function ClientMessageController($routeParams, ClientService, TrainerService, $route, $location) {
             var vm = this;
             vm.clientId = $routeParams['cid'];
             vm.deleteMessage = deleteMessage;
+            vm.logout = logout;
 
             function init() {
                 ClientService.findClientById(vm.clientId)
@@ -30,6 +31,13 @@
                     .error(function(err){
                         vm.error = "Could not delete message";
                     })
+            }
+
+            function logout() {
+                ClientService.clientLogout()
+                    .success(function(){
+                        $location.url("/clientLogin");
+                    });
             }
         }
 })();

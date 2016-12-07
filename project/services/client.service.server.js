@@ -257,7 +257,17 @@ module.exports = function(app, model) {
             .followTrainer(clientId, trainerId)
             .then(
                 function(status) {
-                    res.sendStatus(200);
+                    model
+                        .trainerModel
+                        .addClient(clientId, trainerId)
+                        .then(
+                            function(status) {
+                                res.sendStatus(200);
+                            },
+                            function(err) {
+                                res.sendStatus.send(err);
+                            }
+                        )
                 },
                 function(err) {
                     res.sendStatus(400).send(err);
@@ -273,7 +283,17 @@ module.exports = function(app, model) {
             .unfollowTrainer(clientId, trainerId)
             .then(
                 function(status) {
-                    res.sendStatus(200);
+                    model
+                        .trainerModel
+                        .removeClient(clientId, trainerId)
+                        .then(
+                            function(status) {
+                                res.sendStatus(200);
+                            },
+                            function(err) {
+                                res.sendStatus.send(err);
+                            }
+                        )
                 },
                 function(err) {
                     res.sendStatus(400).send(err);

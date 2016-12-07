@@ -8,6 +8,7 @@
             vm.init = init;
             vm.searchForTrainers = searchForTrainers;
             vm.viewTrainerProfile = viewTrainerProfile;
+            vm.logout = logout;
 
             init();
 
@@ -47,6 +48,13 @@
 
             function viewTrainerProfile(trainerId) {
                 $location.url(vm.clientId + "/profileTrainerConnect/" + trainerId)
+            }
+
+            function logout() {
+                ClientService.clientLogout()
+                    .success(function(){
+                        $location.url("/clientLogin");
+                    });
             }
         }
 })();

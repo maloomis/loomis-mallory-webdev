@@ -220,8 +220,8 @@
               </div>
 
               <div class="tab-pane" id="comment">
-                  <div class="form-group">
-                    <textarea ng-model="model.recipe.comment" class="form-control" rows="5" id="comment"></textarea>
+                  <div class="form-group" id="commentForm">
+                    <textarea ng-model="model.recipe.comment" class="form-control" rows="5" id="comment" name="commentBox"></textarea>
                   </div>
                   <div class="form-group">
                     <div class="row">
@@ -229,6 +229,10 @@
                             <a ng-click="model.leaveComment(model.recipe, model.clientId)" type="submit" tabindex="4" class="form-control btn btn-login">Leave a Comment</a>
                         </div>
                     </div>
+                  </div>
+
+                  <div ng-show="model.submitted">
+                      <div class="alert alert-danger" ng-show="model.submitted">Please fill out comment box before submitting</div>
                   </div>
 
                   <div class="container">
