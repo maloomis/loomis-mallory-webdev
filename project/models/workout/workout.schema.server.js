@@ -5,7 +5,7 @@ module.exports = function() {
     var WorkoutSchema = new Schema({
         _trainer: { 
             type: mongoose.Schema.ObjectId,
-            ref: 'UserModel'
+            ref: 'TrainerModel'
         },
         name: String,
         type: {type: String, enum: ['Cardio', 'Circuit', 'Gym/Strength']},

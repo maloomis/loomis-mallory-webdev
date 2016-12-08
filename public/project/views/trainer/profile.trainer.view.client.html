@@ -161,7 +161,7 @@
             <div class="box-header with-border">
               <h3 class="box-title">Client Followers ({{model.trainer.clients.length}})</h3>
               <div ng-repeat="client in model.trainer.clients">
-                <h5>{{client.username}}</h5>
+                <h5><a href="#/{{model.trainerId}}/profileClientConnect/{{client._id}}">{{client.username}}</a></h5>
               </div>
             </div>
             <!-- /.box-header -->
